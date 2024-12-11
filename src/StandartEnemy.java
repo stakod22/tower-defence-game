@@ -3,8 +3,10 @@ import java.awt.*;
 public class StandartEnemy extends Enemy{
 
     public StandartEnemy(int id,Vector location,int distanceTraveled) {
-        Vector speed = new Vector(0,-10);
+
+
         super(id,location,distanceTraveled);
+        Vector speed = new Vector(0,-10);
     }
 
     @Override
