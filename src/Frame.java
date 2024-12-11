@@ -1,16 +1,14 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Frame extends JFrame {
-    public static final int WINDOWS_WIDTH = 600;
+    public static final int WINDOWS_WIDTH = 1000;
     public static final int WINDOWS_HEIGHT = 800;
 
     private PaintArea2d paintArea = new PaintArea2d();
 
     public Frame(){
 
-        setTitle("Simple 2d Game");
+        setTitle("Best SC Tower Defence Game ever");
         setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(paintArea);
