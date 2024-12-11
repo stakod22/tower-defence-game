@@ -1,4 +1,5 @@
-import java.util.List;
+package game;
+
 import java.util.Vector;
 
 public abstract class PlayMap implements Drawable{

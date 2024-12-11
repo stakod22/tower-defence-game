@@ -1,3 +1,5 @@
+package game;
+
 public class Tower {
     private int id;
     private Vector location;

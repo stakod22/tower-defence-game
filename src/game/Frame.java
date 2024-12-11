@@ -1,3 +1,5 @@
+package game;
+
 import javax.swing.*;
 
 public class Frame extends JFrame {
@@ -8,7 +10,7 @@ public class Frame extends JFrame {
 
     public Frame(){
 
-        setTitle("Best SC Tower Defence Game ever");
+        setTitle("Best SC game.Tower Defence Game ever");
         setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(paintArea);
