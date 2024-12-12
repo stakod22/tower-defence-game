@@ -5,38 +5,32 @@ import java.util.List;
 
 public class StandardTower extends Tower {
 
-    public StandardTower(int id, Vector location,int range) {
-        super(id, location,range);
+    public StandardTower(int id, Vector location,EnemyList enemyList) {
+        super(id, location,100,enemyList);
+        setCost(15);
     }
 
 
-    public Projectile shootProjectile(){
+    public Projectile shootProjectile(List<Vector> enemyLocation){
         return null;
     }
 
-    public void getNewTarget(List<Enemy> enemies){
-        int furthestAhead = -1;
-        for (int i = 0; i < enemies.size(); i++) {
-            if (isInRange(enemies.get(i).getLocation())){
-                if (furthestAhead != -1){
-                    if (enemies.get(furthestAhead).getDistanceTraveled() < enemies.get(i).getDistanceTraveled()){
-                        furthestAhead = i;
-                    }
-                }else{
-                    furthestAhead = i;
-                }
-
-            }
-        }
+    public void drawRange(Graphics2D g){
+        g.setColor(Color.GREEN);
+        g.drawOval(getLocation().x-getRange()+20,getLocation().y-getRange()+20,getRange()*2,getRange()*2);
+        g.setColor(Color.BLACK);
     }
 
     @Override
     public void update() {
-
+        super.update();
     }
 
     @Override
     public void draw(Graphics2D g) {
-
+        g.setColor(Color.BLUE);
+        g.fillRect(getLocation().x,getLocation().y,40,40);
+        drawRange(g);
+        g.drawString(getTargetID()+"",100,100);
     }
 }

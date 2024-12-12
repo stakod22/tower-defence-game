@@ -9,9 +9,17 @@ public class TowerDefenceGame {
     public static final int CELL_HEIGHT = 50;
 
     private List<Drawable> figures = new ArrayList<>();
+    private EnemyList enemyList = new EnemyList();
 
     public TowerDefenceGame(){
-        figures.add(new StandartEnemy(figures.size()-1,new Vector(100,20)));
+        figures.add(new GamePath());
+        addEnemy(new StandartEnemy(figures.size(),new Vector(255,10)));
+        figures.add(new StandardTower(figures.size(),new Vector(305,5),enemyList));
+    }
+
+    public void addEnemy(Drawable enemy){
+        figures.add(enemy);
+        enemyList.addEnemy((Enemy) enemy);
     }
 
     public void update(){
@@ -26,5 +34,8 @@ public class TowerDefenceGame {
         }
     }
 
+    public GamePath getGamePath(){
+        return (GamePath) figures.get(0);
+    }
 
 }

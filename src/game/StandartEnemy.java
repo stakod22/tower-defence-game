@@ -11,11 +11,13 @@ public class StandartEnemy extends Enemy{
 
     @Override
     public void update() {
-        super.getLocation().add(super.getSpeed());
+        super.update();
     }
 
     @Override
     public void draw(Graphics2D g) {
-        g.drawRect(super.getLocation().x,super.getLocation().y,40,40);
+        g.setColor(Color.cyan);
+        g.fillRect(super.getLocation().x,super.getLocation().y,40,40);
+        g.setColor(Color.black);
     }
 }
