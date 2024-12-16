@@ -30,9 +30,6 @@ public abstract class Tower implements Drawable{
 
     }
     public void getNewTarget(List<Enemy> enemies){
-        if (enemies == null){
-            return;
-        }
         int furthestAhead = -1;
         for (int i = 0; i < enemies.size(); i++) {
             if (isInRange(enemies.get(i).getLocation())){
@@ -46,7 +43,11 @@ public abstract class Tower implements Drawable{
 
             }
         }
-        targetID = furthestAhead;
+        if (furthestAhead != -1){
+            targetID = furthestAhead;
+        }
+        System.out.println("Furthest Ahead: "+furthestAhead);
+
     }
 
     public void updateEnemy(EnemyList enemyList){

@@ -31,6 +31,6 @@ public class StandardTower extends Tower {
         g.setColor(Color.BLUE);
         g.fillRect(getLocation().x,getLocation().y,40,40);
         drawRange(g);
-        g.drawString(getTargetID()+"",100,100);
+
     }
 }

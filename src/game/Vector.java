@@ -23,7 +23,16 @@ public class Vector {
         if (other == null){
             return -1;
         }
-        int distance = (int) Math.sqrt((double)(this.x-other.x)+(double)(this.y-other.y));
+        int distX = this.x - other.x;
+        int distY = this.y - other.y;
+        if (distY < 0){
+            distY *= -1;
+        }
+        if (distX <0){
+            distX *= -1;
+        }
+        int distance = (int) Math.sqrt(Math.pow((double) distX,2)+Math.pow((double) distY,2));
+        System.out.println("distance: "+ distance);
         return distance;
     }
 }
