@@ -11,9 +11,10 @@ public class TowerDefenceGame {
     private List<Drawable> figures = new ArrayList<>();
     private EnemyList enemyList = new EnemyList();
     private TowerList towerList = new TowerList();
+    private GamePath gamePath = new GamePath();
+    private ProjectileList projectileList = new ProjectileList();
 
     public TowerDefenceGame(){
-        figures.add(new GamePath());
         addEnemy(new StandartEnemy(figures.size(),new Vector(255,10)));
         addEnemy(new StandartEnemy(figures.size(),new Vector(255,-100)));
         addEnemy(new StandartEnemy(figures.size(),new Vector(255,-250)));
@@ -21,15 +22,27 @@ public class TowerDefenceGame {
     }
 
     public void addEnemy(Drawable enemy){
-        figures.add(enemy);
         enemyList.addEnemy((Enemy) enemy);
     }
     public void addTower(Drawable tower){
-        figures.add(tower);
         towerList.addTower((Tower) tower);
+    }
+    public void addProjectile(Projectile e){
+        projectileList.addProjectile(e);
     }
 
     public void update(){
+        figures.clear();
+        figures.add(gamePath);
+        for (int i = 0; i < towerList.getTowerList().size(); i++) {
+            figures.add(towerList.getTowerList().get(i));
+        }
+        for (int i = 0; i < enemyList.getEnemyList().size(); i++) {
+            figures.add(enemyList.getEnemyList().get(i));
+        }
+        for (int i = 0; i < projectileList.getProjectileList().size(); i++) {
+            figures.add(projectileList.getProjectileList().get(i));
+        }
         for(Drawable d : figures) {
             d.update();
         }
