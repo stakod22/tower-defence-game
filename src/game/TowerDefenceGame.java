@@ -13,6 +13,7 @@ public class TowerDefenceGame {
     private TowerList towerList = new TowerList();
     private GamePath gamePath = new GamePath();
     private ProjectileList projectileList = new ProjectileList();
+    private WaveList waveList = new WaveList();
 
     public TowerDefenceGame(){
         addEnemy(new StandartEnemy(enemyList.getEnemyList().size(),new Vector(255,10)));

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectileList {
-    List<Projectile> projectileList = new ArrayList<>();
+    private List<Projectile> projectileList = new ArrayList<>();
 
     public void addProjectile(Projectile projectile){
         projectileList.add(projectile);

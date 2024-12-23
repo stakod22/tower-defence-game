@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TowerList {
-    List<Tower> towerList;
+    private List<Tower> towerList;
     public TowerList(){
         towerList = new ArrayList<>();
     }
