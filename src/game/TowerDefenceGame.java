@@ -15,10 +15,10 @@ public class TowerDefenceGame {
     private ProjectileList projectileList = new ProjectileList();
 
     public TowerDefenceGame(){
-        addEnemy(new StandartEnemy(figures.size(),new Vector(255,10)));
-        addEnemy(new StandartEnemy(figures.size(),new Vector(255,-100)));
-        addEnemy(new StandartEnemy(figures.size(),new Vector(255,-250)));
-        addTower(new StandardTower(figures.size(),new Vector(305,100),enemyList));
+        addEnemy(new StandartEnemy(enemyList.getEnemyList().size(),new Vector(255,10)));
+        addEnemy(new StandartEnemy(enemyList.getEnemyList().size(),new Vector(255,-100)));
+        addEnemy(new StandartEnemy(enemyList.getEnemyList().size(),new Vector(255,-250)));
+        addTower(new StandardTower(towerList.getTowerList().size(),new Vector(305,100),enemyList));
     }
 
     public void addEnemy(Drawable enemy){
@@ -32,6 +32,7 @@ public class TowerDefenceGame {
     }
 
     public void update(){
+        towerList.updateTargeting(enemyList);
         figures.clear();
         figures.add(gamePath);
         for (int i = 0; i < towerList.getTowerList().size(); i++) {
@@ -43,10 +44,11 @@ public class TowerDefenceGame {
         for (int i = 0; i < projectileList.getProjectileList().size(); i++) {
             figures.add(projectileList.getProjectileList().get(i));
         }
+
         for(Drawable d : figures) {
             d.update();
         }
-        towerList.updateTargeting(enemyList);
+
     }
 
     public void draw(Graphics2D g){

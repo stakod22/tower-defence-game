@@ -32,7 +32,6 @@ public class Vector {
             distX *= -1;
         }
         int distance = (int) Math.sqrt(Math.pow((double) distX,2)+Math.pow((double) distY,2));
-        System.out.println("distance: "+ distance);
         return distance;
     }
 }
