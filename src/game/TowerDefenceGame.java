@@ -27,8 +27,8 @@ public class TowerDefenceGame {
     public void addTower(Drawable tower){
         towerList.addTower((Tower) tower);
     }
-    public void addProjectile(Projectile e){
-        projectileList.addProjectile(e);
+    public void addProjectile(Drawable e){
+        projectileList.addProjectile((Projectile) e);
     }
 
     public void update(){
