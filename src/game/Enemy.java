@@ -28,6 +28,8 @@ abstract class Enemy implements Drawable{
             //if(>=turn.turnPosition.x &&turn.turnPosition.y==)
         }
         location.add(speed);
+        distanceTraveled += speed.x;
+        distanceTraveled += speed.y;
     }
     @Override
     public void draw(Graphics2D g) {

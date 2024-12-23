@@ -17,7 +17,7 @@ public class TowerDefenceGame {
         addEnemy(new StandartEnemy(figures.size(),new Vector(255,10)));
         addEnemy(new StandartEnemy(figures.size(),new Vector(255,-100)));
         addEnemy(new StandartEnemy(figures.size(),new Vector(255,-250)));
-        addTower(new StandardTower(figures.size(),new Vector(305,5),enemyList));
+        addTower(new StandardTower(figures.size(),new Vector(305,100),enemyList));
     }
 
     public void addEnemy(Drawable enemy){

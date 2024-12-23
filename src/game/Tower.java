@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Tower implements Drawable{
     private int id;
     private Vector location;
-    private int targetID;
+    private int targetID = -2;
     private int range;
     private int cost;
     private EnemyList enemyList = null;
@@ -29,20 +29,25 @@ public abstract class Tower implements Drawable{
         return false;
 
     }
-    public void getNewTarget(List<Enemy> enemies){
+    public void getNewTarget(EnemyList enemies){
         int furthestAhead = -1;
-        for (int i = 0; i < enemies.size(); i++) {
-            if (isInRange(enemies.get(i).getLocation())){
+        if (enemies != null){
+            for (int i = 0; i < enemies.getEnemyList().size(); i++) {
                 if (furthestAhead != -1){
-                    if (enemies.get(furthestAhead).getDistanceTraveled() < enemies.get(i).getDistanceTraveled()){
-                        furthestAhead = i;
+                    if (enemies.getEnemyById(furthestAhead) == null){
+                        furthestAhead = enemies.getEnemyList().get(i).getId();
+                    }else{
+                        if (enemies.getEnemyById(furthestAhead).getDistanceTraveled() < enemies.getEnemyList().get(i).getDistanceTraveled()){
+                            furthestAhead = enemies.getEnemyList().get(i).getId();
+                        }
                     }
                 }else{
-                    furthestAhead = i;
+                    furthestAhead = enemies.getEnemyList().get(i).getId();
                 }
-
             }
+
         }
+
         if (furthestAhead != -1){
             targetID = furthestAhead;
         }
@@ -50,13 +55,18 @@ public abstract class Tower implements Drawable{
 
     }
 
-    public void updateEnemy(EnemyList enemyList){
-        this.enemyList = enemyList;
+    public void updateEnemy(EnemyList enemyList2){
+        this.enemyList = new EnemyList();
+        for (int i = 0; i < enemyList2.getEnemyList().size(); i++) {
+            if (isInRange(enemyList2.getEnemyList().get(i).getLocation())){
+                this.enemyList.addEnemy(enemyList2.getEnemyList().get(i));
+            }
+        }
     }
 
     @Override
     public void update() {
-        getNewTarget(enemyList.getEnemyList());
+        getNewTarget(enemyList);
 
     }
     public int getId() {
