@@ -29,7 +29,7 @@ public class TowerDefenceGame {
 
 
         //INIT Waves
-
+        INITWaves();
     }
 
     public void addEnemy(Drawable enemy){
@@ -46,6 +46,9 @@ public class TowerDefenceGame {
         towerList.update(enemyList);
         projectileList.update(enemyList);
         enemyList.update();
+
+
+
 
         //Sorting everything for correct drawing and updating
         figures.clear();
@@ -65,6 +68,20 @@ public class TowerDefenceGame {
             d.update();
         }
         health -= enemyList.doDamage();
+
+
+        if (enemyList.getNumberOfEnemys() == 0){
+            //sendNextWave
+            waveList.getNextWave();
+            waveList.currentWaveDone();
+        }
+
+    }
+
+    public void addWaveToEnemies(Wave w){
+        for(Enemy e : w.getEnemies()){
+            addEnemy(e);
+        }
     }
 
     public void draw(Graphics2D g){
@@ -80,4 +97,27 @@ public class TowerDefenceGame {
         return (GamePath) figures.get(0);
     }
 
+
+    private void INITWaves(){
+        List<Enemy> waveContend = new ArrayList<>();
+
+        //Wave 1
+        waveContend.add(new StandartEnemy(new Vector(250,-50), gamePath.getSegments()));
+        waveContend.add(new StandartEnemy(new Vector(250,-100), gamePath.getSegments()));
+        waveContend.add(new StandartEnemy(new Vector(250,-200), gamePath.getSegments()));
+        waveList.addWave(waveContend);
+        waveContend.clear();
+
+        //Wave 2
+        waveContend.add(new StandartEnemy(new Vector(250,-50), gamePath.getSegments()));
+        waveContend.add(new StandartEnemy(new Vector(250,-100), gamePath.getSegments()));
+        waveContend.add(new StandartEnemy(new Vector(250,-200), gamePath.getSegments()));
+        waveContend.add(new FastEnemy(new Vector(250,-500), gamePath.getSegments()));
+        waveContend.add(new StandartEnemy(new Vector(250,-300), gamePath.getSegments()));
+        waveContend.add(new StandartEnemy(new Vector(250,-320), gamePath.getSegments()));
+        waveContend.add(new StandartEnemy(new Vector(250,-350), gamePath.getSegments()));
+        waveContend.add(new FastEnemy(new Vector(250,-1000), gamePath.getSegments()));
+        waveList.addWave(waveContend);
+        waveContend.clear();
+    }
 }

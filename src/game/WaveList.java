@@ -10,7 +10,7 @@ public class WaveList {
     public void addWave(List<Enemy> e){
         waveList.add(new Wave(e));
     }
-    public Wave getCurrentWave(){
+    public Wave getNextWave(){
         return waveList.get(currentWave);
     }
 

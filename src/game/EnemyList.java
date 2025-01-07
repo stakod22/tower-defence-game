@@ -70,6 +70,7 @@ public class EnemyList{
                 damageThisRound += enemyList.get(i).getDamage();
                 enemyList.remove(i);
                 i--;
+
             }
         }
     }
@@ -81,5 +82,9 @@ public class EnemyList{
 
     public void update(){
         deleteDeadEnemys();
+    }
+
+    public int getNumberOfEnemys(){
+        return enemyList.size();
     }
 }

@@ -19,6 +19,7 @@ public abstract class Tower implements Drawable{
         this.enemyList = enemyList;
     }
 
+    //Targeting hört nicht auf und sieht nicht den ersten (Beim schnellen Enemy) @Lukas
     abstract Projectile shootProjectile(EnemyList enemies);
 
     public boolean isInRange(Vector position){

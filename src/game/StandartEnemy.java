@@ -7,7 +7,7 @@ import java.util.List;
 public class StandartEnemy extends Enemy{
 
     public StandartEnemy(Vector location, List<PathSegment> segments) {
-        super(location,5, segments, 1);
+        super(location,5, segments, 2);
         super.setSize(30);
     }
 
