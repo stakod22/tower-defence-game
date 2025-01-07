@@ -5,6 +5,7 @@ import java.util.List;
 
 public class TowerList {
     private List<Tower> towerList;
+    private int currentID = 1;
     public TowerList(){
         towerList = new ArrayList<>();
     }
@@ -17,7 +18,9 @@ public class TowerList {
         this.towerList = towerList;
     }
     public void addTower(Tower e){
+        e.setId(currentID);
         towerList.add(e);
+        currentID++;
     }
 
     public void updateTargeting(EnemyList e){

@@ -16,10 +16,10 @@ public class TowerDefenceGame {
     private WaveList waveList = new WaveList();
 
     public TowerDefenceGame(){
-        addEnemy(new StandartEnemy(enemyList.getEnemyList().size(),new Vector(255,10)));
-        addEnemy(new StandartEnemy(enemyList.getEnemyList().size(),new Vector(255,-100)));
-        addEnemy(new StandartEnemy(enemyList.getEnemyList().size(),new Vector(255,-250)));
-        addTower(new StandardTower(towerList.getTowerList().size(),new Vector(305,100),enemyList));
+        addEnemy(new StandartEnemy(new Vector(255,10)));
+        addEnemy(new StandartEnemy(new Vector(255,-100)));
+        addEnemy(new StandartEnemy(new Vector(255,-250)));
+        addTower(new StandardTower(new Vector(305,100),enemyList));
     }
 
     public void addEnemy(Drawable enemy){

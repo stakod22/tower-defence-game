@@ -5,8 +5,8 @@ import java.util.List;
 
 public class StandardTower extends Tower {
 
-    public StandardTower(int id, Vector location,EnemyList enemyList) {
-        super(id, location,100,enemyList);
+    public StandardTower(Vector location,EnemyList enemyList) {
+        super(location,100,enemyList);
         setCost(15);
     }
 

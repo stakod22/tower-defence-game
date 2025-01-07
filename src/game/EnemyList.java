@@ -5,13 +5,16 @@ import java.util.List;
 
 public class EnemyList{
     private List<Enemy> enemyList;
+    private int currentID = 1;
 
     public EnemyList(){
         enemyList = new ArrayList<>();
     }
 
     public void addEnemy(Enemy enemy){
+        enemy.setId(currentID);
         enemyList.add(enemy);
+        currentID++;
     }
 
     public List<Enemy> getEnemyList() {

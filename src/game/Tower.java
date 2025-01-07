@@ -10,8 +10,7 @@ public abstract class Tower implements Drawable{
     private int cost;
     private EnemyList enemyList = null;
 
-    public Tower(int id, Vector location,int range,EnemyList enemyList) {
-        this.id = id;
+    public Tower(Vector location,int range,EnemyList enemyList) {
         this.location = location;
         this.range = range;
         this.enemyList = enemyList;

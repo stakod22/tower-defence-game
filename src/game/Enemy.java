@@ -12,8 +12,7 @@ abstract class Enemy implements Drawable{
     private int distanceTraveled;
     List<Turn> turns = new ArrayList<>();
 
-    public Enemy(int id, Vector location, int health) {
-        this.id = id;
+    public Enemy(Vector location, int health) {
         this.location = location;
         this.distanceTraveled = 0;
         this.health = health;
