@@ -28,45 +28,25 @@ public abstract class Tower implements Drawable{
         return false;
 
     }
-    public void getNewTarget(EnemyList enemies){
-        int furthestAhead = -1;
-        if (enemies != null){
-            for (int i = 0; i < enemies.getEnemyList().size(); i++) {
-                if (furthestAhead != -1){
-                    if (enemies.getEnemyById(furthestAhead) == null){
-                        furthestAhead = enemies.getEnemyList().get(i).getId();
-                    }else{
-                        if (enemies.getEnemyById(furthestAhead).getDistanceTraveled() < enemies.getEnemyList().get(i).getDistanceTraveled()){
-                            furthestAhead = enemies.getEnemyList().get(i).getId();
-                        }
-                    }
-                }else{
-                    furthestAhead = enemies.getEnemyList().get(i).getId();
-                }
-            }
 
+    private void seeEnemies(EnemyList enemies){
+        List<Enemy> seenEnemies;
+        enemies.inRange(range, location);
+        seenEnemies = enemies.getSortedEnemyList("distance");
+        if(seenEnemies != null){
+            setTarget(seenEnemies.get(0).getLocation());
+            willShoot = true;
+        }else{
+            willShoot = false;
         }
-
-        if (furthestAhead != -1){
-            targetID = furthestAhead;
-        }
-        System.out.println("Furthest Ahead: "+furthestAhead);
-
     }
 
-    public void updateEnemy(EnemyList enemyList2){
-        this.enemyList = new EnemyList();
-        for (int i = 0; i < enemyList2.getEnemyList().size(); i++) {
-            if (isInRange(enemyList2.getEnemyList().get(i).getLocation())){
-                this.enemyList.addEnemy(enemyList2.getEnemyList().get(i));
-            }
-        }
+    public void update(EnemyList enemies){
+        seeEnemies(enemies);
     }
 
     @Override
     public void update() {
-        getNewTarget(enemyList);
-
     }
     public int getId() {
         return id;

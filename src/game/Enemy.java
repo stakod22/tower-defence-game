@@ -10,21 +10,54 @@ abstract class Enemy implements Drawable{
     private Vector speed;
     private int health;
     private int distanceTraveled;
-    List<Turn> turns = new ArrayList<>();
+    private int size;
+    private int currentMoveWay = 0;
+    private int currentSegment = 0;
+    private List<PathSegment> segments = new ArrayList();
+    private int speedValue;
+    private int moneyToGive;
+    private int damage = 0;
 
-    public Enemy(Vector location, int health) {
+    public Enemy(Vector location, int health, List<PathSegment> segments, int speedValue) {
+        location.add(new Vector(25,25));
         this.location = location;
         this.distanceTraveled = 0;
         this.health = health;
-        loadTurns();
+        this.segments = segments;
+        this.speedValue = speedValue;
+        speed = new Vector(0,speedValue);
+        id = count;
+        count++;
     }
 
     @Override
     public void update() {
+        if(location.y>=0){
+            currentMoveWay+=Math.abs(speed.x);
+            currentMoveWay+=Math.abs(speed.y);
+        }
+        if(segments.get(currentSegment).lenght<=currentMoveWay){
+            currentSegment++;
+            currentMoveWay = 0;
 
-        for(Turn turn : turns) {
-
-            //if(>=turn.turnPosition.x &&turn.turnPosition.y==)
+            switch (segments.get(currentSegment).direction){
+                case 1:
+                    speed = new Vector(0,-speedValue);
+                    break;
+                case 2:
+                    speed = new Vector(speedValue,0);
+                    break;
+                case 3:
+                    speed = new Vector(0,speedValue);
+                    break;
+                case 4:
+                    speed = new Vector(-speedValue,0);
+                    break;
+                case 5:
+                    damage = health;
+                    health = 0;
+                    break;
+            }
         }
         location.add(speed);
         distanceTraveled += speed.x;
@@ -75,35 +108,11 @@ abstract class Enemy implements Drawable{
         this.health = health;
     }
 
-
-
-    public void loadTurns(){
-        turns.add(new Turn(new Vector(250,200), "EAST" ));
+    public void setSize(int size) {
+        this.size = size;
     }
 
-    public class Turn{
-        Vector turnPosition;
-        String direction; //When turn mult the absolute Value of x and y with given speed from turn c:   :)
-
-        public Turn(Vector turnPosition, String direction){
-            this.turnPosition = turnPosition;
-            this.direction = direction;
-        }
-
-        public Vector getTurnPosition() {
-            return turnPosition;
-        }
-
-        public void setTurnPosition(Vector turnPosition) {
-            this.turnPosition = turnPosition;
-        }
-
-        public String getDirection() {
-            return direction;
-        }
-
-        public void setDirection(String direction) {
-            this.direction = direction;
-        }
+    public int getSize() {
+        return size;
     }
 }

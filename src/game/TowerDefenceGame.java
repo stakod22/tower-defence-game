@@ -16,9 +16,12 @@ public class TowerDefenceGame {
     private WaveList waveList = new WaveList();
 
     public TowerDefenceGame(){
-        addEnemy(new StandartEnemy(new Vector(255,10)));
-        addEnemy(new StandartEnemy(new Vector(255,-100)));
-        addEnemy(new StandartEnemy(new Vector(255,-250)));
+        addEnemy(new StandartEnemy(new Vector(250,-50), gamePath.getSegments()));
+        addEnemy(new StandartEnemy(new Vector(250,-100), gamePath.getSegments()));
+        addEnemy(new StandartEnemy(new Vector(250,-250), gamePath.getSegments()));
+
+        addEnemy(new FastEnemy(new Vector(250,-100), gamePath.getSegments()));
+
         addTower(new StandardTower(new Vector(305,100),enemyList));
     }
 
@@ -49,7 +52,7 @@ public class TowerDefenceGame {
         for(Drawable d : figures) {
             d.update();
         }
-
+        health -= enemyList.doDamage();
     }
 
     public void draw(Graphics2D g){

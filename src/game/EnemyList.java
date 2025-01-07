@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EnemyList{
     private List<Enemy> enemyList;
-    private int currentID = 1;
+    private int damageThisRound = 0;
 
     public EnemyList(){
         enemyList = new ArrayList<>();
@@ -56,11 +56,14 @@ public class EnemyList{
     }
 
     private void deleteDeadEnemys(){
-        enemyList.forEach((Enemy enemy) -> {
-            if(enemy.getHealth() <= 0){
-                enemyList.remove(enemy);
+
+        for(int i = 0;i<enemyList.size();i++){
+            if(enemyList.get(i).getHealth() <= 0){
+                damageThisRound += enemyList.get(i).getDamage();
+                enemyList.remove(i);
+                i--;
             }
-        });
+        }
     }
 
     public void update(){
