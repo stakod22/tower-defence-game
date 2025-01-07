@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class Enemy implements Drawable{
+    static int count = 1;
     private int id;
     private Vector location;
     private Vector speed;
@@ -73,6 +74,7 @@ abstract class Enemy implements Drawable{
     }
 
     public void setId(int id) {
+        System.out.println("enemy: "+ this.id + "was set to "+id);
         this.id = id;
     }
 
@@ -108,11 +110,19 @@ abstract class Enemy implements Drawable{
         this.health = health;
     }
 
+    public void getHit(int damage){
+        health -= damage;
+    }
+
     public void setSize(int size) {
         this.size = size;
     }
 
     public int getSize() {
         return size;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 }

@@ -9,10 +9,22 @@ public class StandardTower extends Tower {
     public StandardTower(Vector location,EnemyList enemyList) {
         super(location,100,enemyList);
         setCost(15);
+        setFirerate(1);
     }
 
 
-    public Projectile shootProjectile(List<Vector> enemyLocation){
+    public Projectile shootProjectile(EnemyList enemies){
+        if(super.willShoot()) {
+            return new Projectile(1, super.getLocation(), super.getTarget(), 1, 10) {
+                @Override
+                public void doDamage(EnemyList enemies) {
+                    List<Enemy> enemyList = enemies.getEnemyList();
+                    enemyList.forEach((enemy) -> {
+                        enemy.getHit(super.getDamage());
+                    });
+                }
+            };
+        }
         return null;
     }
 
@@ -32,6 +44,6 @@ public class StandardTower extends Tower {
         g.setColor(Color.BLUE);
         g.fillRect(getLocation().x,getLocation().y,40,40);
         drawRange(g);
-        g.drawString(getTargetID()+ " ",20,20);
+        g.drawString(getTarget()+ " ",20,20);
     }
 }

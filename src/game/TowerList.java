@@ -23,9 +23,9 @@ public class TowerList {
         currentID++;
     }
 
-    public void updateTargeting(EnemyList e){
+    public void update(EnemyList e){
         for (Tower t : towerList){
-            t.updateEnemy(e);
+            t.update(e);
         }
     }
 }

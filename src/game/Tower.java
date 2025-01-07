@@ -1,14 +1,17 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Tower implements Drawable{
     private int id;
     private Vector location;
-    private int targetID = -2;
+    private Vector target = new Vector(0, 0);
     private int range;
     private int cost;
     private EnemyList enemyList = null;
+    private int firerate;
+    private boolean willShoot = true;
 
     public Tower(Vector location,int range,EnemyList enemyList) {
         this.location = location;
@@ -16,9 +19,9 @@ public abstract class Tower implements Drawable{
         this.enemyList = enemyList;
     }
 
-    abstract Projectile shootProjectile(List<Vector> enemyLocation);
-    public boolean isInRange(Vector position){
+    abstract Projectile shootProjectile(EnemyList enemies);
 
+    public boolean isInRange(Vector position){
         if (location.distanceToOther(position) <= range){
             if (location.distanceToOther(position) == -1){
                 return false;
@@ -26,7 +29,6 @@ public abstract class Tower implements Drawable{
             return true;
         }
         return false;
-
     }
 
     private void seeEnemies(EnemyList enemies){
@@ -64,12 +66,12 @@ public abstract class Tower implements Drawable{
         this.location = location;
     }
 
-    public int getTargetID() {
-        return targetID;
+    public Vector getTarget() {
+        return target;
     }
 
-    public void setTargetID(int targetID) {
-        this.targetID = targetID;
+    public void setTarget(Vector target) {
+        this.target = target;
     }
 
     public int getRange() {
@@ -86,5 +88,17 @@ public abstract class Tower implements Drawable{
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public void setFirerate(int firerate) {
+        this.firerate = firerate;
+    }
+
+    public int getFirerate() {
+        return firerate;
+    }
+
+    public boolean willShoot() {
+        return willShoot;
     }
 }

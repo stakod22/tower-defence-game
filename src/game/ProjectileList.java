@@ -18,4 +18,18 @@ public class ProjectileList {
     public void setProjectileList(List<Projectile> projectileList) {
         this.projectileList = projectileList;
     }
+
+
+
+    public void update(EnemyList e){
+        projectileList.forEach((projectile) -> {
+            e.getEnemyList().forEach((enemy -> {
+                if(projectile.getLocation().distanceToOther(enemy.getLocation()) <= projectile.getRadius()){
+                    enemy.getHit(projectile.getDamage());
+                }
+            }));
+
+        });
+
+    }
 }

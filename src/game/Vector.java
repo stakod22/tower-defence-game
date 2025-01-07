@@ -34,4 +34,9 @@ public class Vector {
         int distance = (int) Math.sqrt(Math.pow((double) distX,2)+Math.pow((double) distY,2));
         return distance;
     }
+
+    @Override
+    public String toString() {
+        return " " + x + " " + y;
+    }
 }

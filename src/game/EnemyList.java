@@ -12,9 +12,7 @@ public class EnemyList{
     }
 
     public void addEnemy(Enemy enemy){
-        enemy.setId(currentID);
         enemyList.add(enemy);
-        currentID++;
     }
 
     public List<Enemy> getEnemyList() {
@@ -55,6 +53,16 @@ public class EnemyList{
         return null;
     }
 
+    public EnemyList inRange(int range, Vector position){
+        EnemyList enemies = new EnemyList();
+        for (Enemy enemy : enemyList) {
+            if (enemy.getLocation().distanceToOther(position) <= range) {
+                enemies.addEnemy(enemy);
+            }
+        }
+        return enemies;
+    }
+
     private void deleteDeadEnemys(){
 
         for(int i = 0;i<enemyList.size();i++){
@@ -64,6 +72,11 @@ public class EnemyList{
                 i--;
             }
         }
+    }
+    public int doDamage(){
+        int returner = damageThisRound;
+        damageThisRound = 0;
+        return returner;
     }
 
     public void update(){
