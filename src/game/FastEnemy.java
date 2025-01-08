@@ -9,6 +9,7 @@ public class FastEnemy extends Enemy{
     public FastEnemy(Vector location, List<PathSegment> segments) {
         super(location,3, segments, 10);
         super.setSize(20);
+        super.setMoneyToGive(15);
     }
 
     @Override

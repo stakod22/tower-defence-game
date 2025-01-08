@@ -30,7 +30,7 @@ public class StandardTower extends Tower {
 
     public void drawRange(Graphics2D g){
         g.setColor(Color.GREEN);
-        g.drawOval(getLocation().x-getRange()+20,getLocation().y-getRange()+20,getRange()*2,getRange()*2);
+        g.drawOval(getLocation().x-getRange(),getLocation().y-getRange(),getRange()*2,getRange()*2);
         g.setColor(Color.BLACK);
     }
 
@@ -42,7 +42,7 @@ public class StandardTower extends Tower {
     @Override
     public void draw(Graphics2D g) {
         g.setColor(Color.BLUE);
-        g.fillRect(getLocation().x,getLocation().y,40,40);
+        g.fillRect(getLocation().x-20,getLocation().y-20,40,40);
         drawRange(g);
         g.drawString(getTarget()+ " ",20,20);
     }

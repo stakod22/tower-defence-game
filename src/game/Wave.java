@@ -21,4 +21,14 @@ public class Wave {
     public void setEnemies(List<Enemy> enemies) {
         this.enemies = enemies;
     }
+
+    @Override
+    public String toString() {
+        String stringer = "";
+        for (Enemy e : enemies) {
+            stringer += e.toString();
+            stringer += "\n";
+        }
+        return stringer;
+    }
 }

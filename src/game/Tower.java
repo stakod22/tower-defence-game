@@ -36,11 +36,14 @@ public abstract class Tower implements Drawable{
         List<Enemy> seenEnemies;
         enemies.inRange(range, location);
         seenEnemies = enemies.getSortedEnemyList("distance");
-        if(seenEnemies != null){
-            setTarget(seenEnemies.get(0).getLocation());
-            willShoot = true;
-        }else{
-            willShoot = false;
+        if (seenEnemies.size() != 0){
+            if(seenEnemies != null){
+                setTarget(seenEnemies.get(0).getLocation());
+                willShoot = true;
+            }else{
+                setTarget(null);
+                willShoot = false;
+            }
         }
     }
 

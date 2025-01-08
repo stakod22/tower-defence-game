@@ -73,7 +73,7 @@ abstract class Enemy implements Drawable{
                     break;
                 case 5:
                     damage = health;
-                    health = 0;
+                    health = -9999999;
                     break;
             }
         }
@@ -150,5 +150,12 @@ abstract class Enemy implements Drawable{
 
     public void setMoneyToGive(int moneyToGive) {
         this.moneyToGive = moneyToGive;
+    }
+
+    @Override
+    public String toString() {
+        String stringer = "";
+        stringer += "Enemy: "+ id + "Health: "+ health;
+        return stringer;
     }
 }

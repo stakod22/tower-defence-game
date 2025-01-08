@@ -12,6 +12,7 @@ public class Frame extends JFrame {
 
         setTitle("Best SC Tower Defence Game ever");
         setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(paintArea);
 

@@ -68,11 +68,13 @@ public class EnemyList{
 
         for(int i = 0;i<enemyList.size();i++){
             if(enemyList.get(i).getHealth() <= 0){
-                damageThisRound += enemyList.get(i).getDamage();
-                enemyList.remove(i);
+                if (enemyList.get(i).getHealth() == -9999999){
+                    damageThisRound += enemyList.get(i).getDamage();
+                }
                 if (enemyList.get(i).getHealth() == 0){
                     moneyThisRound += enemyList.get(i).getMoneyToGive();
                 }
+                enemyList.remove(i);
                 i--;
 
             }
