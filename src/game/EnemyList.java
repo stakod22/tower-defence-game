@@ -6,6 +6,7 @@ import java.util.List;
 public class EnemyList{
     private List<Enemy> enemyList;
     private int damageThisRound = 0;
+    private int moneyThisRound = 0;
 
     public EnemyList(){
         enemyList = new ArrayList<>();
@@ -69,6 +70,9 @@ public class EnemyList{
             if(enemyList.get(i).getHealth() <= 0){
                 damageThisRound += enemyList.get(i).getDamage();
                 enemyList.remove(i);
+                if (enemyList.get(i).getHealth() == 0){
+                    moneyThisRound += enemyList.get(i).getMoneyToGive();
+                }
                 i--;
 
             }
@@ -77,6 +81,11 @@ public class EnemyList{
     public int doDamage(){
         int returner = damageThisRound;
         damageThisRound = 0;
+        return returner;
+    }
+    public int giveMoney(){
+        int returner = moneyThisRound;
+        moneyThisRound = 0;
         return returner;
     }
 

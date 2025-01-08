@@ -31,6 +31,23 @@ abstract class Enemy implements Drawable{
         count++;
     }
 
+
+    public int getCurrentSegment() {
+        return currentSegment;
+    }
+
+    public void setCurrentSegment(int currentSegment) {
+        this.currentSegment = currentSegment;
+    }
+
+    public List<PathSegment> getSegments() {
+        return segments;
+    }
+
+    public void setSegments(List<PathSegment> segments) {
+        this.segments = segments;
+    }
+
     @Override
     public void update() {
         if(location.y>=0){
@@ -60,6 +77,7 @@ abstract class Enemy implements Drawable{
                     break;
             }
         }
+
         location.add(speed);
         distanceTraveled += speed.x;
         distanceTraveled += speed.y;
@@ -124,5 +142,13 @@ abstract class Enemy implements Drawable{
 
     public int getDamage() {
         return damage;
+    }
+
+    public int getMoneyToGive() {
+        return moneyToGive;
+    }
+
+    public void setMoneyToGive(int moneyToGive) {
+        this.moneyToGive = moneyToGive;
     }
 }
