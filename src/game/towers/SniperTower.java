@@ -11,7 +11,7 @@ import java.util.List;
 public class SniperTower extends Tower {
     public SniperTower(Vector location, EnemyList enemyList) {
         super(location,400,enemyList);
-        setCost(50);
+        setCost(75);
         setFirerate(250);
     }
 
