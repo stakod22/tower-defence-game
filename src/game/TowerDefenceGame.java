@@ -166,7 +166,7 @@ public class TowerDefenceGame {
 
         switch (buttonName) {
             case "BuyTower1":
-                if(currentTowerType.equals("Standard Tower")||currentTowerType.equals("default!!!----||null")) {
+                if(currentTowerType.equals("StandardTower")||currentTowerType.equals("default!!!----||null")) {
                     placingMode = !placingMode;
                 }
                 currentTowerType = "StandardTower";
