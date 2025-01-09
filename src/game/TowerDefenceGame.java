@@ -7,12 +7,14 @@ import game.framework.Drawable;
 import game.framework.Vector;
 import game.gui.Button;
 import game.gui.GUI;
+import game.gui.TowerButton;
 import game.path.GamePath;
 import game.projectiles.ProjectileList;
 import game.towers.*;
 import game.wave.Wave;
 import game.wave.WaveList;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class TowerDefenceGame {
     private final ProjectileList projectileList = new ProjectileList();
     private final List<game.gui.Button> buttons = new ArrayList<>();
     private final WaveList waveList = new WaveList();
-    private int health = 50;
+    private int health = 150;
     private int money = 30;
     private final GUI gui = new GUI();
     private boolean placingMode = false;
@@ -39,6 +41,7 @@ public class TowerDefenceGame {
     private boolean win = false;
     private String currentTowerType = "default!!!----||null";
     private boolean paused = false;
+    private int currentTowerId;
 
     public TowerDefenceGame() {
         //addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
@@ -100,6 +103,7 @@ public class TowerDefenceGame {
                             if (waveList.getNextWave() != null) {
                                 addWaveToEnemies(waveList.getNextWave());
                                 waveList.currentWaveDone();
+
                             }else {
                                 win = true;
                             }
@@ -122,8 +126,8 @@ public class TowerDefenceGame {
                 for (Drawable d : figures) {
                     d.draw(g);
                 }
-                g.drawString("Health:\n\t" + health, 550, 20);
-                g.drawString("Money:\n\t" + money, 700, 20);
+                g.drawString("Health: " + health, 550, 20);
+                g.drawString("Money: " + money, 700, 20);
 
             }else{
                 g.setFont(veryBigFont);
@@ -131,7 +135,7 @@ public class TowerDefenceGame {
                 g.drawString("You Lost!",150,400);
                 g.setColor(Color.black);
                 g.setFont(bigFont);
-                g.drawString("Wave: "+waveList.getCurrentWave()+1,400,550);
+                g.drawString("Wave: "+waveList.getCurrentWave(),400,550);
                 g.setFont(standardFont);
             }
         }
@@ -158,6 +162,10 @@ public class TowerDefenceGame {
         for(Button b : buttons){
             if(b.pressedButton(x,y)){
                 buttonName = b.getName();
+                if(buttonName=="TowerPlaced"){
+                    TowerButton towerButton = (TowerButton) b;
+                    currentTowerId = towerButton.getId();
+                }
             }
         }
 
@@ -167,25 +175,38 @@ public class TowerDefenceGame {
                     placingMode = !placingMode;
                 }
                 currentTowerType = "StandardTower";
+                StandardTower standardTowerTower = new StandardTower(new Vector(1,1),enemyList);
+                gui.setTowerRange(standardTowerTower.getRange());
                 break;
             case "BuyTower2":
                 if(currentTowerType.equals("FastTower")||currentTowerType.equals("default!!!----||null")) {
                     placingMode = !placingMode;
                 }
                 currentTowerType = "FastTower";
+                RapidFireTower fastTower = new RapidFireTower(new Vector(1,1),enemyList);
+                gui.setTowerRange(fastTower.getRange());
                 break;
             case "BuyTower3":
                 if(currentTowerType.equals("SniperTower")||currentTowerType.equals("default!!!----||null")) {
                     placingMode = !placingMode;
                 }
                 currentTowerType = "SniperTower";
+                SniperTower sniperTower = new SniperTower(new Vector(1,1),enemyList);
+                gui.setTowerRange(sniperTower.getRange());
                 break;
             case "Menu":
                 paused = !paused;
                 break;
+
+            case "TowerPlaced":
+
+                break;
+
             default:
                 if(isCellEmpty(gridX, gridY)&&gridY<=15&&gridX<=15&& placingMode) {
-                    placeTower(gridX, gridY);
+                    if(!gamePath.isOnPath(gridX, gridY)){
+                        placeTower(gridX, gridY);
+                    }
                 }
                 break;
         }

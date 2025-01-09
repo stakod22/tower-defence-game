@@ -11,8 +11,11 @@ import java.util.List;
 public class RapidFireTower extends Tower {
     public RapidFireTower(Vector location, EnemyList enemyList) {
         super(location,75,enemyList);
+        setTowerColor(Color.orange);
         setCost(30);
         setFirerate(20);
+        setPierce(1);
+        setDamage(2);
     }
 
 
@@ -20,13 +23,14 @@ public class RapidFireTower extends Tower {
         if(super.willShoot()) {
             Vector loc = new Vector(super.getLocation().x,super.getLocation().y);
             Vector target = new Vector(super.getTarget().x,super.getTarget().y);
-            return new Projectile(loc, target, 2, 10,1) {
+            return new Projectile(loc, target, getDamage(), 10,getPierce()) {
                 @Override
                 public void doDamage(EnemyList enemies) {
                     List<Enemy> enemyList = enemies.getEnemyList();
                     enemyList.forEach((enemy) -> {
                         enemy.getHit(super.getDamage());
-                        //super.hitOnce();
+                        super.hitOnce();
+                        super.addEnemyHit(enemy);
                     });
                 }
             };
@@ -46,9 +50,9 @@ public class RapidFireTower extends Tower {
 
     @Override
     public void draw(Graphics2D g) {
-        g.setColor(Color.orange);
+        g.setColor(super.getTowerColor());
         g.fillRect(getLocation().x-20,getLocation().y-20,40,40);
-        drawRange(g);
+        //drawRange(g);
         //g.drawString(getTarget()+ " ",20,20);
     }
 }

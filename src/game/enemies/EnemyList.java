@@ -59,7 +59,7 @@ public class EnemyList{
     public EnemyList inRange(int range, Vector position){
         EnemyList enemies = new EnemyList();
         for (Enemy e : enemyList) {
-            if (e.getLocation().distanceToOther(position) <= range) {
+            if (e.getLocation().distanceToOther(position) <= range + e.getSize()/2) {
                 enemies.addEnemy(e);
             }
         }
@@ -91,6 +91,10 @@ public class EnemyList{
         int returner = moneyThisRound;
         moneyThisRound = 0;
         return returner;
+    }
+
+    public void clear(){
+        enemyList = new ArrayList<>();
     }
 
     public void update(){

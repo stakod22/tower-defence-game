@@ -9,10 +9,15 @@ import java.awt.*;
 import java.util.List;
 
 public class SniperTower extends Tower {
+
     public SniperTower(Vector location, EnemyList enemyList) {
         super(location,400,enemyList);
-        setCost(75);
-        setFirerate(250);
+        setCost(60);
+        setTowerColor(Color.GREEN);
+        setFirerate(200);
+        setPierce(2);
+        setDamage(5);
+
     }
 
 
@@ -20,13 +25,14 @@ public class SniperTower extends Tower {
         if(super.willShoot()) {
             Vector loc = new Vector(super.getLocation().x,super.getLocation().y);
             Vector target = new Vector(super.getTarget().x,super.getTarget().y);
-            return new Projectile(loc, target, 5, 10,2,50) {
+            return new Projectile(loc, target, getDamage(), 10,getPierce(),50) {
                 @Override
                 public void doDamage(EnemyList enemies) {
                     List<Enemy> enemyList = enemies.getEnemyList();
                     enemyList.forEach((enemy) -> {
                         enemy.getHit(super.getDamage());
-                        //super.hitOnce();
+                        super.hitOnce();
+                        addEnemyHit(enemy);
                     });
                 }
             };
@@ -46,9 +52,9 @@ public class SniperTower extends Tower {
 
     @Override
     public void draw(Graphics2D g) {
-        g.setColor(Color.green);
+        g.setColor(super.getTowerColor());
         g.fillRect(getLocation().x-20,getLocation().y-20,40,40);
-        drawRange(g);
+        //drawRange(g);
         //g.drawString(getTarget()+ " ",20,20);
     }
 }

@@ -1,22 +1,21 @@
 package game.towers;
 
-import game.projectiles.Projectile;
-import game.framework.Vector;
 import game.enemies.Enemy;
 import game.enemies.EnemyList;
+import game.framework.Vector;
+import game.projectiles.Projectile;
 
 import java.awt.*;
 import java.util.List;
 
-public class StandardTower extends Tower {
-
-    public StandardTower(Vector location, EnemyList enemyList) {
-        super(location,150,enemyList);
-        setCost(15);
+public class FreezeTower extends Tower {
+    public FreezeTower(Vector location, EnemyList enemyList) {
+        super(location,75,enemyList);
+        setTowerColor(Color.CYAN);
+        setCost(60);
         setFirerate(75);
-        setPierce(2);
-        setDamage(2);
-        setTowerColor(Color.BLUE);
+        setPierce(1);
+        setDamage(5);
     }
 
 
@@ -24,13 +23,16 @@ public class StandardTower extends Tower {
         if(super.willShoot()) {
             Vector loc = new Vector(super.getLocation().x,super.getLocation().y);
             Vector target = new Vector(super.getTarget().x,super.getTarget().y);
-            return new Projectile(loc, target, getDamage(), 10,getPierce()) {
+            return new Projectile(loc, target, getDamage(), 10,getPierce(), "Freeze", Color.cyan) {
                 @Override
                 public void doDamage(EnemyList enemies) {
                     List<Enemy> enemyList = enemies.getEnemyList();
                     enemyList.forEach((enemy) -> {
                         enemy.getHit(super.getDamage());
                         super.hitOnce();
+                        super.addEnemyHit(enemy);
+                        enemy.setStatusEffect(super.getDamageType());
+                        enemy.setStatusDuration(50);
                     });
                 }
             };
