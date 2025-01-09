@@ -1,107 +1,104 @@
-# 🏰 Tower Defense Game
+# Tower Defence Game
 
-Welcome to our **Tower Defense Game** project! This repository contains all the source code, assets, and documentation for building an engaging and strategic tower defense game.
+## Overview
+This repository contains the implementation of a Tower Defence game written in Java. The game involves strategic placement of towers to defend against waves of enemies traversing a predefined path. The player earns money by defeating enemies, which can be used to buy or upgrade towers. 🎮🛡️💰
 
----
+## Features 🕹️
+- Multiple types of enemies with different attributes.
+- Various tower types, including standard and rapid-fire towers.
+- A GUI with buttons for tower placement and game control.
+- Health and money systems for the player.
+- Wave-based enemy spawning system.
+- Pause functionality.
 
-## 🎮 Game Overview
-
-In this Tower Defense game, players strategically place towers to fend off waves of enemies. The objective is to protect your base and survive as many waves as possible. As you progress, you can upgrade your towers, unlock new abilities, and face increasingly challenging foes.
-
----
-
-## 🛠️ Features
-
-- **Dynamic Gameplay**: Waves of enemies with varying speed, health, and abilities.
-- **Upgradeable Towers**: Enhance your towers with damage, range, and unique skills.
-- **Rich Graphics**: Vibrant visuals and animations.
-- **Strategic Depth**: Choose from various tower types and placement strategies.
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Install [Node.js](https://nodejs.org/) (for web-based games) or [Unity](https://unity.com/) (for 3D games).
-- Clone the repository:
-  ```bash
-  git clone https://github.com/your-username/tower-defense-game.git
-  cd tower-defense-game
-  ```
-
-### Installation
-
-1. Run the setup script:
-   ```bash
-   npm install
-   ```
-2. Start the game:
-   ```bash
-   npm start
-   ```
-3. Open the game in your browser at `http://localhost:3000`.
-
----
-
-## 📂 Repository Structure
-
-```plaintext
-📦 tower-defense-game
-├── 📁 assets       # Game assets (images, sounds, etc.)
-├── 📁 src          # Source code
-├── 📁 docs         # Documentation
-├── 📁 tests        # Unit and integration tests
-├── package.json    # Dependencies and scripts
-└── README.md       # Project overview
+## Project Structure 🌲
+```
+TowerDefenceGame
+├── src/game
+   ├── enemies
+   │   ├── BossEnemy.java
+   │   ├── Enemy.java
+   │   ├── EnemyList.java
+   │   ├── FastEnemy.java
+   │   ├── StandardEnemy.java
+   │   └── TankEnemy.java
+   ├── framework
+   │   ├── Drawable.java
+   │   ├── Frame.java
+   │   ├── PaintArea2d.java
+   │   └── Vector.java
+   ├── gui
+   │   ├── Button.java
+   │   └── GUI.java
+   ├── path
+   │   ├── GamePath.java
+   │   └── PathSegment.java
+   ├── projectiles
+   │   ├── Projectile.java
+   │   └── ProjectileList.java
+   ├── towers
+   │   ├── RapidFireTower.java
+   │   ├── StandardTower.java
+   │   └── Tower.java
+   ├── wave
+   │   ├── Wave.java
+   │   └── WaveList.java
+   └── TowerDefenceGame.java
+.gitignore
+README.md
 ```
 
+## Key Classes 🎯
+
+### `TowerDefenceGame`
+The main class that initializes and manages the game. It handles:
+- Rendering the game screen.
+- Managing game updates, including enemy waves and tower interactions.
+- Tracking player resources (health and money).
+
+### `enemies`
+Defines the enemy types, their attributes, and behavior:
+- `BossEnemy.java`: Strong, high-health enemies.
+- `FastEnemy.java`: Fast-moving enemies.
+- `StandardEnemy.java`: Default enemy type.
+- `TankEnemy.java`: High-health, slow-moving enemies. 
+
+### `towers`
+Defines the types of towers available:
+- `StandardTower.java`: Basic attack tower.
+- `RapidFireTower.java`: Fast attack tower. 
+
+### `projectiles`
+Handles the creation and behavior of projectiles fired by towers:
+- `Projectile.java`: Represents a single projectile.
+- `ProjectileList.java`: Manages all projectiles in the game. 
+
+### `wave`
+Manages the waves of enemies:
+- `Wave.java`: Represents a single wave.
+- `WaveList.java`: Stores and processes multiple waves. 
+
+### `gui`
+Provides graphical elements for user interaction:
+- `Button.java`: Defines interactive buttons.
+- `GUI.java`: Manages the overall graphical interface. 
+
+### `framework`
+Provides foundational classes and utilities:
+- `Drawable.java`: Base interface for drawable objects.
+- `Vector.java`: Handles 2D vector operations.
+- `Frame.java`: Manages rendering frames.
+- `PaintArea2d.java`: Provides 2D painting utilities. 
+
+
+## Future Enhancements 📈
+- Add more enemy and tower types.
+- Implement a tower upgrade system.
+- Introduce difficulty levels.
+- Enhance graphics and animations.
+- Add sound effects. 
+
+
 ---
+Happy Defending! 🎯🛡️👾
 
-## 🤝 Contributing
-
-Contributions are welcome! Follow these steps:
-
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Commit your changes:
-   ```bash
-   git commit -m "Add your message here"
-   ```
-4. Push to the branch:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Submit a pull request.
-
----
-
-## 🛡️ License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
----
-
-## 🎨 Preview
-
-![Game Screenshot](docs/screenshot.png)
-
----
-
-## 🌟 Acknowledgments
-
-- Thanks to the open-source community for inspiring this project.
-- Special mentions to contributors for their hard work!
-
----
-
-## 📨 Contact
-
-For any inquiries, reach us at: [your-email@example.com](mailto:your-email@example.com)
-
----
-
-Happy Defending! 🛡️✨
