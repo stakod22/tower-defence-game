@@ -48,7 +48,7 @@ public class TowerDefenceGame {
         addButton(new game.gui.Button(new Vector(825,75),140,75,"Standard Tower", Color.blue,"BuyTower1"));
         addButton(new game.gui.Button(new Vector(825,175),140,75,"Rapid Fire Tower", Color.orange,"BuyTower2"));
         addButton(new game.gui.Button(new Vector(825,700),140,50,"Pause", Color.cyan,"Menu"));
-        addButton(new game.gui.Button(new Vector(825,275),140,75,"Sniper Tower", Color.green,"BuyTower3"));
+        addButton(new game.gui.Button(new Vector(825,275),140,75,"Sniper Tower", Color.GREEN,"BuyTower3"));
         //INIT Waves
         initWaves(gamePath);
     }

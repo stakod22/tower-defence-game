@@ -7,6 +7,8 @@ import game.enemies.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.*;
+
 public class WaveList {
     private List<Wave> waveList = new ArrayList<>();
     private int currentWave = 0;
@@ -41,6 +43,20 @@ public class WaveList {
     public void showAllWaves() {
         for (Wave wave : waveList) {
             System.out.println(wave.toString());
+        }
+    }
+    public void strenthenEnemies(){
+        for (int i = 0; i < waveList.size(); i++) {
+            float healthincrease = 1.2f;
+            float speedincrease = 1.1f;
+
+            for (Enemy e : waveList.get(i).enemies){
+                e.setHealth((int) (e.getHealth()*(Math.pow((double) healthincrease,(double) i))));
+                e.setSpeedValue((int) (e.getSpeedValue()*(Math.pow((double) speedincrease,(double) i))));
+            }
+            System.out.println("Standard Health: "+5*Math.pow((double) healthincrease,(double) i));
+            System.out.println("Standard Speed: "+Math.pow((double) healthincrease,(double) i));
+
         }
     }
 
@@ -178,5 +194,22 @@ public class WaveList {
         List<Enemy> waveContend11 = new ArrayList<>();
         waveContend11.add(new BossEnemy(new Vector(250, -50), gamePath.getSegments()));
         addWave(waveContend11);
+
+//Wave 12
+        List<Enemy> waveContend12 = new ArrayList<>();
+        waveContend12.add(new TankEnemy(new Vector(250, -50), gamePath.getSegments()));
+        waveContend12.add(new TankEnemy(new Vector(250, -150), gamePath.getSegments()));
+        waveContend12.add(new TankEnemy(new Vector(250, -250), gamePath.getSegments()));
+        waveContend12.add(new TankEnemy(new Vector(250, -350), gamePath.getSegments()));
+        waveContend12.add(new StandartEnemy(new Vector(250, -450), gamePath.getSegments()));
+        waveContend12.add(new StandartEnemy(new Vector(250, -500), gamePath.getSegments()));
+        waveContend12.add(new StandartEnemy(new Vector(250, -550), gamePath.getSegments()));
+        waveContend12.add(new StandartEnemy(new Vector(250, -600), gamePath.getSegments()));
+        waveContend12.add(new FastEnemy(new Vector(250, -800), gamePath.getSegments()));
+        waveContend12.add(new FastEnemy(new Vector(250, -800), gamePath.getSegments()));
+        waveContend12.add(new FastEnemy(new Vector(250, -800), gamePath.getSegments()));
+        addWave(waveContend12);
+
+        strenthenEnemies();
     }
 }

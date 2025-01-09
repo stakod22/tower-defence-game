@@ -34,6 +34,13 @@ public abstract class Enemy implements Drawable {
         count++;
     }
 
+    public int getSpeedValue() {
+        return speedValue;
+    }
+
+    public void setSpeedValue(int speedValue) {
+        this.speedValue = speedValue;
+    }
 
     public int getCurrentSegment() {
         return currentSegment;
