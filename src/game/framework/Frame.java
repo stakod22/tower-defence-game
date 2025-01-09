@@ -10,7 +10,7 @@ public class Frame extends JFrame {
 
     public Frame(){
 
-        setTitle("Best SC Tower Defence Game ever");
+        setTitle("Tower Defence Game");
         setSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

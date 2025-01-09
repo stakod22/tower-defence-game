@@ -9,10 +9,7 @@ import game.gui.Button;
 import game.gui.GUI;
 import game.path.GamePath;
 import game.projectiles.ProjectileList;
-import game.towers.RapidFireTower;
-import game.towers.StandardTower;
-import game.towers.Tower;
-import game.towers.TowerList;
+import game.towers.*;
 import game.wave.Wave;
 import game.wave.WaveList;
 
@@ -51,7 +48,7 @@ public class TowerDefenceGame {
         addButton(new game.gui.Button(new Vector(825,75),140,75,"Standard Tower", Color.blue,"BuyTower1"));
         addButton(new game.gui.Button(new Vector(825,175),140,75,"Rapid Fire Tower", Color.orange,"BuyTower2"));
         addButton(new game.gui.Button(new Vector(825,700),140,50,"Pause", Color.cyan,"Menu"));
-
+        addButton(new game.gui.Button(new Vector(825,275),140,75,"Sniper Tower", Color.green,"BuyTower3"));
         //INIT Waves
         initWaves(gamePath);
     }
@@ -177,6 +174,12 @@ public class TowerDefenceGame {
                 }
                 currentTowerType = "FastTower";
                 break;
+            case "BuyTower3":
+                if(currentTowerType.equals("SniperTower")||currentTowerType.equals("default!!!----||null")) {
+                    placingMode = !placingMode;
+                }
+                currentTowerType = "SniperTower";
+                break;
             case "Menu":
                 paused = !paused;
                 break;
@@ -226,6 +229,14 @@ public class TowerDefenceGame {
                 if(money>= newFastTower.getCost()){
                     money -= newFastTower.getCost();
                     addTower(newFastTower);
+                }
+                gui.setDeclinePlace(true);
+                break;
+            case "SniperTower":
+                SniperTower newSniperTower = new SniperTower(loc,enemyList);
+                if(money>= newSniperTower.getCost()){
+                    money -= newSniperTower.getCost();
+                    addTower(newSniperTower);
                 }
                 gui.setDeclinePlace(true);
                 break;
