@@ -1,4 +1,7 @@
-package game;
+package game.towers;
+
+import game.projectiles.Projectile;
+import game.enemies.EnemyList;
 
 import java.util.ArrayList;
 import java.util.List;

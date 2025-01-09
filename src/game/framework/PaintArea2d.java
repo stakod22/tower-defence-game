@@ -1,4 +1,6 @@
-package game;
+package game.framework;
+
+import game.TowerDefenceGame;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,7 @@
-package game;
+package game.gui;
+
+import game.framework.Drawable;
+import game.framework.Vector;
 
 import java.awt.*;
 

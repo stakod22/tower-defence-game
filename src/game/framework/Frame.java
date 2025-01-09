@@ -1,4 +1,4 @@
-package game;
+package game.framework;
 
 import javax.swing.*;
 
@@ -16,7 +16,7 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(paintArea);
 
-        Timer timer = new Timer(20, (e) ->
+        Timer timer = new Timer(10, (e) ->
                 paintArea.repaint()
         );
         timer.start();

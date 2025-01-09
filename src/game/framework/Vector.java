@@ -1,4 +1,4 @@
-package game;
+package game.framework;
 
 public class Vector {
     public int x;
@@ -9,9 +9,19 @@ public class Vector {
         this.y = y;
     }
 
+    public Vector(Vector v) {
+        this.x = v.x;
+        this.y = v.y;
+    }
+
     public void add(Vector other){
         this.x += other.x;
         this.y += other.y;
+    }
+
+    public void add(int adder){
+        this.x += adder;
+        this.y += adder;
     }
 
     public void multi(Vector other){

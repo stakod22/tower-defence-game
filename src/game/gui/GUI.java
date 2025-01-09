@@ -1,8 +1,11 @@
-package game;
+package game.gui;
+
+import game.framework.Drawable;
+import game.framework.Vector;
 
 import java.awt.*;
 
-public class GUI implements Drawable{
+public class GUI implements Drawable {
     private boolean placingmode = false;
     private Vector mouseGrid;
     private boolean cellEmpty = false;

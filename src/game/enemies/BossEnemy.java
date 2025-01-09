@@ -1,4 +1,7 @@
-package game;
+package game.enemies;
+
+import game.path.PathSegment;
+import game.framework.Vector;
 
 import java.awt.*;
 import java.util.List;
@@ -27,12 +30,12 @@ public class BossEnemy extends Enemy{
         int[] yPoints = new int[numSides + 2];
 
         // Upper part (round balloon)
-        int balloonWidth = size;
+        int balloonWidth = size+1;
         int balloonHeight = (int) (size * 1.5); // Slightly taller than wide
         for (int i = 0; i <= numSides; i++) {
-            double angle = Math.PI * i / numSides; // Semi-circle (top half)
-            xPoints[i] = centerX + (int) (balloonWidth / 2 * Math.cos(angle));
-            yPoints[i] = centerY - (int) (balloonHeight / 2 * Math.sin(angle));
+            double angle = Math.PI * i / numSides; //
+            xPoints[i] = centerX + (int) ((double) balloonWidth / 2 * Math.cos(angle));
+            yPoints[i] = centerY - (int) ((double) balloonHeight / 2 * Math.sin(angle));
         }
 
         // Tapered bottom part

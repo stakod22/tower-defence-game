@@ -1,10 +1,13 @@
-package game;
+package game.enemies;
+
+import game.framework.Drawable;
+import game.path.PathSegment;
+import game.framework.Vector;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
-abstract class Enemy implements Drawable{
+public abstract class Enemy implements Drawable {
     static int count = 1;
     private int id;
     private Vector location;
@@ -14,7 +17,7 @@ abstract class Enemy implements Drawable{
     private int size;
     private int currentMoveWay = 0;
     private int currentSegment = 0;
-    private List<PathSegment> segments = new ArrayList();
+    private List<PathSegment> segments;
     private int speedValue;
     private int moneyToGive;
     private int damage = 0;

@@ -1,4 +1,6 @@
-package game;
+package game.enemies;
+
+import game.framework.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +73,7 @@ public class EnemyList{
                 if (enemyList.get(i).getHealth() == -9999999){
                     damageThisRound += enemyList.get(i).getDamage();
                 }
-                if (enemyList.get(i).getHealth() == 0){
+                if (enemyList.get(i).getHealth() <= 0){
                     moneyThisRound += enemyList.get(i).getMoneyToGive();
                 }
                 enemyList.remove(i);

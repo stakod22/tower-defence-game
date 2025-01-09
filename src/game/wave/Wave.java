@@ -1,4 +1,6 @@
-package game;
+package game.wave;
+
+import game.enemies.Enemy;
 
 import java.util.ArrayList;
 import java.util.List;

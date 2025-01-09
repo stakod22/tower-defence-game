@@ -1,4 +1,4 @@
-package game;
+package game.path;
 
 public class PathSegment {
     public int lenght;

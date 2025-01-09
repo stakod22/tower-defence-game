@@ -1,10 +1,13 @@
-package game;
+package game.path;
+
+import game.framework.Vector;
+import game.framework.Drawable;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePath implements Drawable{
+public class GamePath implements Drawable {
     private List<Vector> pathTiles = new ArrayList();
     private List<PathSegment> segments = new ArrayList();
 

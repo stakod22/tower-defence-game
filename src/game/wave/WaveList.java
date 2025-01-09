@@ -1,4 +1,8 @@
-package game;
+package game.wave;
+
+import game.path.GamePath;
+import game.framework.Vector;
+import game.enemies.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,9 +50,9 @@ public class WaveList {
     public void init(GamePath gamePath){
 //Wave 1
         List<Enemy> waveContend1 = new ArrayList<>();
-        waveContend1.add(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
-        waveContend1.add(new StandartEnemy(new Vector(250, -100), gamePath.getSegments()));
+        waveContend1.add(new StandartEnemy(new Vector(250, -150), gamePath.getSegments()));
         waveContend1.add(new StandartEnemy(new Vector(250, -200), gamePath.getSegments()));
+        waveContend1.add(new StandartEnemy(new Vector(250, -300), gamePath.getSegments()));
         addWave(waveContend1);
 
 //Wave 2
@@ -56,11 +60,10 @@ public class WaveList {
         waveContend2.add(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
         waveContend2.add(new StandartEnemy(new Vector(250, -100), gamePath.getSegments()));
         waveContend2.add(new StandartEnemy(new Vector(250, -200), gamePath.getSegments()));
-        waveContend2.add(new FastEnemy(new Vector(250, -700), gamePath.getSegments()));
         waveContend2.add(new StandartEnemy(new Vector(250, -300), gamePath.getSegments()));
         waveContend2.add(new StandartEnemy(new Vector(250, -350), gamePath.getSegments()));
         waveContend2.add(new StandartEnemy(new Vector(250, -450), gamePath.getSegments()));
-        waveContend2.add(new FastEnemy(new Vector(250, -1000), gamePath.getSegments()));
+
         addWave(waveContend2);
 
 //Wave 3
@@ -70,6 +73,7 @@ public class WaveList {
         waveContend3.add(new StandartEnemy(new Vector(250, -200), gamePath.getSegments()));
         waveContend3.add(new FastEnemy(new Vector(250, -1450), gamePath.getSegments()));
         waveContend3.add(new FastEnemy(new Vector(250, -1650), gamePath.getSegments()));
+        waveContend2.add(new FastEnemy(new Vector(250, -3000), gamePath.getSegments()));
         waveContend3.add(new StandartEnemy(new Vector(250, -300), gamePath.getSegments()));
         waveContend3.add(new StandartEnemy(new Vector(250, -350), gamePath.getSegments()));
         waveContend3.add(new TankEnemy(new Vector(250, -250), gamePath.getSegments()));

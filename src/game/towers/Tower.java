@@ -1,9 +1,15 @@
-package game;
+package game.towers;
+
+import game.framework.Drawable;
+import game.projectiles.Projectile;
+import game.framework.Vector;
+import game.enemies.Enemy;
+import game.enemies.EnemyList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Tower implements Drawable{
+public abstract class Tower implements Drawable {
     private int id;
     private Vector location;
     private Vector target = new Vector(0, 0);
@@ -11,7 +17,9 @@ public abstract class Tower implements Drawable{
     private int cost;
     private EnemyList enemyList = null;
     private int firerate;
-    private boolean willShoot = true;
+    private boolean willShoot = false;
+    private int framecount = 0;
+
 
     public Tower(Vector location,int range,EnemyList enemyList) {
         this.location = location;
@@ -34,33 +42,32 @@ public abstract class Tower implements Drawable{
 
     private void seeEnemies(EnemyList enemies){
         List<Enemy> seenEnemies;
-        enemies.inRange(range, location);
-        seenEnemies = enemies.getSortedEnemyList("distance");
-        if (seenEnemies.size() > 0){
-            if(seenEnemies != null){
-                setTarget(seenEnemies.get(0).getLocation());
-                willShoot = true;
-                //System.out.println(seenEnemies);
-                }else{
-                setTarget(null);
-                willShoot = false;
-            }
+        seenEnemies = enemies.inRange(range, location).getSortedEnemyList("distance");;
+        if (!seenEnemies.isEmpty()){
+            setTarget(seenEnemies.get(0).getLocation());
+            willShoot = true;
         }else{
             setTarget(null);
+            willShoot = false;
         }
+
     }
 
     public List<Projectile> update(EnemyList enemies){
         seeEnemies(enemies);
         List<Projectile> projectiles = new ArrayList<>();
         if(willShoot){
-            projectiles.add(shootProjectile());
+            if (framecount % firerate == 0){
+                projectiles.add(shootProjectile());
+            }
+
         }
         return projectiles;
     }
 
     @Override
     public void update() {
+        framecount++;
     }
     public int getId() {
         return id;

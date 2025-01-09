@@ -1,7 +1,9 @@
-package game;
+package game.enemies;
+
+import game.path.PathSegment;
+import game.framework.Vector;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TankEnemy extends Enemy{
@@ -9,7 +11,7 @@ public class TankEnemy extends Enemy{
     public TankEnemy(Vector location, List<PathSegment> segments) {
         super(location,10, segments, 1);
         super.setSize(40);
-        super.setMoneyToGive(30);
+        super.setMoneyToGive(20);
     }
 
     @Override
