@@ -8,7 +8,9 @@ public class TowerDefenceGame {
     public static final int CELL_WIDTH = 50;
     public static final int CELL_HEIGHT = 50;
 
-
+    private Font veryBigFont = new Font("Arial", Font.BOLD, 150);
+    private Font bigFont = new Font("Arial", Font.PLAIN, 50);
+    private Font standardFont = new Font("Arial", Font.PLAIN, 12);
     private List<Drawable> figures = new ArrayList<>();
     private EnemyList enemyList = new EnemyList();
     private TowerList towerList = new TowerList();
@@ -16,20 +18,24 @@ public class TowerDefenceGame {
     private ProjectileList projectileList = new ProjectileList();
     private List<Button> buttons = new ArrayList<>();
     private WaveList waveList = new WaveList();
-    private int health = 100;
-    private int money = 20;
+    private int health = 150;
+    private int money = 30;
     private GUI gui = new GUI();
+    private boolean placingmode = false;
+    private boolean lost = false;
+    private boolean win = false;
+    private String currentTowerType;
 
     public TowerDefenceGame() {
-        /*addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
-        addEnemy(new StandartEnemy(new Vector(250, -100), gamePath.getSegments()));
+        addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
+        /*addEnemy(new StandartEnemy(new Vector(250, -100), gamePath.getSegments()));
         addEnemy(new StandartEnemy(new Vector(250, -250), gamePath.getSegments()));
 
         addEnemy(new FastEnemy(new Vector(250, -100), gamePath.getSegments()));*/
 
         addTower(new StandardTower(new Vector(50*6+25,50*2+25), enemyList));
 
-        addButton(new Button(new Vector(850,200),100,100,"Press", Color.blue,"Test1"));
+        addButton(new Button(new Vector(825,75),140,75,"Standard Tower", Color.red,"BuyTower1"));
 
         //INIT Waves
         INITWaves(gamePath);
@@ -52,60 +58,77 @@ public class TowerDefenceGame {
     }
 
     public void update() {
-        towerList.update(enemyList);
-        projectileList.update(enemyList);
-        enemyList.update();
+        if(!win){
+            if (!lost){
+                projectileList.addAllProjectiles(towerList.update(enemyList));
+                projectileList.update(enemyList);
+                enemyList.update();
+                updateGUI();
 
 
-        //Sorting everything for correct drawing and updating
-        figures.clear();
-        figures.add(gui);
-        figures.add(gamePath);
-        figures.addAll(towerList.getTowerList());
-        figures.addAll(projectileList.getProjectileList());
-        figures.addAll(enemyList.getEnemyList());
-        figures.addAll(buttons);
+                //Sorting everything for correct drawing and updating
+                figures.clear();
+                figures.add(gui);
+                figures.add(gamePath);
+                figures.addAll(towerList.getTowerList());
+                figures.addAll(projectileList.getProjectileList());
+                figures.addAll(enemyList.getEnemyList());
+                figures.addAll(buttons);
 
-        // updating
-        for (Drawable d : figures) {
-            d.update();
-        }
+                // updating
+                for (Drawable d : figures) {
+                    d.update();
+                }
 
-        //Money and Health
-        health -= enemyList.doDamage();
-        money -= enemyList.giveMoney();
+                //Money and Health
+                health -= enemyList.doDamage();
+                money -= enemyList.giveMoney();
 
-        if(health <= 0) {
-            //you Lost
-        }
+                if(health <= 0) {
+                    lost = true;
+                }else{
+                    if (enemyList.getNumberOfEnemys() == 0) {
 
-        if (enemyList.getNumberOfEnemys() == 0) {
+                        //sendNextWave
+                        if (waveList.getNextWave() != null) {
 
-            //sendNextWave
-            if (waveList.getNextWave() != null) {
-
-                waveList.getNextWave().toString();
-                addWaveToEnemies(waveList.getNextWave());
-                waveList.currentWaveDone();
+                            waveList.getNextWave().toString();
+                            addWaveToEnemies(waveList.getNextWave());
+                            waveList.currentWaveDone();
+                        }
+                    }
                 }
             }
-        }
-
-    public void addWaveToEnemies(Wave w) {
-        for (Enemy e : w.getEnemies()) {
-            addEnemy(e);
         }
     }
 
     public void draw(Graphics2D g) {
-        for (Drawable d : figures) {
-            d.draw(g);
+        if (win){
+            g.setFont(veryBigFont);
+            g.setColor(Color.GREEN);
+            g.drawString("You Win!",150,400);
+            g.setColor(Color.black);
+            g.setFont(standardFont);
+        }else {
+            if (!lost){
+                for (Drawable d : figures) {
+                    d.draw(g);
+                }
+                g.drawString("Health:\n\t" + health, 550, 20);
+                g.drawString("Money:\n\t" + money, 700, 20);
+
+            }else{
+                g.setFont(veryBigFont);
+                g.setColor(Color.red);
+                g.drawString("You Lost!",150,400);
+                g.setColor(Color.black);
+                g.setFont(bigFont);
+                g.drawString("Wave: "+waveList.getCurrentWave()+1,400,550);
+                g.setFont(standardFont);
+            }
         }
-        g.setColor(Color.red);
-        g.drawString("Health: " + health, 550, 20);
-        g.setColor(Color.yellow);
-        g.drawString("Money: " + money, 700, 20);
-        g.setColor(Color.black);
+
+
     }
 
     public GamePath getGamePath() {
@@ -115,6 +138,11 @@ public class TowerDefenceGame {
 
     private void INITWaves(GamePath p) {
         waveList.init(p);
+    }
+    public void addWaveToEnemies(Wave w) {
+        for (Enemy e : w.getEnemies()) {
+            addEnemy(e);
+        }
     }
 
     public void handleMouseClick(int x, int y) {
@@ -130,16 +158,24 @@ public class TowerDefenceGame {
         }
 
         switch (buttonName) {
-            case "Test1":
-                System.out.println("niggas in paris");
+            case "BuyTower1":
+                placingmode = !placingmode;
+                currentTowerType = "StandardTower";
                 break;
             default:
-                if(isCellEmpty(gridX, gridY)&&gridY<=15&&gridX<=15) {
+                if(isCellEmpty(gridX, gridY)&&gridY<=15&&gridX<=15&&placingmode) {
                     placeTower(gridX, gridY);
                 }
                 break;
         }
 
+    }
+
+    public void handleMouseDragged(int x, int y) {
+        int gridX = x / CELL_WIDTH;
+        int gridY = y / CELL_HEIGHT;
+        gui.setMouse(new Vector(gridX,gridY));
+        gui.setCellEmpty(isCellEmpty(gridX,gridY));
     }
 
 
@@ -158,9 +194,21 @@ public class TowerDefenceGame {
 
     private void placeTower(int gridX, int gridY) {
         Vector loc = new Vector(50*gridX+25,50*gridY+25);
-        addTower(new StandardTower(loc,enemyList));
+        switch(currentTowerType){
+            case "StandardTower":
+                StandardTower newTower = new StandardTower(loc,enemyList);
+                if(money>= newTower.getCost()){
+                    money -= newTower.getCost();
+                    addTower(newTower);
+                }
+                gui.setDeclinePlace(true);
+                break;
+        }
+
     }
 
-
+    private void updateGUI(){
+        gui.setPlacingmode(placingmode);
+    }
 }
 

@@ -13,15 +13,17 @@ public class StandardTower extends Tower {
     }
 
 
-    public Projectile shootProjectile(EnemyList enemies){
+    public Projectile shootProjectile(){
         if(super.willShoot()) {
-            return new Projectile(1, super.getLocation(), super.getTarget(), 1, 10) {
+
+            return new Projectile(super.getLocation(), super.getTarget(), 2, 10) {
                 @Override
                 public void doDamage(EnemyList enemies) {
                     List<Enemy> enemyList = enemies.getEnemyList();
                     enemyList.forEach((enemy) -> {
                         enemy.getHit(super.getDamage());
                     });
+                    System.out.println("I will do damage");
                 }
             };
         }
@@ -43,7 +45,6 @@ public class StandardTower extends Tower {
     public void draw(Graphics2D g) {
         g.setColor(Color.BLUE);
         g.fillRect(getLocation().x-20,getLocation().y-20,40,40);
-        drawRange(g);
         g.drawString(getTarget()+ " ",20,20);
     }
 }

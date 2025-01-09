@@ -8,9 +8,10 @@ public abstract class Projectile implements Drawable{
     private Vector targetLocation;
     private int damage;
     private int radius;
+    private int speed = 30;
 
-    public Projectile(int id, Vector location, Vector targetLocation, int damage, int radius) {
-        this.id = id;
+    public Projectile(Vector location, Vector targetLocation, int damage, int radius) {
+
         this.location = location;
         this.targetLocation = targetLocation;
         this.damage = damage;
@@ -19,6 +20,24 @@ public abstract class Projectile implements Drawable{
 
     abstract public void doDamage(EnemyList enemies);
 
+    public boolean isOnTarget(){
+        if (targetLocation.x == location.x && targetLocation.y == location.y){
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean brokeProjectile(){
+        if (location.x < 0){
+            return true;
+        } else if (location.y < 0) {
+            return true;
+        } else if (location.x > 1500){
+            return true;
+        } else if () {
+            
+        }
+    }
     public int getDamage() {
         return damage;
     }
@@ -61,11 +80,14 @@ public abstract class Projectile implements Drawable{
 
     @Override
     public void update() {
+        if()
 
     }
 
     @Override
     public void draw(Graphics2D g) {
-
+        g.setColor(Color.darkGray);
+        g.fillOval(location.x-10, location.y-10, radius*2, radius*2);
+        g.setColor(Color.black);
     }
 }

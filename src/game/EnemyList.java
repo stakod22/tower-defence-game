@@ -56,9 +56,9 @@ public class EnemyList{
 
     public EnemyList inRange(int range, Vector position){
         EnemyList enemies = new EnemyList();
-        for (Enemy enemy : enemyList) {
-            if (enemy.getLocation().distanceToOther(position) <= range) {
-                enemies.addEnemy(enemy);
+        for (Enemy e : enemyList) {
+            if (e.getLocation().distanceToOther(position) <= range) {
+                enemies.addEnemy(e);
             }
         }
         return enemies;

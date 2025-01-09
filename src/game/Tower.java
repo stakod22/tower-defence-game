@@ -19,8 +19,8 @@ public abstract class Tower implements Drawable{
         this.enemyList = enemyList;
     }
 
-    //Targeting hört nicht auf und sieht nicht den ersten (Beim schnellen Enemy) @Lukas
-    abstract Projectile shootProjectile(EnemyList enemies);
+    //Targeting hört nicht auf und sieht nicht den ersten (Beim schnellen Enemy) @Lukas || by Noah
+    abstract Projectile shootProjectile();
 
     public boolean isInRange(Vector position){
         if (location.distanceToOther(position) <= range){
@@ -36,19 +36,27 @@ public abstract class Tower implements Drawable{
         List<Enemy> seenEnemies;
         enemies.inRange(range, location);
         seenEnemies = enemies.getSortedEnemyList("distance");
-        if (seenEnemies.size() != 0){
+        if (seenEnemies.size() > 0){
             if(seenEnemies != null){
                 setTarget(seenEnemies.get(0).getLocation());
                 willShoot = true;
-            }else{
+                //System.out.println(seenEnemies);
+                }else{
                 setTarget(null);
                 willShoot = false;
             }
+        }else{
+            setTarget(null);
         }
     }
 
-    public void update(EnemyList enemies){
+    public List<Projectile> update(EnemyList enemies){
         seeEnemies(enemies);
+        List<Projectile> projectiles = new ArrayList<>();
+        if(willShoot){
+            projectiles.add(shootProjectile());
+        }
+        return projectiles;
     }
 
     @Override

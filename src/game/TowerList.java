@@ -22,10 +22,19 @@ public class TowerList {
         towerList.add(e);
         currentID++;
     }
-
-    public void update(EnemyList e){
+    public List<Projectile> getProjectiles(){
+        List<Projectile> projectiles = new ArrayList<>();
         for (Tower t : towerList){
-            t.update(e);
+
         }
+        return projectiles;
+    }
+
+    public List<Projectile> update(EnemyList e){
+        List<Projectile> projectiles = new ArrayList<>();
+        for (Tower t : towerList){
+            projectiles.addAll(t.update(e));
+        }
+        return projectiles;
     }
 }

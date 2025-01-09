@@ -5,7 +5,7 @@ import java.util.List;
 
 public class WaveList {
     private List<Wave> waveList = new ArrayList<>();
-    private int currentWave = 4;
+    private int currentWave = 0;
 
     public void addWave(List<Enemy> e){
         waveList.add(new Wave(e));

@@ -9,7 +9,9 @@ public class ProjectileList {
     public void addProjectile(Projectile projectile){
         projectileList.add(projectile);
     }
-
+    public void addAllProjectiles(List<Projectile> projectiles){
+        projectileList.addAll(projectiles);
+    }
 
     public List<Projectile> getProjectileList() {
         return projectileList;
@@ -19,6 +21,14 @@ public class ProjectileList {
         this.projectileList = projectileList;
     }
 
+    public void removeDoneProjectiles(){
+        for (int i = 0; i < projectileList.size(); i++) {
+            if (projectileList.get(i).isOnTarget()){
+                projectileList.remove(i);
+                i--;
+            }
+        }
+    }
 
 
     public void update(EnemyList e){
