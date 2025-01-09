@@ -27,6 +27,10 @@ public class ProjectileList {
                 projectileList.remove(i);
                 i--;
             }
+            if (projectileList.get(i).brokeProjectile()){
+                projectileList.remove(i);
+                i--;
+            }
         }
     }
 

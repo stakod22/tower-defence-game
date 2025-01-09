@@ -34,8 +34,10 @@ public abstract class Projectile implements Drawable{
             return true;
         } else if (location.x > 1500){
             return true;
-        } else if () {
-            
+        } else if (location.y > 1000) {
+            return true;
+        }else{
+            return false;
         }
     }
     public int getDamage() {
@@ -80,7 +82,6 @@ public abstract class Projectile implements Drawable{
 
     @Override
     public void update() {
-        if()
 
     }
 
