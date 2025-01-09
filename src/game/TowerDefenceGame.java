@@ -44,7 +44,7 @@ public class TowerDefenceGame {
     private boolean paused = false;
 
     public TowerDefenceGame() {
-        addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
+        //addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
 
         //addTower(new StandardTower(new Vector(50*6+25,50*2+25), enemyList));
 

@@ -11,7 +11,7 @@ public class TankEnemy extends Enemy{
     public TankEnemy(Vector location, List<PathSegment> segments) {
         super(location,10, segments, 1);
         super.setSize(40);
-        super.setMoneyToGive(20);
+        super.setMoneyToGive(15);
     }
 
     @Override
