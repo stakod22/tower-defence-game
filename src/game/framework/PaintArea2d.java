@@ -10,7 +10,7 @@ import java.awt.event.MouseMotionAdapter;
 
 public class PaintArea2d extends JPanel {
 
-    private TowerDefenceGame game;
+    private final TowerDefenceGame game;
 
     public PaintArea2d() {
         super();

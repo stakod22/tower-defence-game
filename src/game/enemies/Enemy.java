@@ -3,6 +3,7 @@ package game.enemies;
 import game.framework.Drawable;
 import game.path.PathSegment;
 import game.framework.Vector;
+import game.projectiles.DamageType;
 
 import java.awt.*;
 import java.util.List;
@@ -21,8 +22,9 @@ public abstract class Enemy implements Drawable {
     private int speedValue;
     private int moneyToGive;
     private int damage = 0;
-    private String statusEffect = "none";
+    private DamageType statusEffect = DamageType.NORMAL;
     private int statusDuration = 0;
+    private Color color;
 
     public Enemy(Vector location, int health, List<PathSegment> segments, int speedValue) {
         location.add(new Vector(25,25));
@@ -53,6 +55,14 @@ public abstract class Enemy implements Drawable {
         return currentSegment;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
     public void setCurrentSegment(int currentSegment) {
         this.currentSegment = currentSegment;
     }
@@ -69,8 +79,10 @@ public abstract class Enemy implements Drawable {
     public void update() {
         int standardSpeed = speedValue;
         switch(statusEffect){
-            case "Freeze":
+            case FREEZE:
+                System.out.println("Speed: " + speedValue);
                 speedValue /= 2;
+                System.out.println("Speed: " + speedValue);
                 statusDuration--;
                 break;
         }
@@ -101,14 +113,26 @@ public abstract class Enemy implements Drawable {
                     break;
             }
         }
-        speedValue = standardSpeed;
         location.add(speed);
+        speedValue = standardSpeed;
+        if(statusDuration <= 0){
+            statusEffect = DamageType.NORMAL;
+        }
         distanceTraveled += speed.x;
         distanceTraveled += speed.y;
     }
     @Override
     public void draw(Graphics2D g) {
-
+        g.setColor(getColor());
+        g.fillRect(location.x-size/2,location.y-size/2, size, size);
+        switch(statusEffect){
+            case FREEZE:
+                g.setColor(new Color( 49, 199, 245, 64));
+                g.fillRect(location.x-size/2,location.y-size/2, size, size);
+                break;
+        }
+        g.setColor(Color.black);
+        g.drawString(""+getId(),location.x,location.y);
     }
 
     public int getId() {
@@ -176,11 +200,11 @@ public abstract class Enemy implements Drawable {
         this.moneyToGive = moneyToGive;
     }
 
-    public String getStatusEffect() {
+    public DamageType getStatusEffect() {
         return statusEffect;
     }
 
-    public void setStatusEffect(String statusEffect) {
+    public void setStatusEffect(DamageType statusEffect) {
         this.statusEffect = statusEffect;
     }
 

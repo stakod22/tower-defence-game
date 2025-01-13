@@ -6,7 +6,7 @@ public class Frame extends JFrame {
     public static final int WINDOWS_WIDTH = 1000;
     public static final int WINDOWS_HEIGHT = 800;
 
-    private PaintArea2d paintArea = new PaintArea2d();
+    private final PaintArea2d paintArea = new PaintArea2d();
 
     public Frame(){
 

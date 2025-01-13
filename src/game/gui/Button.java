@@ -10,7 +10,7 @@ public class Button implements Drawable {
     int width;
     int height;
     String text;
-    Color color = Color.red;
+    Color color;
     String name;
 
     public Button(Vector corner, int width, int height, String text, Color color, String name) {
@@ -23,11 +23,8 @@ public class Button implements Drawable {
     }
 
     public boolean pressedButton(int x, int y){
-        if(corner.x<x&&corner.x+width>x&&corner.y<y&&corner.y+height>y){
-            return true;
-        }
-        return false;
-    };
+        return (corner.x < x && corner.x + width > x && corner.y < y && corner.y + height > y);
+    }
 
 
 
@@ -55,5 +52,9 @@ public class Button implements Drawable {
 
     public String getName() {
         return name;
+    }
+
+    public Vector getCorner() {
+        return corner;
     }
 }

@@ -3,8 +3,11 @@ package game.gui;
 import game.framework.Drawable;
 import game.framework.Vector;
 import game.path.GamePath;
+import game.towers.Tower;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GUI implements Drawable {
     private boolean placingmode = false;
@@ -12,6 +15,7 @@ public class GUI implements Drawable {
     private boolean cellEmpty = false;
     private boolean declinePlace = false;
     private int towerRange = 0;
+
     @Override
     public void update() {
 
@@ -43,6 +47,9 @@ public class GUI implements Drawable {
             drawRange(g, new Vector(mouseGrid.x*50+25,mouseGrid.y*50+25));
         }
     }
+
+
+
 
     public void drawRange(Graphics2D g, Vector loc){
         g.drawOval(loc.x-towerRange,loc.y-towerRange,towerRange*2,towerRange*2);
