@@ -1,5 +1,6 @@
 package game.path;
 
+import game.TowerDefenceGame;
 import game.framework.Vector;
 import game.framework.Drawable;
 
@@ -79,7 +80,21 @@ public class GamePath implements Drawable {
         }
     }
 
+    public boolean isOnPath(int gridX, int gridY){
+        for(Vector p : pathTiles){
+            if(p.x/TowerDefenceGame.CELL_WIDTH == gridX&&p.y/TowerDefenceGame.CELL_HEIGHT == gridY){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public List<PathSegment> getSegments() {
         return segments;
+    }
+
+    public List<Vector> getPathTiles() {
+        return pathTiles;
     }
 }

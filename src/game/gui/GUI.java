@@ -2,6 +2,7 @@ package game.gui;
 
 import game.framework.Drawable;
 import game.framework.Vector;
+import game.path.GamePath;
 
 import java.awt.*;
 
@@ -10,6 +11,7 @@ public class GUI implements Drawable {
     private Vector mouseGrid;
     private boolean cellEmpty = false;
     private boolean declinePlace = false;
+    private int towerRange = 0;
     @Override
     public void update() {
 
@@ -33,11 +35,18 @@ public class GUI implements Drawable {
         }else{
             g.setColor(Color.GREEN);
         }
-        if(placingmode&&cellEmpty&&mouseGrid.x<=15 && mouseGrid.y<=15){
+        GamePath gamePath = new GamePath();
+        if(placingmode&&cellEmpty&&mouseGrid.x<=15 && mouseGrid.y<=15&& !gamePath.isOnPath(mouseGrid.x, mouseGrid.y)){
 
             g.fillRect(5+mouseGrid.x*50,5+mouseGrid.y*50,40,40);
             g.setColor(Color.BLACK);
+            drawRange(g, new Vector(mouseGrid.x*50+25,mouseGrid.y*50+25));
         }
+    }
+
+    public void drawRange(Graphics2D g, Vector loc){
+        g.drawOval(loc.x-towerRange,loc.y-towerRange,towerRange*2,towerRange*2);
+        g.setColor(Color.BLACK);
     }
 
 
@@ -54,5 +63,8 @@ public class GUI implements Drawable {
 
     public void setDeclinePlace(boolean declinePlace) {
         this.declinePlace = declinePlace;
+    }
+    public void setTowerRange(int towerRange) {
+        this.towerRange = towerRange;
     }
 }

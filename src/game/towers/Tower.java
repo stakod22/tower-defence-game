@@ -6,6 +6,7 @@ import game.framework.Vector;
 import game.enemies.Enemy;
 import game.enemies.EnemyList;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,10 @@ public abstract class Tower implements Drawable {
     private EnemyList enemyList = null;
     private int firerate;
     private boolean willShoot = false;
-    private int framecount = 0;
+    private int shootableFrameCount = 0;
+    private int pierce;
+    private int damage;
+    private Color towerColor;
 
 
     public Tower(Vector location,int range,EnemyList enemyList) {
@@ -57,17 +61,17 @@ public abstract class Tower implements Drawable {
         seeEnemies(enemies);
         List<Projectile> projectiles = new ArrayList<>();
         if(willShoot){
-            if (framecount % firerate == 0){
+            if (shootableFrameCount % firerate == 0){
                 projectiles.add(shootProjectile());
             }
-
+            shootableFrameCount++;
         }
         return projectiles;
     }
 
     @Override
     public void update() {
-        framecount++;
+
     }
     public int getId() {
         return id;
@@ -119,5 +123,29 @@ public abstract class Tower implements Drawable {
 
     public boolean willShoot() {
         return willShoot;
+    }
+
+    public void setPierce(int pierce) {
+        this.pierce = pierce;
+    }
+    public int getPierce() {
+        return pierce;
+    }
+
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public Color getTowerColor() {
+        return towerColor;
+    }
+
+    public void setTowerColor(Color towerColor) {
+        this.towerColor = towerColor;
     }
 }

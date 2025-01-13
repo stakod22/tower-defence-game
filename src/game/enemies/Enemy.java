@@ -21,6 +21,8 @@ public abstract class Enemy implements Drawable {
     private int speedValue;
     private int moneyToGive;
     private int damage = 0;
+    private String statusEffect = "none";
+    private int statusDuration = 0;
 
     public Enemy(Vector location, int health, List<PathSegment> segments, int speedValue) {
         location.add(new Vector(25,25));
@@ -40,6 +42,11 @@ public abstract class Enemy implements Drawable {
 
     public void setSpeedValue(int speedValue) {
         this.speedValue = speedValue;
+
+    }
+    public void setRealSpeedValue(int speedValue) {
+        this.speedValue = speedValue;
+        speed = new Vector(0,speedValue);
     }
 
     public int getCurrentSegment() {
@@ -60,6 +67,13 @@ public abstract class Enemy implements Drawable {
 
     @Override
     public void update() {
+        int standardSpeed = speedValue;
+        switch(statusEffect){
+            case "Freeze":
+                speedValue /= 2;
+                statusDuration--;
+                break;
+        }
         if(location.y>=0){
             currentMoveWay+=Math.abs(speed.x);
             currentMoveWay+=Math.abs(speed.y);
@@ -87,7 +101,7 @@ public abstract class Enemy implements Drawable {
                     break;
             }
         }
-
+        speedValue = standardSpeed;
         location.add(speed);
         distanceTraveled += speed.x;
         distanceTraveled += speed.y;
@@ -162,10 +176,26 @@ public abstract class Enemy implements Drawable {
         this.moneyToGive = moneyToGive;
     }
 
+    public String getStatusEffect() {
+        return statusEffect;
+    }
+
+    public void setStatusEffect(String statusEffect) {
+        this.statusEffect = statusEffect;
+    }
+
     @Override
     public String toString() {
         String stringer = "";
         stringer += "Enemy: "+ id + "Health: "+ health;
         return stringer;
+    }
+
+    public int getStatusDuration() {
+        return statusDuration;
+    }
+
+    public void setStatusDuration(int statusDuration) {
+        this.statusDuration = statusDuration;
     }
 }

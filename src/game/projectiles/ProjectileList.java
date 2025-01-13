@@ -1,5 +1,6 @@
 package game.projectiles;
 
+import game.enemies.Enemy;
 import game.enemies.EnemyList;
 import game.framework.Vector;
 import java.util.ArrayList;
@@ -37,29 +38,27 @@ public class ProjectileList {
 
 
     public void update(EnemyList e){
-        var ref = new Object() {
-            boolean hasHitEnemy = false;
-        };
-        projectileList.forEach((projectile) -> {
-            e.getEnemyList().forEach((enemy -> {
+        boolean hasHitEnemy = false;
+        EnemyList enemysToHit = new EnemyList();
+        for(Projectile projectile : projectileList){
+            for(Enemy enemy : e.getEnemyList()){
                 if(projectile.getLocation().x+projectile.getRadius() >= enemy.getLocation().x-enemy.getSize()/2){
                     if(projectile.getLocation().x- projectile.getRadius() <= enemy.getLocation().x+enemy.getSize()/2){
                         if(projectile.getLocation().y+projectile.getRadius() >= enemy.getLocation().y-enemy.getSize()/2){
                             if(projectile.getLocation().y-projectile.getRadius() <= enemy.getLocation().y+enemy.getSize()/2){
-                                ref.hasHitEnemy = projectile.getEnemiesHit().contains(enemy);
+                                hasHitEnemy = projectile.getEnemiesHit().contains(enemy);
 
-                                if (!ref.hasHitEnemy){
-                                    enemy.getHit(projectile.getDamage());
-                                    projectile.hitOnce();
-                                    projectile.addEnemyHit(enemy);
+                                if (!hasHitEnemy){
+                                    enemysToHit.addEnemy(enemy);
                                 }
-                                ref.hasHitEnemy = false;
+                                projectile.doDamage(enemysToHit);
+                                enemysToHit.clear();
                             }
                         }
                     }
                 }
-            }));
-        });
+            }
+        }
         removeDoneProjectiles();
     }
 }
