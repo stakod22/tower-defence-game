@@ -162,7 +162,7 @@ public class TowerDefenceGame {
         for(Button b : buttons){
             if(b.pressedButton(x,y)){
                 buttonName = b.getName();
-                if(buttonName=="TowerPlaced"){
+                if(buttonName.equals("TowerPlaced")){
                     TowerButton towerButton = (TowerButton) b;
                     currentTowerId = towerButton.getId();
                 }
@@ -171,24 +171,30 @@ public class TowerDefenceGame {
 
         switch (buttonName) {
             case "BuyTower1":
-                if(currentTowerType.equals("StandardTower")||currentTowerType.equals("default!!!----||null")) {
-                    placingMode = !placingMode;
+                if(currentTowerType.equals("StandardTower")&&placingMode){
+                    placingMode = false;
+                }else{
+                    placingMode = true;
                 }
                 currentTowerType = "StandardTower";
                 StandardTower standardTowerTower = new StandardTower(new Vector(1,1),enemyList);
                 gui.setTowerRange(standardTowerTower.getRange());
                 break;
             case "BuyTower2":
-                if(currentTowerType.equals("FastTower")||currentTowerType.equals("default!!!----||null")) {
-                    placingMode = !placingMode;
+                if(currentTowerType.equals("FastTower")&&placingMode){
+                    placingMode = false;
+                }else{
+                    placingMode = true;
                 }
                 currentTowerType = "FastTower";
                 RapidFireTower fastTower = new RapidFireTower(new Vector(1,1),enemyList);
                 gui.setTowerRange(fastTower.getRange());
                 break;
             case "BuyTower3":
-                if(currentTowerType.equals("SniperTower")||currentTowerType.equals("default!!!----||null")) {
-                    placingMode = !placingMode;
+                if(currentTowerType.equals("SniperTower")&&placingMode){
+                    placingMode = false;
+                }else{
+                    placingMode = true;
                 }
                 currentTowerType = "SniperTower";
                 SniperTower sniperTower = new SniperTower(new Vector(1,1),enemyList);
