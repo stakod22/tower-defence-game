@@ -1,5 +1,6 @@
 package game.towers;
 
+import game.TowerDefenceGame;
 import game.projectiles.Projectile;
 import game.enemies.EnemyList;
 
@@ -25,13 +26,6 @@ public class TowerList {
         towerList.add(e);
         currentID++;
     }
-    public List<Projectile> getProjectiles(){
-        List<Projectile> projectiles = new ArrayList<>();
-        for (Tower t : towerList){
-
-        }
-        return projectiles;
-    }
 
     public List<Projectile> update(EnemyList e){
         List<Projectile> projectiles = new ArrayList<>();
@@ -39,5 +33,14 @@ public class TowerList {
             projectiles.addAll(t.update(e));
         }
         return projectiles;
+    }
+
+    public Tower getTowerByCell(int cellX, int cellY){
+        for (Tower t : towerList){
+            if(t.getLocation().x/TowerDefenceGame.CELL_WIDTH == cellX && t.getLocation().y/ TowerDefenceGame.CELL_HEIGHT == cellY){
+                return t;
+            }
+        }
+        return null;
     }
 }
