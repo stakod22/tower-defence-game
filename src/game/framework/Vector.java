@@ -24,11 +24,6 @@ public class Vector {
         this.y += adder;
     }
 
-    public void multi(Vector other){
-        this.x *= other.x;
-        this.y *= other.y;
-    }
-
     public int distanceToOther(Vector other){
         if (other == null){
             return -1;
@@ -41,8 +36,7 @@ public class Vector {
         if (distX <0){
             distX *= -1;
         }
-        int distance = (int) Math.sqrt(Math.pow((double) distX,2)+Math.pow((double) distY,2));
-        return distance;
+        return (int) Math.sqrt(Math.pow(distX,2)+Math.pow(distY,2));
     }
 
     @Override

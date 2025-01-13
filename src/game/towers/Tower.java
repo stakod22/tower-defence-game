@@ -16,37 +16,28 @@ public abstract class Tower implements Drawable {
     private Vector target = new Vector(0, 0);
     private int range;
     private int cost;
-    private EnemyList enemyList = null;
     private int firerate;
     private boolean willShoot = false;
     private int shootableFrameCount = 0;
     private int pierce;
     private int damage;
     private Color towerColor;
+    private int upgradeCost = 10;
+
+    private TowerType towerType;
 
 
-    public Tower(Vector location,int range,EnemyList enemyList) {
+    public Tower(Vector location,int range) {
         this.location = location;
         this.range = range;
-        this.enemyList = enemyList;
     }
 
-    //Targeting hört nicht auf und sieht nicht den ersten (Beim schnellen Enemy) @Lukas || by Noah
     abstract Projectile shootProjectile();
 
-    public boolean isInRange(Vector position){
-        if (location.distanceToOther(position) <= range){
-            if (location.distanceToOther(position) == -1){
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
 
     private void seeEnemies(EnemyList enemies){
         List<Enemy> seenEnemies;
-        seenEnemies = enemies.inRange(range, location).getSortedEnemyList("distance");;
+        seenEnemies = enemies.inRange(range, location).getSortedEnemyList("distance");
         if (!seenEnemies.isEmpty()){
             setTarget(seenEnemies.get(0).getLocation());
             willShoot = true;
@@ -61,18 +52,48 @@ public abstract class Tower implements Drawable {
         seeEnemies(enemies);
         List<Projectile> projectiles = new ArrayList<>();
         if(willShoot){
-            if (shootableFrameCount % firerate == 0){
+            if (shootableFrameCount >= firerate){
                 projectiles.add(shootProjectile());
+                shootableFrameCount = 0;
             }
-            shootableFrameCount++;
         }
+        shootableFrameCount++;
         return projectiles;
+    }
+
+    public void upgradeFirerate(){
+        upgradeCost = upgradeCost * 3 / 2;
+        firerate = firerate * 3 / 4;
+    }
+    public void upgradeRange(){
+        upgradeCost = upgradeCost * 3 / 2;
+        range = range +20;
+    }
+    public void upgradePierce(){
+        upgradeCost = upgradeCost * 3 / 2;
+        pierce = pierce +1;
+    }
+    public void upgradeDamage(){
+        upgradeCost = upgradeCost * 3 / 2;
+        damage = damage +1;
     }
 
     @Override
     public void update() {
 
     }
+
+    @Override
+    public void draw(Graphics2D g) {
+        g.setColor(towerColor);
+        g.fillRect(getLocation().x-20,getLocation().y-20,40,40);
+    }
+
+//    public void drawRange(Graphics2D g){
+//        g.setColor(Color.black);
+//        g.drawOval(location.x-range,location.y-range,2*range,2*range);
+//    }
+
     public int getId() {
         return id;
     }
@@ -147,5 +168,17 @@ public abstract class Tower implements Drawable {
 
     public void setTowerColor(Color towerColor) {
         this.towerColor = towerColor;
+    }
+
+    public void setTowerType(TowerType towerType) {
+        this.towerType = towerType;
+    }
+
+    public TowerType getTowerType() {
+        return towerType;
+    }
+
+    public int getUpgradeCost() {
+        return upgradeCost;
     }
 }

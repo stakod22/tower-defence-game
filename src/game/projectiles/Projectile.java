@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Projectile implements Drawable {
+public class Projectile implements Drawable {
     private int id;
     private Vector location;
     private Vector targetLocation;
@@ -18,47 +18,21 @@ public abstract class Projectile implements Drawable {
     private int speed = 35;
     private int pierce = 0;
     private double angle;
-    private String damageType = "default";
+    private DamageType damageType = DamageType.NORMAL;
+    private int effectDuration = 0;
     private List<Enemy> enemiesHit = new ArrayList<>();
     private Color color = Color.BLACK;
 
-
-    public Projectile(Vector location, Vector targetLocation, int damage, int radius, int pierce) {
-        init(location, targetLocation, damage, radius, pierce);
+    public void doDamage(EnemyList enemies){
+        List<Enemy> enemyList = enemies.getEnemyList();
+        enemyList.forEach((enemy) -> {
+            enemy.getHit(damage);
+            hitOnce();
+            addEnemyHit(enemy);
+            enemy.setStatusEffect(damageType);
+            enemy.setStatusDuration(effectDuration);
+        });
     }
-
-    public Projectile(Vector location, Vector targetLocation, int damage, int radius, int pierce, String damageType, Color color) {
-        init(location, targetLocation, damage, radius, pierce);
-        setDamageType(damageType);
-        setColor(color);
-    }
-
-
-    public Projectile(Vector location, Vector targetLocation, int damage, int radius, int pierce, int speed) {
-        init(location, targetLocation, damage, radius, pierce);
-        this.speed = speed;
-        damageType = "default";
-    }
-
-    public Projectile(Vector location, Vector targetLocation, int damage, int radius, int pierce, int speed, String damageType) {
-        init(location, targetLocation, damage, radius, pierce);
-        this.speed = speed;
-        this.damageType = damageType;
-    }
-
-    public void init(Vector location, Vector targetLocation, int damage, int radius, int pierce){
-        this.location = location;
-        this.targetLocation = targetLocation;
-        this.damage = damage;
-        this.radius = radius;
-        float x1 = targetLocation.x - location.x;
-        float y1 = targetLocation.y - location.y;
-        this.pierce = pierce;
-
-        angle = Math.atan2(y1, x1);
-    }
-
-    abstract public void doDamage(EnemyList enemies);
 
     
     public boolean brokeProjectile(){
@@ -70,11 +44,7 @@ public abstract class Projectile implements Drawable {
             return true;
         } else if (location.y > 1000) {
             return true;
-        } else if(pierce == 0){
-            return true;
-        } else{
-            return false;
-        }
+        } else return pierce == 0;
     }
     public int getDamage() {
         return damage;
@@ -99,9 +69,11 @@ public abstract class Projectile implements Drawable {
     public Vector getLocation() {
         return location;
     }
+
     public void addEnemyHit(Enemy e){
         enemiesHit.add(e);
     }
+
     public void setLocation(Vector location) {
         this.location = location;
     }
@@ -132,11 +104,17 @@ public abstract class Projectile implements Drawable {
 
     @Override
     public void update() {
-        float x2 = (float) (speed * Math.cos(angle));
-        float y2 = (float) (speed * Math.sin(angle));
+        if(damageType == DamageType.INSTANT){
+            location.x = targetLocation.x;
+            location.y = targetLocation.y;
+        }else{
+            float x2 = (float) (speed * Math.cos(angle));
+            float y2 = (float) (speed * Math.sin(angle));
 
-        location.x += x2;
-        location.y += y2;
+            location.x += (int) x2;
+            location.y += (int) y2;
+        }
+
     }
 
 
@@ -147,11 +125,11 @@ public abstract class Projectile implements Drawable {
         g.setColor(Color.black);
     }
 
-    public String getDamageType() {
+    public DamageType getDamageType() {
         return damageType;
     }
 
-    public void setDamageType(String damageType) {
+    public void setDamageType(DamageType damageType) {
         this.damageType = damageType;
     }
 
@@ -161,5 +139,112 @@ public abstract class Projectile implements Drawable {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setPierce(int pierce) {
+        this.pierce = pierce;
+    }
+
+    public int getPierce() {
+        return pierce;
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
+    public double getAngle() {
+        return angle;
+    }
+
+    public void setEffectDuration(int effectDuration) {
+        this.effectDuration = effectDuration;
+    }
+
+    public int getEffectDuration() {
+        return effectDuration;
+    }
+
+    public static class Builder{
+        private Vector location;
+        private Vector targetLocation;
+        private int damage;
+        private int radius;
+        private int speed = 35;
+        private int pierce = 0;
+        private DamageType damageType = DamageType.NORMAL;
+        private int effectDuration = 50;
+        private Color color = Color.BLACK;
+
+        public Builder setLocation(Vector location){
+            this.location = location;
+            return this;
+        }
+
+        public Builder setTargetLocation(Vector targetLocation){
+            this.targetLocation = targetLocation;
+            return this;
+        }
+
+        public Builder setDamage(int damage){
+            this.damage = damage;
+            return this;
+        }
+
+        public Builder setRadius(int radius){
+            this.radius = radius;
+            return this;
+        }
+
+        public Builder setSpeed(int speed){
+            this.speed = speed;
+            return this;
+        }
+
+        public Builder setPierce(int pierce){
+            this.pierce = pierce;
+            return this;
+        }
+
+        public Builder setDamageType(DamageType damageType) {
+            this.damageType = damageType;
+            return this;
+        }
+
+        public Builder setColor(Color color) {
+            this.color = color;
+            return this;
+        }
+
+        public Builder setEffectDuration(int effectDuration) {
+            this.effectDuration = effectDuration;
+            return this;
+        }
+
+        public Projectile build(){
+            Projectile p = new Projectile();
+            p.setLocation(location);
+            p.setTargetLocation(targetLocation);
+            p.setDamage(damage);
+            p.setRadius(radius);
+            p.setSpeed(speed);
+            p.setPierce(pierce);
+            p.setDamageType(damageType);
+            p.setEffectDuration(effectDuration);
+            p.setColor(color);
+            float x1 = targetLocation.x - location.x;
+            float y1 = targetLocation.y - location.y;
+            p.setAngle(Math.atan2(y1, x1));
+
+            return p;
+        }
     }
 }

@@ -12,6 +12,7 @@ public class FastEnemy extends Enemy{
         super(location,3, segments, 5);
         super.setSize(20);
         super.setMoneyToGive(10);
+        super.setColor(Color.blue);
     }
 
     @Override
@@ -21,9 +22,6 @@ public class FastEnemy extends Enemy{
 
     @Override
     public void draw(Graphics2D g) {
-        g.setColor(Color.blue);
-        g.fillRect(super.getLocation().x-(super.getSize()/2),super.getLocation().y-(super.getSize()/2),super.getSize(),super.getSize());
-        g.setColor(Color.black);
-        g.drawString(""+getId(),super.getLocation().x,super.getLocation().y);
+        super.draw(g);
     }
 }
