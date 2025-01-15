@@ -32,7 +32,7 @@ public class FreezeTower extends Tower {
                     .setRadius(10)
                     .setPierce(super.getPierce())
                     .setDamageType(DamageType.FREEZE)
-                    .setEffectDuration(50)
+                    .setEffectDuration(120)
                     .setColor(Color.cyan)
                     .build();
     }

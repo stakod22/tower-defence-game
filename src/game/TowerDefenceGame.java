@@ -152,7 +152,8 @@ public class TowerDefenceGame {
 
 
     private void initWaves(GamePath p) {
-        waveList.init(p);
+        //waveList.init(p);
+        waveList.debug(p);
     }
     public void addWaveToEnemies(Wave w) {
         for (Enemy e : w.getEnemies()) {
@@ -334,7 +335,7 @@ public class TowerDefenceGame {
         addButton(new game.gui.Button(new Vector(825,75),140,75,"Standard Tower", Color.blue,"BuyTower1"));
         addButton(new game.gui.Button(new Vector(825,175),140,75,"Rapid Fire Tower", Color.orange,"BuyTower2"));
         addButton(new game.gui.Button(new Vector(825,275),140,75,"Sniper Tower", new Color(64, 163, 79),"BuyTower3"));
-        //addButton(new game.gui.Button(new Vector(825,375),140, 75,"Freeze Tower", Color.cyan,"BuyTower4"));
+        addButton(new game.gui.Button(new Vector(825,375),140, 75,"Freeze Tower", Color.cyan,"BuyTower4"));
 
         addButton(new game.gui.Button(new Vector(825,700),140,50,"Pause", new Color(76, 76, 76),"Menu"));
     }

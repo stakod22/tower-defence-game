@@ -80,9 +80,7 @@ public abstract class Enemy implements Drawable {
         int standardSpeed = speedValue;
         switch(statusEffect){
             case FREEZE:
-                System.out.println("Speed: " + speedValue);
                 speedValue /= 2;
-                System.out.println("Speed: " + speedValue);
                 statusDuration--;
                 break;
         }
@@ -93,7 +91,6 @@ public abstract class Enemy implements Drawable {
         if(segments.get(currentSegment).lenght<=currentMoveWay){
             currentSegment++;
             currentMoveWay = 0;
-
             switch (segments.get(currentSegment).direction){
                 case 1:
                     speed = new Vector(0,-speedValue);

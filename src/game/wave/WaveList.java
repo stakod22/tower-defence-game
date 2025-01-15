@@ -44,7 +44,11 @@ public class WaveList {
     }
 
 
-
+    public void debug(GamePath gamePath){
+        List<Enemy> waveContend1 = new ArrayList<>();
+        waveContend1.add(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
+        addWave(waveContend1);
+    }
 
     public void init(GamePath gamePath){
 //Wave 1
