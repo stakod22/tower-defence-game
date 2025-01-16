@@ -9,7 +9,7 @@ public class SniperTower extends Tower {
 
     public SniperTower(Vector location) {
         super(location,400);
-        setCost(60);
+        setCost(40);
         setTowerColor(new Color(64, 163, 79));
         setFirerate(200);
         setPierce(2);

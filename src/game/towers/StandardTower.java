@@ -9,7 +9,7 @@ public class StandardTower extends Tower {
 
     public StandardTower(Vector location) {
         super(location,150);
-        setCost(15);
+        setCost(10);
         setFirerate(75);
         setPierce(2);
         setDamage(2);

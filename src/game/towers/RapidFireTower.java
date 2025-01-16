@@ -9,7 +9,7 @@ public class RapidFireTower extends Tower {
     public RapidFireTower(Vector location) {
         super(location,75);
         setTowerColor(Color.orange);
-        setCost(30);
+        setCost(20);
         setFirerate(20);
         setPierce(1);
         setDamage(2);

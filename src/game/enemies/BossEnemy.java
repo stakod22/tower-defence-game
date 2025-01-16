@@ -10,7 +10,7 @@ public class BossEnemy extends Enemy{
     public BossEnemy(Vector location, List<PathSegment> segments) {
         super(location,50, segments, 1);
         super.setSize(40);
-        super.setMoneyToGive(100);
+        super.setMoneyToGive(50);
     }
 
     @Override

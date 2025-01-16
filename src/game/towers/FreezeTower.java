@@ -15,7 +15,7 @@ public class FreezeTower extends Tower {
     public FreezeTower(Vector location) {
         super(location,75);
         setTowerColor(Color.CYAN);
-        setCost(10);
+        setCost(20);
         setFirerate(75);
         setPierce(1);
         setDamage(1);
