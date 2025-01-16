@@ -29,8 +29,7 @@ public class Projectile implements Drawable {
             enemy.getHit(damage);
             hitOnce();
             addEnemyHit(enemy);
-            enemy.setStatusEffect(damageType);
-            enemy.setStatusDuration(effectDuration);
+            enemy.addStatusEffect(new StatusEffect(damageType, effectDuration));
         });
     }
 
@@ -121,7 +120,7 @@ public class Projectile implements Drawable {
     @Override
     public void draw(Graphics2D g) {
         g.setColor(Color.darkGray);
-        g.fillOval(location.x-10, location.y-10, radius*2, radius*2);
+        g.fillOval((int) location.x-10, (int) location.y-10, radius*2, radius*2);
         g.setColor(Color.black);
     }
 

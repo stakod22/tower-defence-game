@@ -22,8 +22,8 @@ public class TankEnemy extends Enemy{
     @Override
     public void draw(Graphics2D g) {
         int size = super.getSize();
-        int centerX = super.getLocation().x;
-        int centerY = super.getLocation().y;
+        int centerX = (int) super.getLocation().x;
+        int centerY = (int) super.getLocation().y;
 
         // Generate the vertices for the octagon
         int[] xPoints = new int[8];

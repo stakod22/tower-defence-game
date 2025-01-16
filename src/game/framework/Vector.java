@@ -1,8 +1,13 @@
 package game.framework;
 
 public class Vector {
-    public int x;
-    public int y;
+    public float x;
+    public float y;
+
+    public Vector(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public Vector(int x, int y) {
         this.x = x;
@@ -19,24 +24,29 @@ public class Vector {
         this.y += other.y;
     }
 
-    public void add(int adder){
+    public void add(float adder){
         this.x += adder;
         this.y += adder;
     }
 
-    public int distanceToOther(Vector other){
+    public void divide(float other){
+        this.x /= other;
+        this.y /= other;
+    }
+
+    public double distanceToOther(Vector other){
         if (other == null){
             return -1;
         }
-        int distX = this.x - other.x;
-        int distY = this.y - other.y;
+        float distX = this.x - other.x;
+        float distY = this.y - other.y;
         if (distY < 0){
             distY *= -1;
         }
         if (distX <0){
             distX *= -1;
         }
-        return (int) Math.sqrt(Math.pow(distX,2)+Math.pow(distY,2));
+        return Math.sqrt(Math.pow(distX,2)+Math.pow(distY,2));
     }
 
     @Override

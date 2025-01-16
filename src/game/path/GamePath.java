@@ -75,7 +75,7 @@ public class GamePath implements Drawable {
     public void draw(Graphics2D g) {
         for(Vector v : pathTiles){
             g.setColor(Color.RED);
-            g.fillRect(v.x,v.y,50,50);
+            g.fillRect((int)v.x,(int)v.y,50,50);
             g.setColor(Color.BLACK);
         }
     }

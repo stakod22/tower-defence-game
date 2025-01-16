@@ -36,15 +36,15 @@ public class Button implements Drawable {
     @Override
     public void draw(Graphics2D g) {
         g.setColor(color);
-        g.fillRect(corner.x, corner.y, width, height);
+        g.fillRect((int)corner.x, (int)corner.y, width, height);
 
         g.setColor(Color.BLACK);
         FontMetrics fm = g.getFontMetrics();
         int textWidth = fm.stringWidth(text);
         int textHeight = fm.getAscent();
 
-        int textX = corner.x + (width - textWidth) / 2;
-        int textY = corner.y + (height + textHeight) / 2 - fm.getDescent();
+        int textX = (int)corner.x + (width - textWidth) / 2;
+        int textY = (int)corner.y + (height + textHeight) / 2 - fm.getDescent();
 
         g.drawString(text, textX, textY);
     }

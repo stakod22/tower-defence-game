@@ -40,9 +40,9 @@ public class GUI implements Drawable {
             g.setColor(Color.GREEN);
         }
         GamePath gamePath = new GamePath();
-        if(placingmode&&cellEmpty&&mouseGrid.x<=15 && mouseGrid.y<=15&& !gamePath.isOnPath(mouseGrid.x, mouseGrid.y)){
+        if(placingmode&&cellEmpty&&mouseGrid.x<=15 && mouseGrid.y<=15&& !gamePath.isOnPath((int)mouseGrid.x, (int)mouseGrid.y)){
 
-            g.fillRect(5+mouseGrid.x*50,5+mouseGrid.y*50,40,40);
+            g.fillRect((int) (5+mouseGrid.x*50),(int) (5+mouseGrid.y*50),40,40);
             g.setColor(Color.BLACK);
             drawRange(g, new Vector(mouseGrid.x*50+25,mouseGrid.y*50+25));
         }
@@ -52,7 +52,7 @@ public class GUI implements Drawable {
 
 
     public void drawRange(Graphics2D g, Vector loc){
-        g.drawOval(loc.x-towerRange,loc.y-towerRange,towerRange*2,towerRange*2);
+        g.drawOval((int)loc.x-towerRange,(int)loc.y-towerRange,towerRange*2,towerRange*2);
         g.setColor(Color.BLACK);
     }
 

@@ -37,7 +37,7 @@ public class TowerList {
 
     public Tower getTowerByCell(int cellX, int cellY){
         for (Tower t : towerList){
-            if(t.getLocation().x/TowerDefenceGame.CELL_WIDTH == cellX && t.getLocation().y/ TowerDefenceGame.CELL_HEIGHT == cellY){
+            if(((int)t.getLocation().x)/TowerDefenceGame.CELL_WIDTH == cellX && (int)(t.getLocation().y)/ TowerDefenceGame.CELL_HEIGHT == cellY){
                 return t;
             }
         }

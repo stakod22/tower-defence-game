@@ -22,8 +22,16 @@ public abstract class Tower implements Drawable {
     private int pierce;
     private int damage;
     private Color towerColor;
-    private int upgradeCost = 10;
-    private int upgradesPurchased = 0;
+    private int upgradePierceCost = 10;
+    private int upgradePiercePurchased = 0;
+    private int upgradeFireRateCost = 10;
+    private int upgradeFireRatePurchased = 0;
+    private int upgradeDamageCost = 10;
+    private int upgradeDamagePurchased = 0;
+    private int upgradeRangeCost = 10;
+    private int upgradeRangePurchased = 0;
+
+
 
     private TowerType towerType;
 
@@ -62,25 +70,37 @@ public abstract class Tower implements Drawable {
         return projectiles;
     }
 
-    public void upgradeFirerate(){
-        upgradeCost = upgradeCost * 3 / 2;
-        firerate = firerate * 3 / 4;
-        upgradesPurchased++;
+    public void upgradeFireRate() {
+        if (upgradeFireRatePurchased < 5){
+            upgradeFireRateCost = upgradeFireRateCost * 2;
+            firerate = firerate * 3 / 4;
+            upgradeFireRatePurchased++;
+        }
+
     }
-    public void upgradeRange(){
-        upgradeCost = upgradeCost * 3 / 2;
-        range = range +20;
-        upgradesPurchased++;
+    public void upgradeRange() {
+        if (upgradeRangePurchased < 5){
+            upgradeRangeCost = upgradeRangeCost * 2;
+            range = range + 20;
+            upgradeRangePurchased++;
+        }
+
+    }
+    public void upgradeDamage() {
+        if (upgradeDamagePurchased < 5){
+            upgradeDamageCost = upgradeDamageCost * 2;
+            damage = damage + 1;
+            upgradeDamagePurchased++;
+        }
+
     }
     public void upgradePierce(){
-        upgradeCost = upgradeCost * 3 / 2;
-        pierce = pierce +1;
-        upgradesPurchased++;
-    }
-    public void upgradeDamage(){
-        upgradeCost = upgradeCost * 3 / 2;
-        damage = damage +1;
-        upgradesPurchased++;
+        if (upgradePiercePurchased < 5){
+            upgradePierceCost = upgradePierceCost * 2;
+            pierce = pierce + 1;
+            upgradePiercePurchased++;
+        }
+
     }
 
     @Override
@@ -91,12 +111,12 @@ public abstract class Tower implements Drawable {
     @Override
     public void draw(Graphics2D g) {
         g.setColor(towerColor);
-        g.fillRect(getLocation().x-20,getLocation().y-20,40,40);
+        g.fillRect((int) getLocation().x-20,(int) getLocation().y-20,40,40);
     }
 
 //    public void drawRange(Graphics2D g){
 //        g.setColor(Color.black);
-//        g.drawOval(location.x-range,location.y-range,2*range,2*range);
+//        g.drawOval((int) location.x-range,(int) location.y-range,2*range,2*range);
 //    }
 
     public int getId() {
@@ -183,7 +203,51 @@ public abstract class Tower implements Drawable {
         return towerType;
     }
 
-    public int getUpgradeCost() {
-        return upgradeCost;
+    public int getUpgradeDamagePurchased() {
+        return upgradeDamagePurchased;
+    }
+
+    public int getUpgradePiercePurchased() {
+        return upgradePiercePurchased;
+    }
+
+    public int getUpgradeFireRatePurchased() {
+        return upgradeFireRatePurchased;
+    }
+
+    public int getUpgradeRangePurchased() {
+        return upgradeRangePurchased;
+    }
+
+    public int getUpgradePierceCost() {
+        return upgradePierceCost;
+    }
+
+    public void setUpgradePierceCost(int upgradePierceCost) {
+        this.upgradePierceCost = upgradePierceCost;
+    }
+
+    public int getUpgradeFireRateCost() {
+        return upgradeFireRateCost;
+    }
+
+    public void setUpgradeFireRateCost(int upgradeFireRateCost) {
+        this.upgradeFireRateCost = upgradeFireRateCost;
+    }
+
+    public int getUpgradeDamageCost() {
+        return upgradeDamageCost;
+    }
+
+    public void setUpgradeDamageCost(int upgradeDamageCost) {
+        this.upgradeDamageCost = upgradeDamageCost;
+    }
+
+    public int getUpgradeRangeCost() {
+        return upgradeRangeCost;
+    }
+
+    public void setUpgradeRangeCost(int upgradeRangeCost) {
+        this.upgradeRangeCost = upgradeRangeCost;
     }
 }

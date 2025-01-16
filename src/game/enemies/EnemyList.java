@@ -26,7 +26,8 @@ public class EnemyList{
         List<Enemy> newList = enemyList;
         switch (param){
             case "distance":
-                newList.sort((a, b) -> a.getDistanceTraveled()-b.getDistanceTraveled());
+                newList.sort((a, b) -> (int) (a.getDistanceTraveled()-b.getDistanceTraveled()));
+                System.out.println(newList);
                 break;
             case "health":
                 newList.sort((a, b) -> a.getHealth()-b.getHealth());

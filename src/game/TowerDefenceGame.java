@@ -29,7 +29,7 @@ public class TowerDefenceGame {
     private final List<game.gui.Button> buttons = new ArrayList<>();
     private final WaveList waveList = new WaveList();
     private int health = 150;
-    private int money = 30;
+    private int money = 100;
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
     private boolean placingMode = false;
@@ -175,9 +175,47 @@ public class TowerDefenceGame {
             }
         }
         if(menuGUI.isMenuOpen()){
-            switch (buttonName){
+            TowerButton tb = null;
+            Tower upgradeTower = null;
+            for(Button b : buttons) {
+                if (b.getName().equals("TowerPlaced")) {
+                    tb = (TowerButton) b;
+                    if(currentTowerId == tb.getId()){
+                        upgradeTower = towerList.getTowerByCell((int) tb.getCorner().x / CELL_WIDTH, (int) tb.getCorner().y / CELL_HEIGHT);
+                        break;
+                    }
+                }
+            }
+             switch (buttonName){
                 case "ExitUpgradeMenu":
                     menuGUI.closeUpgradeMenu();
+                    break;
+                case "FireRateUpgrade":
+                    if(upgradeTower.getUpgradeFireRateCost()<=money && upgradeTower.getUpgradeFireRatePurchased() < 5){
+                        money -= upgradeTower.getUpgradeFireRateCost();
+                        upgradeTower.upgradeFireRate();
+                    }
+
+                    break;
+                case "RangeUpgrade":
+                    if(upgradeTower.getUpgradeRangeCost()<=money && upgradeTower.getUpgradeRangePurchased() < 5){
+                        money -= upgradeTower.getUpgradeRangeCost();
+                        upgradeTower.upgradeRange();
+                    }
+                    break;
+                case "DamageUpgrade":
+                    if(upgradeTower.getUpgradeDamageCost()<=money && upgradeTower.getUpgradeDamagePurchased() < 5){
+                        money -= upgradeTower.getUpgradeDamageCost();
+                        upgradeTower.upgradeDamage();
+                    }
+
+                    break;
+                case "PierceUpgrade":
+                    if (upgradeTower.getUpgradePierceCost() <= money && upgradeTower.getUpgradePiercePurchased() < 5){
+                        money -= upgradeTower.getUpgradePierceCost();
+                        upgradeTower.upgradePierce();
+                    }
+
                     break;
             }
         }else{
@@ -233,9 +271,9 @@ public class TowerDefenceGame {
                             if(currentTowerId == tb.getId()){
                                 placingMode = false;
                                 if(tb.getCorner().x>400){
-                                    menuGUI.openUpgradeMenu("LEFT",towerList.getTowerByCell(tb.getCorner().x/CELL_WIDTH,tb.getCorner().y/CELL_HEIGHT),buttons,tb);
+                                    menuGUI.openUpgradeMenu("LEFT",towerList.getTowerByCell((int)tb.getCorner().x/CELL_WIDTH,(int)tb.getCorner().y/CELL_HEIGHT),buttons,tb);
                                 }else{
-                                    menuGUI.openUpgradeMenu("RIGHT",towerList.getTowerByCell(tb.getCorner().x/CELL_WIDTH,tb.getCorner().y/CELL_HEIGHT),buttons,tb);
+                                    menuGUI.openUpgradeMenu("RIGHT",towerList.getTowerByCell((int)tb.getCorner().x/CELL_WIDTH,(int)tb.getCorner().y/CELL_HEIGHT),buttons,tb);
                                 }
                                 break;
                             }
@@ -266,8 +304,8 @@ public class TowerDefenceGame {
     private boolean isCellEmpty(int gridX, int gridY) {
         for(Tower t : towerList.getTowerList()){
             Vector loc = t.getLocation();
-            int gridXT = loc.x / CELL_WIDTH;
-            int gridYT = loc.y / CELL_HEIGHT;
+            int gridXT = (int)loc.x / CELL_WIDTH;
+            int gridYT = (int)loc.y / CELL_HEIGHT;
             if(gridXT == gridX && gridYT == gridY){
                 return false;
             }

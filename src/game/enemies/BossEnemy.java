@@ -21,8 +21,8 @@ public class BossEnemy extends Enemy{
     @Override
     public void draw(Graphics2D g) {
         int size = super.getSize(); // Balloon size determines its overall scale
-        int centerX = super.getLocation().x; // Balloon's center X
-        int centerY = super.getLocation().y; // Balloon's center Y
+        int centerX = (int)super.getLocation().x; // Balloon's center X
+        int centerY = (int)super.getLocation().y; // Balloon's center Y
 
         // Generate vertices for the rounded balloon shape (e.g., a top ellipse with a taper)
         int numSides = 20; // Number of points for smooth roundness
