@@ -33,8 +33,8 @@ public class WaveList {
 
     public void strengthenEnemies(){
         for (int i = 0; i < waveList.size(); i++) {
-            float healthincrease = 1.1f;
-            float speedincrease = 1.05f;
+            float healthincrease = 1.05f;
+            float speedincrease = 1.03f;
 
             for (Enemy e : waveList.get(i).enemies){
                 e.setHealth((int) (e.getHealth()*(Math.pow(healthincrease,i))));

@@ -41,9 +41,7 @@ public class TowerDefenceGame {
     private int maxId = 0;
 
     public TowerDefenceGame() {
-        //Tower helpTower = new StandardTower(new Vector(50*6+25,50*2+25);
-        //helpTower.upgradePierce();
-        //addTower(helpTower);
+
         //addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
 
 
@@ -152,8 +150,8 @@ public class TowerDefenceGame {
 
 
     private void initWaves(GamePath p) {
-        //waveList.init(p);
-        waveList.debug(p);
+        waveList.init(p);
+        //waveList.debug(p);
     }
     public void addWaveToEnemies(Wave w) {
         for (Enemy e : w.getEnemies()) {

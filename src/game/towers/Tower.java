@@ -23,6 +23,7 @@ public abstract class Tower implements Drawable {
     private int damage;
     private Color towerColor;
     private int upgradeCost = 10;
+    private int upgradesPurchased = 0;
 
     private TowerType towerType;
 
@@ -64,18 +65,22 @@ public abstract class Tower implements Drawable {
     public void upgradeFirerate(){
         upgradeCost = upgradeCost * 3 / 2;
         firerate = firerate * 3 / 4;
+        upgradesPurchased++;
     }
     public void upgradeRange(){
         upgradeCost = upgradeCost * 3 / 2;
         range = range +20;
+        upgradesPurchased++;
     }
     public void upgradePierce(){
         upgradeCost = upgradeCost * 3 / 2;
         pierce = pierce +1;
+        upgradesPurchased++;
     }
     public void upgradeDamage(){
         upgradeCost = upgradeCost * 3 / 2;
         damage = damage +1;
+        upgradesPurchased++;
     }
 
     @Override

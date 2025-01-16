@@ -81,6 +81,7 @@ public abstract class Enemy implements Drawable {
         switch(statusEffect){
             case FREEZE:
                 speedValue /= 2;
+                System.out.println(statusDuration + " left");
                 statusDuration--;
                 break;
         }
@@ -88,27 +89,27 @@ public abstract class Enemy implements Drawable {
             currentMoveWay+=Math.abs(speed.x);
             currentMoveWay+=Math.abs(speed.y);
         }
-        if(segments.get(currentSegment).lenght<=currentMoveWay){
+        if(segments.get(currentSegment).lenght<=currentMoveWay) {
             currentSegment++;
             currentMoveWay = 0;
-            switch (segments.get(currentSegment).direction){
-                case 1:
-                    speed = new Vector(0,-speedValue);
-                    break;
-                case 2:
-                    speed = new Vector(speedValue,0);
-                    break;
-                case 3:
-                    speed = new Vector(0,speedValue);
-                    break;
-                case 4:
-                    speed = new Vector(-speedValue,0);
-                    break;
-                case 5:
-                    damage = health;
-                    health = -9999999;
-                    break;
-            }
+        }
+        switch (segments.get(currentSegment).direction){
+            case 1:
+                speed = new Vector(0,-speedValue);
+                break;
+            case 2:
+                speed = new Vector(speedValue,0);
+                break;
+            case 3:
+                speed = new Vector(0,speedValue);
+                break;
+            case 4:
+                speed = new Vector(-speedValue,0);
+                break;
+            case 5:
+                damage = health;
+                health = -9999999;
+                break;
         }
         location.add(speed);
         speedValue = standardSpeed;

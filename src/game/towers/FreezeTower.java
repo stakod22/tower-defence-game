@@ -18,7 +18,7 @@ public class FreezeTower extends Tower {
         setCost(10);
         setFirerate(75);
         setPierce(1);
-        setDamage(2);
+        setDamage(1);
     }
 
 
