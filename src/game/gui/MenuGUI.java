@@ -49,6 +49,59 @@ public class MenuGUI implements Drawable {
         initMenuButtons();
     }
 
+    public void drawPriceText(Graphics2D g){
+        if(menuOpen){
+            g.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+            if(menuSide.equals("LEFT")){
+                g.setColor(Color.black);
+                if (tower.getUpgradeFireRateCost() == 320) {
+                    g.drawString("MAX", 80, 140);
+                } else {
+                    g.drawString(tower.getUpgradeFireRateCost() + " 🪙", 80, 140);
+                }
+                if (tower.getUpgradeRangeCost() == 320) {
+                    g.drawString("MAX", 80, 240);
+                } else {
+                    g.drawString(tower.getUpgradeRangeCost() + " 🪙", 80, 240);
+                }
+                if (tower.getUpgradeDamageCost() == 320) {
+                    g.drawString("MAX", 80, 340);
+                } else {
+                    g.drawString(tower.getUpgradeDamageCost() + " 🪙", 80, 340);
+                }
+                if (tower.getUpgradePierceCost() == 320) {
+                    g.drawString("MAX", 80, 440);
+                } else {
+                    g.drawString(tower.getUpgradePierceCost() + " 🪙", 80, 440);
+                }
+
+            }else if(menuSide.equals("RIGHT")) {
+                g.setColor(Color.black);
+                if (tower.getUpgradeFireRateCost() == 320) {
+                    g.drawString("MAX", 680, 140);
+                } else {
+                    g.drawString(tower.getUpgradeFireRateCost() + " 🪙", 680, 140);
+                }
+                if (tower.getUpgradeRangeCost() == 320) {
+                    g.drawString("MAX", 680, 240);
+                } else {
+                    g.drawString(tower.getUpgradeRangeCost() + " 🪙", 680, 240);
+                }
+                if (tower.getUpgradeDamageCost() == 320) {
+                    g.drawString("MAX", 680, 340);
+                } else {
+                    g.drawString(tower.getUpgradeDamageCost() + " 🪙", 680, 340);
+                }
+                if (tower.getUpgradePierceCost() == 320) {
+                    g.drawString("MAX", 680, 440);
+                } else {
+                    g.drawString(tower.getUpgradePierceCost() + " 🪙", 680, 440);
+                }
+
+            }
+        }
+    }
+
     public void closeUpgradeMenu(){
         menuOpen = false;
         for(int i = 0; i < 5;i++){
@@ -72,14 +125,14 @@ public class MenuGUI implements Drawable {
             buttons.add(new Button(new Vector(25, 75),150,75,"Fire rate", Color.orange, "FireRateUpgrade"));
             buttons.add(new Button(new Vector(25, 175),150,75,"Range", new Color(79, 181, 55, 255), "RangeUpgrade"));
             buttons.add(new Button(new Vector(25, 275),150,75,"Damage", Color.red, "DamageUpgrade"));
-            buttons.add(new Button(new Vector(25, 375),150,75,"Pierce", new Color(99, 6, 6), "PierceUpgrade"));
+            buttons.add(new Button(new Vector(25, 375),150,75,"Pierce", new Color(70, 163, 230), "PierceUpgrade"));
         } else if (menuSide.equals("RIGHT")) {
             buttons.add(new Button(new Vector(760, 20), 20, 20, "X", Color.red, "ExitUpgradeMenu"));
 
             buttons.add(new Button(new Vector(625, 75),150,75,"Fire rate", Color.orange, "FireRateUpgrade"));
             buttons.add(new Button(new Vector(625, 175),150,75,"Range", new Color(79, 181, 55, 255), "RangeUpgrade"));
             buttons.add(new Button(new Vector(625, 275),150,75,"Damage", Color.red, "DamageUpgrade"));
-            buttons.add(new Button(new Vector(625, 375),150,75,"Pierce", new Color(99, 6, 6), "PierceUpgrade"));
+            buttons.add(new Button(new Vector(625, 375),150,75,"Pierce", new Color(70, 163, 230), "PierceUpgrade"));
         }
 
     }

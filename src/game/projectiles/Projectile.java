@@ -103,7 +103,7 @@ public class Projectile implements Drawable {
 
     @Override
     public void update() {
-        if(damageType == DamageType.INSTANT){
+        if(damageType == DamageType.RAY){
             location.x = targetLocation.x;
             location.y = targetLocation.y;
         }else{

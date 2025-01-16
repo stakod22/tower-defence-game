@@ -34,6 +34,10 @@ public class Vector {
         this.y /= other;
     }
 
+    public float angle(Vector other){
+        return (float)Math.atan2(other.y - this.y, other.x - this.x);
+    }
+
     public double distanceToOther(Vector other){
         if (other == null){
             return -1;

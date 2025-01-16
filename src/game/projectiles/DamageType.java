@@ -3,5 +3,5 @@ package game.projectiles;
 public enum DamageType {
     NORMAL,
     FREEZE,
-    INSTANT
+    RAY
 }

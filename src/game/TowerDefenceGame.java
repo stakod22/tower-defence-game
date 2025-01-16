@@ -28,8 +28,9 @@ public class TowerDefenceGame {
     private final ProjectileList projectileList = new ProjectileList();
     private final List<game.gui.Button> buttons = new ArrayList<>();
     private final WaveList waveList = new WaveList();
+    private final Background background = new Background();
     private int health = 150;
-    private int money = 100;
+    private int money = 1000;
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
     private boolean placingMode = false;
@@ -43,7 +44,7 @@ public class TowerDefenceGame {
     public TowerDefenceGame() {
 
         //addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
-
+        addTower(new ShotgunTower(new Vector(CELL_WIDTH*6+25,CELL_HEIGHT*3+25)));
 
 
 
@@ -67,6 +68,7 @@ public class TowerDefenceGame {
     public void update() {
         if(!win){
             figures.clear();
+            figures.add(background);
             figures.add(gui);
             figures.add(gamePath);
             figures.addAll(towerList.getTowerList());
@@ -76,11 +78,11 @@ public class TowerDefenceGame {
             figures.addAll(buttons);
 
             if (!lost){
+                updateGUI();
                 if(!paused){
                     projectileList.addAllProjectiles(towerList.update(enemyList));
                     projectileList.update(enemyList);
                     enemyList.update();
-                    updateGUI();
 
                     // updating
                     for (Drawable d : figures) {
@@ -123,6 +125,7 @@ public class TowerDefenceGame {
                 for (Drawable d : figures) {
                     d.draw(g);
                 }
+                menuGUI.drawPriceText(g);
 
                 // Use a font that supports emoji
                 g.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
@@ -132,7 +135,11 @@ public class TowerDefenceGame {
                 g.drawString("Health: " + health + " ♥️", 825, 20);
 
                 // Draw money with a gold coin substitute (circle)
-                g.drawString("Money: " + money + " 🪙", 825, 50);
+                g.drawString("Money: " + money + " 🪙", 825, 45);
+
+                g.drawString("Wave: " + waveList.getCurrentWave() + " \uD83C\uDF0A", 825, 70);
+
+                drawTowerPrice(g);
 
             } else {
                 g.setFont(veryBigFont);
@@ -262,6 +269,7 @@ public class TowerDefenceGame {
                     gui.setTowerRange(freezeTower.getRange());
                     break;
                 case "Menu":
+                    placingMode = false;
                     paused = !paused;
                     break;
                 case "TowerPlaced":
@@ -368,12 +376,18 @@ public class TowerDefenceGame {
         gui.setPlacingmode(placingMode);
     }
     private void initButtons(){
-        addButton(new game.gui.Button(new Vector(825,75),140,75,"Standard Tower", Color.blue,"BuyTower1"));
-        addButton(new game.gui.Button(new Vector(825,175),140,75,"Rapid Fire Tower", Color.orange,"BuyTower2"));
-        addButton(new game.gui.Button(new Vector(825,275),140,75,"Sniper Tower", new Color(64, 163, 79),"BuyTower3"));
-        addButton(new game.gui.Button(new Vector(825,375),140, 75,"Freeze Tower", Color.cyan,"BuyTower4"));
+        addButton(new game.gui.Button(new Vector(825,100),140,75,"Standard Tower", Color.blue,"BuyTower1"));
+        addButton(new game.gui.Button(new Vector(825,200),140,75,"Rapid Fire Tower", Color.orange,"BuyTower2"));
+        addButton(new game.gui.Button(new Vector(825,300),140,75,"Sniper Tower", new Color(64, 163, 79),"BuyTower3"));
+        addButton(new game.gui.Button(new Vector(825,400),140, 75,"Freeze Tower", Color.cyan,"BuyTower4"));
 
         addButton(new game.gui.Button(new Vector(825,700),140,50,"Pause", new Color(76, 76, 76),"Menu"));
+    }
+    private void drawTowerPrice(Graphics2D g){
+        g.drawString( new StandardTower(new Vector(0,0)).getCost()+ " 🪙", 875, 165);
+        g.drawString( new RapidFireTower(new Vector(0,0)).getCost()+ " 🪙", 875, 265);
+        g.drawString( new SniperTower(new Vector(0,0)).getCost()+ " 🪙", 875, 365);
+        g.drawString( new FreezeTower(new Vector(0,0)).getCost()+ " 🪙", 875, 465);
     }
 }
 

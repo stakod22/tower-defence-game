@@ -44,7 +44,7 @@ public abstract class Tower implements Drawable {
     abstract Projectile shootProjectile();
 
 
-    private void seeEnemies(EnemyList enemies){
+    public void seeEnemies(EnemyList enemies){
         List<Enemy> seenEnemies;
         seenEnemies = enemies.inRange(range, location).getSortedEnemyList("distance");
         if (!seenEnemies.isEmpty()){
@@ -249,5 +249,16 @@ public abstract class Tower implements Drawable {
 
     public void setUpgradeRangeCost(int upgradeRangeCost) {
         this.upgradeRangeCost = upgradeRangeCost;
+    }
+
+    public int getShootableFrameCount() {
+        return shootableFrameCount;
+    }
+
+    public void setShootableFrameCount(int shootableFrameCount) {
+        this.shootableFrameCount = shootableFrameCount;
+    }
+    public void addShootableFrameCount(){
+        shootableFrameCount++;
     }
 }
