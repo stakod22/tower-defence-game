@@ -26,11 +26,10 @@ public class EnemyList{
         List<Enemy> newList = enemyList;
         switch (param){
             case "distance":
-                newList.sort((a, b) -> (int) (a.getDistanceTraveled()-b.getDistanceTraveled()));
-                System.out.println(newList);
+                newList.sort((a, b) -> (int) (b.getDistanceTraveled()-a.getDistanceTraveled()));
                 break;
             case "health":
-                newList.sort((a, b) -> a.getHealth()-b.getHealth());
+                newList.sort((a, b) -> b.getHealth()-a.getHealth());
                 break;
             default:
                 return newList;
