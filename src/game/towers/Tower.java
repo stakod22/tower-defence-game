@@ -35,6 +35,7 @@ public abstract class Tower implements Drawable {
     private int timeAfterShoot = 0;
     private float canonLength = 20;
     private float canonStroke = 1;
+    private Color canonColor = new Color(0,0,0, 105);
 
     private TowerType towerType;
 
@@ -139,11 +140,12 @@ public abstract class Tower implements Drawable {
         }
         float xOffset = (float)(Math.cos(angle)*canonLength);
         float yOffset = (float) (Math.sin(angle)*canonLength);
-        g.setColor(Color.black);
+        g.setColor(canonColor);
 
 
         g.drawLine((int)location.x,(int)location.y,(int)(location.x+xOffset),(int)(location.y+yOffset));
         g.setStroke(new BasicStroke());
+        g.setColor(Color.BLACK);
         canonLength = 20;
     }
 
@@ -152,29 +154,29 @@ public abstract class Tower implements Drawable {
         //Damage
         canonStroke = ((float)upgradeDamagePurchased*(1.5f))+1.0f;
 
-        //Range
+        //Pierce
         g.setColor(Color.red);
-        if(upgradeRangePurchased>=1){
+        if(upgradePiercePurchased>=1){
             int[] xPoints = new int[]{(int)location.x-20,(int)location.x-20+10,(int)location.x-20};
             int[] yPoints = new int[]{(int)location.y-20,(int)location.y-20,(int)location.y-20+10};
             g.fillPolygon(xPoints, yPoints, 3);
         }
-        if(upgradeRangePurchased>=2){
+        if(upgradePiercePurchased>=2){
             int[] xPoints = new int[]{(int)location.x+20,(int)location.x+20-10,(int)location.x+20};
             int[] yPoints = new int[]{(int)location.y-20,(int)location.y-20,(int)location.y-20+10};
             g.fillPolygon(xPoints, yPoints, 3);
         }
-        if(upgradeRangePurchased>=3){
+        if(upgradePiercePurchased>=3){
             int[] xPoints = new int[]{(int)location.x-20,(int)location.x-20+10,(int)location.x-20};
             int[] yPoints = new int[]{(int)location.y+20,(int)location.y+20,(int)location.y+20-10};
             g.fillPolygon(xPoints, yPoints, 3);
         }
-        if (upgradeRangePurchased>=4){
+        if (upgradePiercePurchased>=4){
             int[] xPoints = new int[]{(int)location.x+20,(int)location.x+20-10,(int)location.x+20};
             int[] yPoints = new int[]{(int)location.y+20,(int)location.y+20,(int)location.y+20-10};
             g.fillPolygon(xPoints, yPoints, 3);
         }
-        if (upgradeRangePurchased>=5){
+        if (upgradePiercePurchased>=5){
             g.setStroke(new BasicStroke(8.0f));
 
             g.drawRect((int)location.x-18,(int)location.y-18,36,36);
@@ -183,19 +185,35 @@ public abstract class Tower implements Drawable {
 
         //Range
         if (upgradeRangePurchased >= 1){
-            canonLength = 22;
-        }
-        if (upgradeRangePurchased >= 2){
             canonLength = 24;
         }
-        if (upgradeRangePurchased >= 3){
-            canonLength = 26;
-        }
-        if (upgradeRangePurchased >= 4){
+        if (upgradeRangePurchased >= 2){
             canonLength = 28;
         }
+        if (upgradeRangePurchased >= 3){
+            canonLength = 32;
+        }
+        if (upgradeRangePurchased >= 4){
+            canonLength = 36;
+        }
         if (upgradeRangePurchased >= 5){
-            canonLength = 30;
+            canonLength = 40;
+        }
+
+        if (upgradeFireRatePurchased >= 1){
+            canonColor = new Color(0,0,0,135);
+        }
+        if (upgradeFireRatePurchased >= 2){
+            canonColor = new Color(0,0,0,165);
+        }
+        if (upgradeFireRatePurchased >= 3){
+            canonColor = new Color(0,0,0,195);
+        }
+        if (upgradeFireRatePurchased >= 4){
+            canonColor = new Color(0,0,0,225);
+        }
+        if (upgradeFireRatePurchased >= 5){
+            canonColor = new Color(0,0,0,255);
         }
 
     }
