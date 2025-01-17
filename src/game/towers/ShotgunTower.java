@@ -12,7 +12,7 @@ public class ShotgunTower extends Tower{
 
     public ShotgunTower(Vector location) {
         super(location,50);
-        setCost(25);
+        setCost(35);
         setFirerate(100);
         setPierce(1);
         setDamage(1);
@@ -61,8 +61,8 @@ public class ShotgunTower extends Tower{
 
 
         float currentAngle = (float) Math.atan2(
-                getTarget().y - getLocation().y, // Ziel - Ursprung NICHT URSPRUNG - ZIEL LUKAS
-                getTarget().x - getLocation().x  // Ziel - Ursprung
+                getTarget().y - getLocation().y,
+                getTarget().x - getLocation().x
         );
 
         currentAngle += rad;

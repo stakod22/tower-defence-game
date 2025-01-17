@@ -79,12 +79,13 @@ public abstract class Enemy implements Drawable {
 
     @Override
     public void update() {
+        boolean frozen = false;
         if(location.y>=0 && location.x >= 0){
             currentMoveWay+=Math.abs(speed.x);
             currentMoveWay+=Math.abs(speed.y);
 
-            distanceTraveled += speed.x;
-            distanceTraveled += speed.y;
+            distanceTraveled += Math.abs(speed.x);
+            distanceTraveled += Math.abs(speed.y);
         }
 
         if(segments.get(currentSegment).lenght<=currentMoveWay) {
@@ -113,7 +114,16 @@ public abstract class Enemy implements Drawable {
         for (int i = 0; i < statusEffects.size(); i++) {
             switch(statusEffects.get(i).damageType) {
                 case FREEZE:
-                    speed.divide(2.f);
+                    if(!frozen){
+                        speed.divide(2.f);
+                        frozen=true;
+                    }
+                    break;
+                case REGEN:
+                    if (statusEffects.get(i).damageDuration == 25){
+                        health++;
+                        statusEffects.get(i).damageDuration = 225;
+                    }
                     break;
             }
             statusEffects.get(i).damageDuration--;
@@ -122,19 +132,22 @@ public abstract class Enemy implements Drawable {
             }
         }
         location.add(speed);
-
     }
 
     @Override
     public void draw(Graphics2D g) {
+        boolean frozen = false;
         g.setColor(getColor());
         g.fillRect((int) location.x-size/2,(int) location.y-size/2, size, size);
 
         for (int i = 0; i < statusEffects.size(); i++) {
             switch(statusEffects.get(i).damageType) {
                 case FREEZE:
+                    if(!frozen){
+                        frozen = true;
                     g.setColor(new Color( 49, 199, 245, 64));
                     g.fillRect((int) location.x-size/2,(int) location.y-size/2, size, size);
+                    }
                     break;
             }
         }

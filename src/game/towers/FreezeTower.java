@@ -7,16 +7,12 @@ import game.projectiles.Projectile;
 import java.awt.*;
 
 
-
-//NOT WORKING RIGHT NOW
-
-
 public class FreezeTower extends Tower {
     public FreezeTower(Vector location) {
         super(location,75);
         setTowerColor(Color.CYAN);
         setCost(20);
-        setFirerate(75);
+        setFirerate(25);
         setPierce(1);
         setDamage(1);
     }

@@ -23,11 +23,6 @@ public class GUI implements Drawable {
 
     @Override
     public void draw(Graphics2D g) {
-        for(int i = 0; i<=15;i++){
-            for(int j = 0; j<=15;j++){
-                g.drawRect(j*50,i*50,50,50);
-            }
-        }
         g.setColor(Color.gray);
         g.fillRect(800,0,200,800);
         g.setColor(Color.BLACK);
@@ -41,8 +36,13 @@ public class GUI implements Drawable {
         }
         GamePath gamePath = new GamePath();
         if(placingmode&&cellEmpty&&mouseGrid.x<=15 && mouseGrid.y<=15&& !gamePath.isOnPath((int)mouseGrid.x, (int)mouseGrid.y)){
-
             g.fillRect((int) (5+mouseGrid.x*50),(int) (5+mouseGrid.y*50),40,40);
+            g.setColor(new Color(95, 202, 87));
+            for(int i = 0; i<=15;i++){
+                for(int j = 0; j<=15;j++){
+                    g.drawRect(j*50,i*50,50,50);
+                }
+            }
             g.setColor(Color.BLACK);
             drawRange(g, new Vector(mouseGrid.x*50+25,mouseGrid.y*50+25));
         }

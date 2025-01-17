@@ -103,16 +103,11 @@ public class Projectile implements Drawable {
 
     @Override
     public void update() {
-        if(damageType == DamageType.RAY){
-            location.x = targetLocation.x;
-            location.y = targetLocation.y;
-        }else{
-            float x2 = (float) (speed * Math.cos(angle));
-            float y2 = (float) (speed * Math.sin(angle));
+        float x2 = (float) (speed * Math.cos(angle));
+        float y2 = (float) (speed * Math.sin(angle));
 
-            location.x += (int) x2;
-            location.y += (int) y2;
-        }
+        location.x += (int) x2;
+        location.y += (int) y2;
 
     }
 
@@ -230,6 +225,17 @@ public class Projectile implements Drawable {
 
         public Projectile build(){
             Projectile p = new Projectile();
+            finalizeBuild(p);
+            return p;
+        }
+
+        public Projectile buildRay(){
+            Projectile p = new RayProjectile();
+            finalizeBuild(p);
+            return p;
+        }
+
+        public Projectile finalizeBuild(Projectile p){
             p.setLocation(location);
             p.setTargetLocation(targetLocation);
             p.setDamage(damage);

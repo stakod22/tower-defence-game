@@ -38,6 +38,18 @@ public class Vector {
         return (float)Math.atan2(other.y - this.y, other.x - this.x);
     }
 
+    public float dot(Vector other) {
+        return this.x * other.x + this.y * other.y;
+    }
+
+    public Vector subtract(Vector other) {
+        return new Vector(this.x - other.x, this.y - other.y);
+    }
+
+    public Vector perpendicular() {
+        return new Vector(-this.y, this.x);
+    }
+
     public double distanceToOther(Vector other){
         if (other == null){
             return -1;

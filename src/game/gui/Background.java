@@ -1,6 +1,5 @@
 package game.gui;
 
-import game.TowerDefenceGame;
 import game.framework.Drawable;
 import game.framework.Vector;
 
@@ -13,64 +12,49 @@ public class Background implements Drawable {
     private List<Vector> flowers = new ArrayList<>();
     private List<Vector> trees = new ArrayList<>();
     private List<Vector> grassTextures = new ArrayList<>();
-    private List<Vector> riverTiles = new ArrayList<>();
+    private List<Vector> bushes = new ArrayList<>();
+    private List<Vector> rocks = new ArrayList<>();
+    private List<Vector> cloudShadows = new ArrayList<>();
+    private Random rand = new Random();
 
     public Background() {
-        Random rand = new Random();
-
-        // Define river tiles (one cell to the left)
-        for (int y = 0; y < 16; y++) {
-            riverTiles.add(new Vector(150, y * TowerDefenceGame.CELL_HEIGHT));
-        }
-
         // Generate random flowers
-        int randomFlowerNumber = rand.nextInt(20) + 20;
-        for (int i = 0; i < randomFlowerNumber; i++) {
-            int randomX;
-            int randomY;
-            do {
-                randomX = rand.nextInt(16);
-                randomY = rand.nextInt(16);
-            } while (isOnRiver(randomX, randomY));
-
-            Vector flower = new Vector(randomX * TowerDefenceGame.CELL_WIDTH + 25, randomY * TowerDefenceGame.CELL_HEIGHT + 25);
-            flowers.add(flower);
-        }
+        generateElements(flowers, 40, 16, 16);
 
         // Generate random trees
-        int randomTreeNumber = rand.nextInt(10) + 10;
-        for (int i = 0; i < randomTreeNumber; i++) {
-            int randomX;
-            int randomY;
-            do {
-                randomX = rand.nextInt(16);
-                randomY = rand.nextInt(16);
-            } while (isOnRiver(randomX, randomY));
+        generateElements(trees, 20, 30, 30);
 
-            trees.add(new Vector(randomX * TowerDefenceGame.CELL_WIDTH, randomY * TowerDefenceGame.CELL_HEIGHT));
+        // Generate random grass texture spots (doesn't need collision detection)
+        for (int i = 0; i < rand.nextInt(80) + 100; i++) {
+            grassTextures.add(new Vector(rand.nextInt(800), rand.nextInt(800)));
         }
 
-        // Generate random grass texture spots
-        int grassTextureNumber = rand.nextInt(50) + 50;
-        for (int i = 0; i < grassTextureNumber; i++) {
-            int randomX = rand.nextInt(800);
-            int randomY = rand.nextInt(800);
-            grassTextures.add(new Vector(randomX, randomY));
-        }
+        // Generate random bushes
+        generateElements(bushes, 20, 30, 20);
+
+        // Generate random rocks
+        generateElements(rocks, 20, 20, 10);
+
+        // Generate cloud shadows (clouds are large but scattered)
+        generateElements(cloudShadows, 10, 100, 50);
+
     }
 
     @Override
     public void update() {
-        // No dynamic updates needed for the background currently
+        // Move cloud shadows slowly to create a dynamic effect
+        for (Vector cloud : cloudShadows) {
+            cloud.x += 0.5;
+            if (cloud.x > 690) {
+                cloud.x = -100; // Reset cloud shadow position
+            }
+        }
     }
 
     @Override
     public void draw(Graphics2D g) {
-        // Draw grassy field with slight variations
+        // Draw grassy field with texture
         drawGrassyField(g);
-
-        // Draw river
-        drawRiver(g);
 
         // Draw trees
         for (Vector tree : trees) {
@@ -79,59 +63,130 @@ public class Background implements Drawable {
 
         // Draw flowers
         for (Vector flower : flowers) {
-            drawFlower(g, (int) flower.x, (int) flower.y);
+            drawFlower(g, flower);
         }
 
-        g.setColor(Color.BLACK);
+        // Draw bushes
+        for (Vector bush : bushes) {
+            drawBush(g, (int) bush.x, (int) bush.y);
+        }
+
+        // Draw rocks
+        for (Vector rock : rocks) {
+            drawRock(g, (int) rock.x, (int) rock.y);
+        }
+
+        // Draw cloud shadows
+
+
     }
 
     private void drawGrassyField(Graphics2D g) {
         g.setColor(new Color(138, 255, 132));
         g.fillRect(0, 0, 800, 800);
 
-        // Add texture to the grassy field
         g.setColor(new Color(123, 240, 115));
         for (Vector texture : grassTextures) {
             g.fillOval((int) texture.x, (int) texture.y, 5, 5);
         }
     }
 
-    private void drawFlower(Graphics2D g2d, int x, int y) {
-        // Set color for the flower petals
-        g2d.setColor(Color.PINK);
+    private void drawFlower(Graphics2D g2d, Vector flower) {
+        int flowerType = flowers.indexOf(flower) % 3;
+        int x = (int) flower.x;
+        int y = (int) flower.y;
 
-        // Draw petals
-        g2d.fillOval(x - 10, y - 10, 20, 20); // Petal circle
+        switch (flowerType) {
+            case 0 -> drawDaisy(g2d, x, y);
+            case 1 -> drawTulip(g2d, x, y);
+            case 2 -> drawSunflower(g2d, x, y);
+        }
+    }
 
-        // Set color for the flower center
+    private void drawDaisy(Graphics2D g2d, int x, int y) {
+        g2d.setColor(Color.WHITE);
+        g2d.fillOval(x - 8, y - 8, 16, 16); // Petals
         g2d.setColor(Color.YELLOW);
-        g2d.fillOval(x - 5, y - 5, 10, 10); // Center circle
+        g2d.fillOval(x - 4, y - 4, 8, 8); // Center
+    }
+
+    private void drawTulip(Graphics2D g2d, int x, int y) {
+        g2d.setColor(Color.RED);
+        g2d.fillOval(x - 6, y - 10, 12, 12); // Tulip bloom
+        g2d.setColor(new Color(34, 139, 34));
+        g2d.fillRect(x - 1, y, 2, 8); // Stem
+    }
+
+    private void drawSunflower(Graphics2D g2d, int x, int y) {
+        g2d.setColor(new Color(218, 165, 32)); // Sunflower petals
+        g2d.fillOval(x - 10, y - 10, 20, 20);
+        g2d.setColor(new Color(139, 69, 19)); // Sunflower center
+        g2d.fillOval(x - 5, y - 5, 10, 10);
     }
 
     private void drawTree(Graphics2D g2d, int x, int y) {
-        // Draw trunk
-        g2d.setColor(new Color(139, 69, 19)); // Brown color
+        g2d.setColor(new Color(139, 69, 19)); // Trunk
         g2d.fillRect(x - 5, y, 10, 30);
-
-        // Draw leaves
-        g2d.setColor(new Color(34, 139, 34)); // Green color
+        g2d.setColor(new Color(34, 139, 34)); // Leaves
         g2d.fillOval(x - 15, y - 20, 30, 30);
     }
 
-    private void drawRiver(Graphics2D g2d) {
-        g2d.setColor(new Color(64, 164, 223)); // River blue color
+    private void drawBush(Graphics2D g2d, int x, int y) {
+        g2d.setColor(new Color(34, 139, 34));
+        g2d.fillOval(x - 15, y - 10, 30, 20);
+    }
 
-        for (Vector tile : riverTiles) {
-            g2d.fillRect((int) tile.x, (int) tile.y, TowerDefenceGame.CELL_WIDTH, TowerDefenceGame.CELL_HEIGHT);
+    private void drawRock(Graphics2D g2d, int x, int y) {
+        g2d.setColor(Color.GRAY);
+        g2d.fillOval(x - 10, y - 5, 20, 10);
+    }
+
+    public void drawCloudShadow(Graphics2D g2d) {
+        for (Vector cloud : cloudShadows) {
+            int x = (int)cloud.x;
+            int y = (int)cloud.y;
+            g2d.setColor(new Color(0, 0, 0, 50)); // Semi-transparent black for shadow
+            g2d.fillOval(x, y, 100, 50);
         }
     }
 
-    private boolean isOnRiver(int gridX, int gridY) {
-        for (Vector riverTile : riverTiles) {
-            if (riverTile.x / TowerDefenceGame.CELL_WIDTH == gridX && riverTile.y / TowerDefenceGame.CELL_HEIGHT == gridY) {
-                return true;
+    private void generateElements(List<Vector> elements, int count, int width, int height) {
+        for (int i = 0; i < count; i++) {
+            Vector position;
+            do {
+                position = new Vector(rand.nextInt(800 - width), rand.nextInt(800 - height));
+            } while (isOverlapping(position, elements, width, height));
+            elements.add(position);
+        }
+    }
+
+    private boolean isOverlapping(Vector position, List<Vector> existingElements, int width, int height) {
+        for (Vector other : existingElements) {
+            if (Math.abs(position.x - other.x) < width && Math.abs(position.y - other.y) < height) {
+                return true; // Overlapping
             }
         }
         return false;
+    }
+
+    // Inner class for buildings
+    private static class Building {
+        int x, y, width, height;
+        Color color;
+
+        public Building(int x, int y, int width, int height, Color color) {
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.color = color;
+        }
+
+        public void draw(Graphics2D g) {
+            g.setColor(color);
+            g.fillRect(x, y, width, height);
+            g.setColor(Color.DARK_GRAY);
+            g.drawRect(x, y, width, height); // Outline
+        }
     }
 }

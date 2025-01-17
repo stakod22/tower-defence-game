@@ -11,7 +11,7 @@ public class StandartEnemy extends Enemy{
     public StandartEnemy(Vector location, List<PathSegment> segments) {
         super(location,5, segments, 1);
         super.setSize(30);
-        super.setMoneyToGive(2);
+        super.setMoneyToGive(3);
         super.setColor(Color.cyan);
     }
 

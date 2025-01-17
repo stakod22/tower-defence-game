@@ -30,8 +30,11 @@ public abstract class Tower implements Drawable {
     private int upgradeDamagePurchased = 0;
     private int upgradeRangeCost = 10;
     private int upgradeRangePurchased = 0;
-
-
+    private double angle = Math.PI / -2;
+    private boolean shoot = false;
+    private int timeAfterShoot = 0;
+    private float canonLength = 20;
+    private float canonStroke = 1;
 
     private TowerType towerType;
 
@@ -63,6 +66,7 @@ public abstract class Tower implements Drawable {
         if(willShoot){
             if (shootableFrameCount >= firerate){
                 projectiles.add(shootProjectile());
+                shoot = true;
                 shootableFrameCount = 0;
             }
         }
@@ -108,10 +112,92 @@ public abstract class Tower implements Drawable {
 
     }
 
+
+
     @Override
     public void draw(Graphics2D g) {
         g.setColor(towerColor);
         g.fillRect((int) getLocation().x-20,(int) getLocation().y-20,40,40);
+
+        drawUpgrades(g);
+
+        if(target != null) {
+            float x1 = target.x - location.x;
+            float y1 = target.y - location.y;
+            angle = Math.atan2(y1, x1);
+        }
+
+        g.setStroke(new BasicStroke(10.0f+canonStroke));
+        if(shoot||timeAfterShoot>0){
+            g.setStroke(new BasicStroke(17.0f+canonStroke));
+            canonLength = 8;
+            shoot = false;
+            timeAfterShoot++;
+            if(timeAfterShoot>=3){
+                timeAfterShoot = 0;
+            }
+        }
+        float xOffset = (float)(Math.cos(angle)*canonLength);
+        float yOffset = (float) (Math.sin(angle)*canonLength);
+        g.setColor(Color.black);
+
+
+        g.drawLine((int)location.x,(int)location.y,(int)(location.x+xOffset),(int)(location.y+yOffset));
+        g.setStroke(new BasicStroke());
+        canonLength = 20;
+    }
+
+    public void drawUpgrades(Graphics2D g){
+        g.setColor(new Color(0, 85, 0));
+        //Damage
+        canonStroke = ((float)upgradeDamagePurchased*(1.5f))+1.0f;
+
+        //Range
+        g.setColor(Color.red);
+        if(upgradeRangePurchased>=1){
+            int[] xPoints = new int[]{(int)location.x-20,(int)location.x-20+10,(int)location.x-20};
+            int[] yPoints = new int[]{(int)location.y-20,(int)location.y-20,(int)location.y-20+10};
+            g.fillPolygon(xPoints, yPoints, 3);
+        }
+        if(upgradeRangePurchased>=2){
+            int[] xPoints = new int[]{(int)location.x+20,(int)location.x+20-10,(int)location.x+20};
+            int[] yPoints = new int[]{(int)location.y-20,(int)location.y-20,(int)location.y-20+10};
+            g.fillPolygon(xPoints, yPoints, 3);
+        }
+        if(upgradeRangePurchased>=3){
+            int[] xPoints = new int[]{(int)location.x-20,(int)location.x-20+10,(int)location.x-20};
+            int[] yPoints = new int[]{(int)location.y+20,(int)location.y+20,(int)location.y+20-10};
+            g.fillPolygon(xPoints, yPoints, 3);
+        }
+        if (upgradeRangePurchased>=4){
+            int[] xPoints = new int[]{(int)location.x+20,(int)location.x+20-10,(int)location.x+20};
+            int[] yPoints = new int[]{(int)location.y+20,(int)location.y+20,(int)location.y+20-10};
+            g.fillPolygon(xPoints, yPoints, 3);
+        }
+        if (upgradeRangePurchased>=5){
+            g.setStroke(new BasicStroke(8.0f));
+
+            g.drawRect((int)location.x-18,(int)location.y-18,36,36);
+            g.setStroke(new BasicStroke());
+        }
+
+        //Range
+        if (upgradeRangePurchased >= 1){
+            canonLength = 22;
+        }
+        if (upgradeRangePurchased >= 2){
+            canonLength = 24;
+        }
+        if (upgradeRangePurchased >= 3){
+            canonLength = 26;
+        }
+        if (upgradeRangePurchased >= 4){
+            canonLength = 28;
+        }
+        if (upgradeRangePurchased >= 5){
+            canonLength = 30;
+        }
+
     }
 
 //    public void drawRange(Graphics2D g){

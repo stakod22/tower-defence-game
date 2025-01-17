@@ -11,7 +11,7 @@ public class FastEnemy extends Enemy{
     public FastEnemy(Vector location, List<PathSegment> segments) {
         super(location,3, segments, 5);
         super.setSize(20);
-        super.setMoneyToGive(6);
+        super.setMoneyToGive(7);
         super.setColor(Color.blue);
     }
 

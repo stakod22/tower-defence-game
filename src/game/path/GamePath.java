@@ -74,8 +74,10 @@ public class GamePath implements Drawable {
     @Override
     public void draw(Graphics2D g) {
         for(Vector v : pathTiles){
-            g.setColor(Color.RED);
-            g.fillRect((int)v.x,(int)v.y,50,50);
+            int x = (int)v.x;
+            int y = (int)v.y;
+            g.setColor(new Color(1, 93, 149));
+            g.fillRect(x,y,50,50);
             g.setColor(Color.BLACK);
         }
     }

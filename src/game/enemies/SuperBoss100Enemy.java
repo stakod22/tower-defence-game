@@ -1,16 +1,16 @@
 package game.enemies;
 
-import game.path.PathSegment;
 import game.framework.Vector;
+import game.path.PathSegment;
 
 import java.awt.*;
 import java.util.List;
 
-public class BossEnemy extends Enemy{
-    public BossEnemy(Vector location, List<PathSegment> segments) {
-        super(location,50, segments, 1);
+public class SuperBoss100Enemy extends Enemy{
+    public SuperBoss100Enemy(Vector location, List<PathSegment> segments) {
+        super(location,1000, segments, 1);
         super.setSize(40);
-        super.setMoneyToGive(46);
+        super.setMoneyToGive(501);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class BossEnemy extends Enemy{
         yPoints[numSides + 1] = centerY + balloonHeight / 3; // Taper point
 
         // Draw the balloon body
-        g.setColor(Color.blue);
+        g.setColor(new Color(211,59,223));
         g.fillPolygon(xPoints, yPoints, numSides + 2);
 
         // Draw the basket
@@ -64,5 +64,4 @@ public class BossEnemy extends Enemy{
         g.drawString("" + getId(), centerX - 10, centerY);
         g.setColor(Color.black);
     }
-
 }

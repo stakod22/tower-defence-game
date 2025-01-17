@@ -27,7 +27,7 @@ public class TowerDefenceGame {
     private final GamePath gamePath = new GamePath();
     private final ProjectileList projectileList = new ProjectileList();
     private final List<game.gui.Button> buttons = new ArrayList<>();
-    private final WaveList waveList = new WaveList();
+    private final WaveList waveList = new WaveList(100);
     private final Background background = new Background();
     private int health = 150;
     private int money = 1000;
@@ -44,7 +44,8 @@ public class TowerDefenceGame {
     public TowerDefenceGame() {
 
         //addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
-        addTower(new ShotgunTower(new Vector(CELL_WIDTH*6+25,CELL_HEIGHT*3+25)));
+        //addTower(new FreezeTower(new Vector(CELL_WIDTH*6+25,CELL_HEIGHT*3+25)));
+        //addEnemy(new RegenEnemy(new Vector(250, -50), gamePath.getSegments()));
 
 
 
@@ -123,7 +124,14 @@ public class TowerDefenceGame {
         } else {
             if (!lost) {
                 for (Drawable d : figures) {
-                    d.draw(g);
+                    if(d.getClass()!=MenuGUI.class&&d.getClass()!=Button.class){
+                        d.draw(g);
+                    }
+                }
+                background.drawCloudShadow(g);
+                menuGUI.draw(g);
+                for(Button b:buttons){
+                    b.draw(g);
                 }
                 menuGUI.drawPriceText(g);
 
@@ -175,7 +183,7 @@ public class TowerDefenceGame {
         for(Button b : buttons){
             if(b.pressedButton(x,y)){
                 buttonName = b.getName();
-                if(buttonName.equals("TowerPlaced")){
+                if(buttonName.equals("TowerPlaced")&&!menuGUI.isMenuOpen()){
                     TowerButton towerButton = (TowerButton) b;
                     currentTowerId = towerButton.getId();
                 }
@@ -267,6 +275,26 @@ public class TowerDefenceGame {
                     currentTowerType = "FreezeTower";
                     FreezeTower freezeTower = new FreezeTower(new Vector(1,1));
                     gui.setTowerRange(freezeTower.getRange());
+                    break;
+                case "BuyTower5":
+                    if(currentTowerType.equals("ShotgunTower")&&placingMode){
+                        placingMode = false;
+                    }else{
+                        placingMode = true;
+                    }
+                    currentTowerType = "ShotgunTower";
+                    ShotgunTower shotgunTower = new ShotgunTower(new Vector(1,1));
+                    gui.setTowerRange(shotgunTower.getRange());
+                    break;
+                case "BuyTower6":
+                    if(currentTowerType.equals("LaserTower")&&placingMode){
+                        placingMode = false;
+                    }else{
+                        placingMode = true;
+                    }
+                    currentTowerType = "LaserTower";
+                    LaserTower laserTower = new LaserTower(new Vector(1,1));
+                    gui.setTowerRange(laserTower.getRange());
                     break;
                 case "Menu":
                     placingMode = false;
@@ -368,6 +396,28 @@ public class TowerDefenceGame {
                 }
                 gui.setDeclinePlace(true);
                 break;
+            case "ShotgunTower":
+                ShotgunTower newShotgunTower = new ShotgunTower(loc);
+                if(money>= newShotgunTower.getCost()){
+                    money -= newShotgunTower.getCost();
+                    addTower(newShotgunTower);
+                    maxId++;
+                    TowerButton tb = new TowerButton(newShotgunTower, maxId);
+                    buttons.add(tb);
+                }
+                gui.setDeclinePlace(true);
+                break;
+            case "LaserTower":
+                LaserTower newLaserTower = new LaserTower(loc);
+                if(money>= newLaserTower.getCost()){
+                    money -= newLaserTower.getCost();
+                    addTower(newLaserTower);
+                    maxId++;
+                    TowerButton tb = new TowerButton(newLaserTower, maxId);
+                    buttons.add(tb);
+                }
+                gui.setDeclinePlace(true);
+                break;
         }
 
     }
@@ -380,6 +430,8 @@ public class TowerDefenceGame {
         addButton(new game.gui.Button(new Vector(825,200),140,75,"Rapid Fire Tower", Color.orange,"BuyTower2"));
         addButton(new game.gui.Button(new Vector(825,300),140,75,"Sniper Tower", new Color(64, 163, 79),"BuyTower3"));
         addButton(new game.gui.Button(new Vector(825,400),140, 75,"Freeze Tower", Color.cyan,"BuyTower4"));
+        addButton(new game.gui.Button(new Vector(825,500),140, 75,"Shotgun Tower", new Color(189,166,133),"BuyTower5"));
+        addButton(new game.gui.Button(new Vector(825,600),140, 75,"Laser Tower", new Color(253, 149,  0),"BuyTower6"));
 
         addButton(new game.gui.Button(new Vector(825,700),140,50,"Pause", new Color(76, 76, 76),"Menu"));
     }
@@ -388,6 +440,8 @@ public class TowerDefenceGame {
         g.drawString( new RapidFireTower(new Vector(0,0)).getCost()+ " 🪙", 875, 265);
         g.drawString( new SniperTower(new Vector(0,0)).getCost()+ " 🪙", 875, 365);
         g.drawString( new FreezeTower(new Vector(0,0)).getCost()+ " 🪙", 875, 465);
+        g.drawString( new ShotgunTower(new Vector(0,0)).getCost()+" 🪙",875, 565);
+        g.drawString( new LaserTower(new Vector(0,0)).getCost()+" 🪙",875, 665);
     }
 }
 
