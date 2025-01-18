@@ -35,7 +35,6 @@ public abstract class Tower implements Drawable {
     private int timeAfterShoot = 0;
     private float canonLength = 20;
     private float canonStroke = 1;
-    private Color canonColor = new Color(0,0,0, 105);
 
     private TowerType towerType;
 
@@ -140,7 +139,7 @@ public abstract class Tower implements Drawable {
         }
         float xOffset = (float)(Math.cos(angle)*canonLength);
         float yOffset = (float) (Math.sin(angle)*canonLength);
-        g.setColor(canonColor);
+        g.setColor(Color.BLACK);
 
 
         g.drawLine((int)location.x,(int)location.y,(int)(location.x+xOffset),(int)(location.y+yOffset));
@@ -201,19 +200,19 @@ public abstract class Tower implements Drawable {
         }
 
         if (upgradeFireRatePurchased >= 1){
-            canonColor = new Color(0,0,0,135);
+
         }
         if (upgradeFireRatePurchased >= 2){
-            canonColor = new Color(0,0,0,165);
+
         }
         if (upgradeFireRatePurchased >= 3){
-            canonColor = new Color(0,0,0,195);
+
         }
         if (upgradeFireRatePurchased >= 4){
-            canonColor = new Color(0,0,0,225);
+
         }
         if (upgradeFireRatePurchased >= 5){
-            canonColor = new Color(0,0,0,255);
+
         }
 
     }

@@ -10,7 +10,7 @@ import java.awt.*;
 public class LaserTower extends Tower {
     private int rayDuration;
     public LaserTower(Vector location) {
-        super(location,250);
+        super(location,200);
         setTowerColor(Color.CYAN);
         setCost(20);
         setFirerate(100);

@@ -30,7 +30,7 @@ public class TowerDefenceGame {
     private final WaveList waveList = new WaveList(100);
     private final Background background = new Background();
     private int health = 150;
-    private int money = 1000;
+    private int money = 1500;
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
     private boolean placingMode = false;
