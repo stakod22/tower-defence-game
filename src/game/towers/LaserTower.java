@@ -29,9 +29,9 @@ public class LaserTower extends Tower {
                 .setTargetLocation(target)
                 .setDamage(super.getDamage())
                 .setRadius(5)
-                .setPierce(rayDuration + super.getPierce()*10)
+                .setPierce(rayDuration + super.getPierce()*2)
                 .setDamageType(DamageType.RAY)
-                .setEffectDuration(rayDuration + super.getPierce()*10)
+                .setEffectDuration(rayDuration + super.getPierce()*2)
                 .setColor(new Color(253, 149,  0))
                 .buildRay();
     }
