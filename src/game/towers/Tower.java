@@ -35,6 +35,7 @@ public abstract class Tower implements Drawable {
     private int timeAfterShoot = 0;
     private float canonLength = 20;
     private float canonStroke = 1;
+    private float fireRateStroke = 0;
 
     private TowerType towerType;
 
@@ -143,6 +144,12 @@ public abstract class Tower implements Drawable {
 
 
         g.drawLine((int)location.x,(int)location.y,(int)(location.x+xOffset),(int)(location.y+yOffset));
+
+        if(fireRateStroke>0){
+            g.setStroke(new BasicStroke(fireRateStroke));
+            g.setColor(new Color(255, 0, 0));
+            g.drawLine((int)location.x,(int)location.y,(int)(location.x+xOffset),(int)(location.y+yOffset));
+        }
         g.setStroke(new BasicStroke());
         g.setColor(Color.BLACK);
         canonLength = 20;
@@ -150,6 +157,10 @@ public abstract class Tower implements Drawable {
 
     public void drawUpgrades(Graphics2D g){
         g.setColor(new Color(0, 85, 0));
+
+        //Fire Rate
+        fireRateStroke = ((float) upgradeFireRatePurchased);
+
         //Damage
         canonStroke = ((float)upgradeDamagePurchased*(1.5f))+1.0f;
 
@@ -197,22 +208,6 @@ public abstract class Tower implements Drawable {
         }
         if (upgradeRangePurchased >= 5){
             canonLength = 40;
-        }
-
-        if (upgradeFireRatePurchased >= 1){
-
-        }
-        if (upgradeFireRatePurchased >= 2){
-
-        }
-        if (upgradeFireRatePurchased >= 3){
-
-        }
-        if (upgradeFireRatePurchased >= 4){
-
-        }
-        if (upgradeFireRatePurchased >= 5){
-
         }
 
     }

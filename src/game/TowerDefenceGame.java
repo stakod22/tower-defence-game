@@ -9,7 +9,6 @@ import game.towers.*;
 import game.wave.*;
 import game.projectiles.*;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,9 @@ public class TowerDefenceGame {
     private final ProjectileList projectileList = new ProjectileList();
     private final List<game.gui.Button> buttons = new ArrayList<>();
     private final WaveList waveList = new WaveList(100);
-    private final Background background = new Background();
+    private BackgroundWater backgroundWater;
+    private BackgroundGrass backgroundGrass;
+    private int level = 2;
     private int health = 150;
     private int money = 1500;
     private final GUI gui = new GUI();
@@ -47,6 +48,8 @@ public class TowerDefenceGame {
         //addTower(new FreezeTower(new Vector(CELL_WIDTH*6+25,CELL_HEIGHT*3+25)));
         //addEnemy(new RegenEnemy(new Vector(250, -50), gamePath.getSegments()));
 
+        backgroundGrass = new BackgroundGrass();
+        backgroundWater =  new BackgroundWater(gamePath);
 
 
         //INIT
@@ -69,7 +72,11 @@ public class TowerDefenceGame {
     public void update() {
         if(!win){
             figures.clear();
-            figures.add(background);
+            if(level==1){
+                figures.add(backgroundGrass);
+            }else if(level==2){
+                figures.add(backgroundWater);
+            }
             figures.add(gui);
             figures.add(gamePath);
             figures.addAll(towerList.getTowerList());
@@ -128,7 +135,7 @@ public class TowerDefenceGame {
                         d.draw(g);
                     }
                 }
-                background.drawCloudShadow(g);
+                //background.drawCloudShadow(g);
                 menuGUI.draw(g);
                 for(Button b:buttons){
                     b.draw(g);

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Background implements Drawable {
+public class BackgroundGrass implements Drawable {
     private List<Vector> flowers = new ArrayList<>();
     private List<Vector> trees = new ArrayList<>();
     private List<Vector> grassTextures = new ArrayList<>();
@@ -17,7 +17,7 @@ public class Background implements Drawable {
     private List<Vector> cloudShadows = new ArrayList<>();
     private Random rand = new Random();
 
-    public Background() {
+    public BackgroundGrass() {
         // Generate random flowers
         generateElements(flowers, 40, 16, 16);
 
