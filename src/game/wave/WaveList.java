@@ -104,6 +104,7 @@ public class WaveList {
         for (int i = 0; i < 3; i++) {
             waveContend4.add(new AntiFreezeEnemy(new Vector(250, -250-100*i), gamePath.getSegments()));
         }
+        waveContend4.add(new DistractEnemy(new Vector(250, -300-100), gamePath.getSegments()));
         addWave(waveContend4);
 
 // Wave 5
@@ -153,6 +154,7 @@ public class WaveList {
         for (int i = 0; i < 8; i++) {
             waveContend7.add(new AntiFreezeEnemy(new Vector(250,-700 -120*i),gamePath.getSegments()));
         }
+        waveContend7.add(new DistractEnemy(new Vector(250, -300-100), gamePath.getSegments()));
         addWave(waveContend7);
 
 // Wave 8
@@ -192,6 +194,7 @@ public class WaveList {
         for (int i = 0; i < 4; i++) {
             waveContend10.add(new TankEnemy(new Vector(250, -850 - 100 * i), gamePath.getSegments()));
         }
+        waveContend10.add(new DistractEnemy(new Vector(250, -300-100), gamePath.getSegments()));
         addWave(waveContend10);
 
 // Wave 11 (Boss)
@@ -237,6 +240,7 @@ public class WaveList {
             waveContend15.add(new TankEnemy(new Vector(250, -350 - 100 * i), gamePath.getSegments()));
             waveContend15.add(new AntiFreezeEnemy(new Vector(250, -400 - 100 * i), gamePath.getSegments()));
             waveContend15.add(new RegenEnemy(new Vector(250,-33-120*i), gamePath.getSegments()));
+            waveContend15.add(new DistractEnemy(new Vector(250, -300-100*i), gamePath.getSegments()));
         }
         addWave(waveContend15);
 
@@ -425,9 +429,9 @@ public class WaveList {
 
         for (int i = waveList.size(); i < 100; i++) {
             List waveContend = new ArrayList<>();
-            for (int j = 0; j < i; j++) {
+            for (int j = 10; j < i; j++) {
                 Random rand = new Random();
-                int randomEnemy = rand.nextInt(11);
+                int randomEnemy = rand.nextInt(13);
                 switch (randomEnemy){
                     case 0:
                     case 1:
@@ -451,6 +455,10 @@ public class WaveList {
                         break;
                     case 10:
                         waveContend.add(new BossEnemy(new Vector(250,-100-80*j/3),gamePath.getSegments()));
+                        break;
+                    case 11:
+                    case 12:
+                        waveContend.add(new DistractEnemy(new Vector(250, -170-80*j/3), gamePath.getSegments()));
                         break;
                 }
             }

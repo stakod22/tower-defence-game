@@ -47,8 +47,10 @@ public class TowerDefenceGame {
         //addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
         //addTower(new FreezeTower(new Vector(CELL_WIDTH*6+25,CELL_HEIGHT*3+25)));
         //addEnemy(new RegenEnemy(new Vector(250, -50), gamePath.getSegments()));
-
-        backgroundGrass = new BackgroundGrass();
+        addEnemy(new DistractEnemy(new Vector(250, -50),gamePath.getSegments()));
+        addEnemy(new DistractEnemy(new Vector(250, -100),gamePath.getSegments()));
+        addEnemy(new FastEnemy(new Vector(250, -300),gamePath.getSegments()));
+        backgroundGrass = new BackgroundGrass(gamePath);
         backgroundWater =  new BackgroundWater(gamePath);
 
 

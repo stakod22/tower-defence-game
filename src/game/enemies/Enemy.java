@@ -122,8 +122,15 @@ public abstract class Enemy implements Drawable {
                 case REGEN:
                     if (statusEffects.get(i).damageDuration == 25){
                         health++;
-                        statusEffects.get(i).damageDuration = 225;
+                        statusEffects.get(i).damageDuration = 125;
                     }
+                    break;
+                case DISTRACTION:
+                    if (statusEffects.get(i).damageDuration == 25){
+                        statusEffects.get(i).damageDuration = 10000;
+                    }
+                    distanceTraveled *= (Math.abs(speed.x)*Math.abs(speed.x))+2;
+                    distanceTraveled *= (Math.abs(speed.y)*Math.abs(speed.y))+2;
                     break;
             }
             statusEffects.get(i).damageDuration--;

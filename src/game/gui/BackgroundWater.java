@@ -10,176 +10,156 @@ import java.util.List;
 import java.util.Random;
 
 public class BackgroundWater implements Drawable {
-    private List<Island> islands = new ArrayList<>();
-    private List<Vector> waves = new ArrayList<>();
-    private List<Vector> lilyPads = new ArrayList<>();
+    private List<Vector> corals = new ArrayList<>();
+    private List<Vector> rocks = new ArrayList<>();
+    private List<Vector> seagrass = new ArrayList<>();
+    private List<Vector> fish = new ArrayList<>();
+    private List<Vector> bubbles = new ArrayList<>();
     private Random rand = new Random();
-    private GamePath path; // Reference to the GamePath object
+    private GamePath path;
 
     public BackgroundWater(GamePath path) {
         this.path = path;
 
-        // Generate random islands (considering the path for collision)
-        generateIslands(10);
-
-        // Generate random lily pads
-        generateElements(lilyPads, 50, 20, 20);
-
-        // Generate random waves
-        for (int i = 0; i < 150; i++) {
-            waves.add(new Vector(rand.nextInt(800), rand.nextInt(800)));
-        }
+        // Generate elements
+        generateClusteredElements(corals, 30, 20, 20, 4); // Corals in 4x4 clusters
+        generateClusteredElements(rocks, 20, 15, 15, 5); // Rocks in 5x5 clusters
+        generateClusteredElements(seagrass, 50, 10, 10, 6); // Seagrass in 6x6 clusters
+        generateRandomElements(fish, 20, 800, 800); // Fish scattered randomly
+        generateRandomElements(bubbles, 40, 800, 800); // Bubbles scattered randomly
     }
 
     @Override
     public void update() {
-        // Move waves slowly for a dynamic effect
-        for (Vector wave : waves) {
-            wave.y += 0.5;
-            if (wave.y > 800) {
-                wave.y = 0; // Reset wave position
-            }
+        // Move fish and bubbles
+        for (Vector fishPos : fish) {
+            fishPos.x += rand.nextDouble() * 2 - 1; // Random horizontal movement
+            fishPos.y += rand.nextDouble() * 2 - 1; // Random vertical movement
+
+            // Wrap around screen
+            if (fishPos.x < 0) fishPos.x = 800;
+            if (fishPos.x > 800) fishPos.x = 0;
+            if (fishPos.y < 0) fishPos.y = 800;
+            if (fishPos.y > 800) fishPos.y = 0;
+        }
+
+        for (Vector bubble : bubbles) {
+            bubble.y -= 1; // Bubbles float upwards
+            if (bubble.y < 0) bubble.y = 800; // Reset bubble position
         }
     }
 
     @Override
     public void draw(Graphics2D g) {
-        // Draw the water surface
-        drawWaterSurface(g);
+        // Draw underwater background
+        drawUnderwaterField(g);
 
-        // Draw islands
-        for (Island island : islands) {
-            drawIsland(g, island);
+        // Draw corals
+        for (Vector coral : corals) {
+            drawCoral(g, (int) coral.x, (int) coral.y);
         }
 
-        // Draw lily pads
-        for (Vector lilyPad : lilyPads) {
-            drawLilyPad(g, (int) lilyPad.x, (int) lilyPad.y);
+        // Draw rocks
+        for (Vector rock : rocks) {
+            drawRock(g, (int) rock.x, (int) rock.y);
         }
 
-        // Draw waves
-        for (Vector wave : waves) {
-            drawWave(g, (int) wave.x, (int) wave.y);
+        // Draw seagrass
+        for (Vector grass : seagrass) {
+            drawSeagrass(g, (int) grass.x, (int) grass.y);
+        }
+
+        // Draw fish
+        for (Vector fishPos : fish) {
+            drawFish(g, (int) fishPos.x, (int) fishPos.y);
+        }
+
+        // Draw bubbles
+        for (Vector bubble : bubbles) {
+            drawBubble(g, (int) bubble.x, (int) bubble.y);
         }
     }
 
-    private void drawWaterSurface(Graphics2D g) {
-        // Base color for water
-        g.setColor(new Color(64, 164, 223)); // Light blue
+    private void drawUnderwaterField(Graphics2D g) {
+        g.setColor(new Color(0, 105, 148)); // Ocean blue
         g.fillRect(0, 0, 800, 800);
 
-        // Subtle variation in water color for texture
-        g.setColor(new Color(52, 152, 219));
-        for (int i = 0; i < 500; i++) {
-            int x = rand.nextInt(800);
-            int y = rand.nextInt(800);
-            g.fillOval(x, y, 5, 5); // Small circles for water texture
+        g.setColor(new Color(0, 75, 128));
+        for (int i = 0; i < 100; i++) {
+            g.fillOval(rand.nextInt(800), rand.nextInt(800), 5, 5); // Slight darker patches for texture
         }
     }
 
-    private void drawIsland(Graphics2D g, Island island) {
-        // Draw island base
-        g.setColor(new Color(194, 178, 128)); // Sandy color
-        g.fillOval(island.x - island.width / 2, island.y - island.height / 2, island.width, island.height);
+    private void drawCoral(Graphics2D g, int x, int y) {
+        g.setColor(new Color(255, 99, 71)); // Coral red
+        g.fillOval(x - 10, y - 10, 20, 20);
+        g.setColor(new Color(255, 140, 105));
+        g.drawLine(x, y, x + rand.nextInt(10) - 5, y + rand.nextInt(10) - 5);
+    }
 
-        // Add some green vegetation on the island
-        g.setColor(new Color(34, 139, 34)); // Green color
-        g.fillOval(island.x - island.width / 4, island.y - island.height / 4, island.width / 2, island.height / 2);
+    private void drawRock(Graphics2D g, int x, int y) {
+        g.setColor(new Color(128, 128, 128)); // Gray rocks
+        g.fillOval(x - 8, y - 5, 16, 10);
+    }
 
-        // Add some irregular shapes to the island (optional)
-        g.setColor(new Color(194, 178, 128)); // Sandy color
-        for (Vector extension : island.extensions) {
-            g.fillOval((int) (island.x + extension.x), (int) (island.y + extension.y), 20, 20);
+    private void drawSeagrass(Graphics2D g, int x, int y) {
+        g.setColor(new Color(34, 139, 34)); // Green seagrass
+        for (int i = 0; i < 3; i++) {
+            g.drawLine(x, y, x + rand.nextInt(5) - 2, y - rand.nextInt(10));
         }
     }
 
-    private void drawLilyPad(Graphics2D g, int x, int y) {
-        // Draw lily pad base
-        g.setColor(new Color(0, 100, 0)); // Dark green
-        g.fillOval(x - 10, y - 5, 20, 10); // Oval-shaped lily pad
-
-        // Draw a small flower on the lily pad
-        g.setColor(Color.PINK);
-        g.fillOval(x - 3, y - 3, 6, 6); // Flower in the center of the pad
+    private void drawFish(Graphics2D g, int x, int y) {
+        g.setColor(Color.YELLOW);
+        g.fillOval(x - 5, y - 2, 10, 5);
+        g.setColor(Color.ORANGE);
+        g.fillPolygon(new int[]{x - 5, x - 7, x - 5}, new int[]{y - 2, y, y + 2}, 3); // Tail
     }
 
-    private void drawWave(Graphics2D g, int x, int y) {
-        // Draw waves as small semi-transparent arcs
-        g.setColor(new Color(255, 255, 255, 100)); // Light white with transparency
-        g.drawArc(x, y, 20, 10, 0, 180); // Wave arc
+    private void drawBubble(Graphics2D g, int x, int y) {
+        g.setColor(new Color(173, 216, 230, 150)); // Transparent light blue bubbles
+        g.drawOval(x, y, 8, 8);
     }
 
-    private void generateIslands(int count) {
-        for (int i = 0; i < count; i++) {
-            Island island;
-            do {
-                // Generate random island position and size
-                int x = rand.nextInt(800);
-                int y = rand.nextInt(800);
-                int width = rand.nextInt(50) + 50; // Island width (50-100)
-                int height = rand.nextInt(50) + 50; // Island height (50-100)
-
-                // Generate random extensions for irregular shapes
-                List<Vector> extensions = new ArrayList<>();
-                int extensionCount = rand.nextInt(4); // 0-3 additional extensions
-                for (int j = 0; j < extensionCount; j++) {
-                    extensions.add(new Vector(rand.nextInt(40) - 20, rand.nextInt(40) - 20));
-                }
-
-                island = new Island(x, y, width, height, extensions);
-
-            } while (isOverlappingWithPath(island) || isOverlappingWithOtherIslands(island));
-            islands.add(island);
-        }
-    }
-
-    private boolean isOverlappingWithPath(Island island) {
-        for (Vector pathTile : path.getPathTiles()) {
-            Rectangle pathRect = new Rectangle((int) pathTile.x, (int) pathTile.y, 50, 50);
-            Rectangle islandRect = new Rectangle(island.x - island.width / 2, island.y - island.height / 2, island.width, island.height);
-            if (pathRect.intersects(islandRect)) {
-                return true; // Overlaps with the path
-            }
-        }
-        return false;
-    }
-
-    private boolean isOverlappingWithOtherIslands(Island newIsland) {
-        for (Island island : islands) {
-            Rectangle existingIslandRect = new Rectangle(island.x - island.width / 2, island.y - island.height / 2, island.width, island.height);
-            Rectangle newIslandRect = new Rectangle(newIsland.x - newIsland.width / 2, newIsland.y - newIsland.height / 2, newIsland.width, newIsland.height);
-            if (existingIslandRect.intersects(newIslandRect)) {
-                return true; // Overlaps with another island
-            }
-        }
-        return false;
-    }
-
-    private void generateElements(List<Vector> elements, int count, int width, int height) {
+    private void generateClusteredElements(List<Vector> elements, int count, int width, int height, int clusterSize) {
+        int gridSize = 800 / clusterSize; // Divide the field into a grid
         for (int i = 0; i < count; i++) {
             Vector position;
             do {
-                position = new Vector(rand.nextInt(800 - width), rand.nextInt(800 - height));
-            } while (isOnPath((int) position.x, (int) position.y));
+                int clusterX = rand.nextInt(clusterSize) * gridSize;
+                int clusterY = rand.nextInt(clusterSize) * gridSize;
+
+                // Ensure the bounds for random placement within the cluster are positive
+                int maxOffsetX = Math.max(gridSize - width, 1);
+                int maxOffsetY = Math.max(gridSize - height, 1);
+
+                position = new Vector(clusterX + rand.nextInt(maxOffsetX), clusterY + rand.nextInt(maxOffsetY));
+            } while (isOverlapping(position, elements, width, height) || isOnPath(position));
             elements.add(position);
         }
     }
 
-    private boolean isOnPath(int x, int y) {
-        return path.isOnPath(x / 50, y / 50);
+    private void generateRandomElements(List<Vector> elements, int count, int width, int height) {
+        for (int i = 0; i < count; i++) {
+            elements.add(new Vector(rand.nextInt(width), rand.nextInt(height)));
+        }
     }
 
-    // Inner class for Island
-    private static class Island {
-        int x, y, width, height;
-        List<Vector> extensions;
-
-        public Island(int x, int y, int width, int height, List<Vector> extensions) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.extensions = extensions;
+    private boolean isOverlapping(Vector position, List<Vector> existingElements, int width, int height) {
+        for (Vector other : existingElements) {
+            if (Math.abs(position.x - other.x) < width && Math.abs(position.y - other.y) < height) {
+                return true;
+            }
         }
+        return false;
+    }
+
+    private boolean isOnPath(Vector position) {
+        for (Vector pathTile : path.getPathTiles()) {
+            if (Math.abs(position.x - pathTile.x) < 50 && Math.abs(position.y - pathTile.y) < 50) {
+                return true;
+            }
+        }
+        return false;
     }
 }

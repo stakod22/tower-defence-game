@@ -14,7 +14,6 @@ public class RegenEnemy extends Enemy{
         super.setSize(30);
         super.setMoneyToGive(6);
         super.setColor(Color.red);
-        super.addStatusEffect(new StatusEffect(DamageType.REGEN,225));
+        super.addStatusEffect(new StatusEffect(DamageType.REGEN,125));
     }
-
 }
