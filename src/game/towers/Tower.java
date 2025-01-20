@@ -147,7 +147,7 @@ public abstract class Tower implements Drawable {
 
         if(fireRateStroke>0){
             g.setStroke(new BasicStroke(fireRateStroke));
-            g.setColor(new Color(255, 0, 0));
+            g.setColor(towerColor);
             g.drawLine((int)location.x,(int)location.y,(int)(location.x+xOffset),(int)(location.y+yOffset));
         }
         g.setStroke(new BasicStroke());
@@ -162,7 +162,7 @@ public abstract class Tower implements Drawable {
         fireRateStroke = ((float) upgradeFireRatePurchased);
 
         //Damage
-        canonStroke = ((float)upgradeDamagePurchased*(1.5f))+1.0f;
+        canonStroke = ((float)upgradeDamagePurchased)+1.0f;
 
         //Pierce
         g.setColor(Color.red);

@@ -31,7 +31,7 @@ public class TowerDefenceGame {
     private BackgroundGrass backgroundGrass;
     private int level = 2;
     private int health = 150;
-    private int money = 1500;
+    private int money = 320*8+250;
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
     private boolean placingMode = false;
@@ -79,8 +79,8 @@ public class TowerDefenceGame {
             }
             figures.add(gui);
             figures.add(gamePath);
-            figures.addAll(towerList.getTowerList());
             figures.addAll(projectileList.getProjectileList());
+            figures.addAll(towerList.getTowerList());
             figures.addAll(enemyList.getEnemyList());
             figures.add(menuGUI);
             figures.addAll(buttons);
