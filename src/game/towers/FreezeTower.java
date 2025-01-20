@@ -9,28 +9,26 @@ import java.awt.*;
 
 public class FreezeTower extends Tower {
     public FreezeTower(Vector location) {
-        super(location,75);
-        setTowerColor(Color.CYAN);
-        setCost(20);
-        setFirerate(25);
-        setPierce(1);
-        setDamage(1);
+        new Tower.Builder()
+                .setLocation(location)
+                .setRange(75)
+                .setCost(20)
+                .setFirerate(25)
+                .setPierce(1)
+                .setDamage(1)
+                .setProjectileSize(10)
+                .setColor(Color.CYAN)
+                .finalizeBuild(this);
     }
 
 
     public Projectile shootProjectile(){
-            Vector loc = new Vector(super.getLocation().x,super.getLocation().y);
-            Vector target = new Vector(super.getTarget().x,super.getTarget().y);
-            return new Projectile.Builder()
-                    .setLocation(loc)
-                    .setTargetLocation(target)
-                    .setDamage(super.getDamage())
-                    .setRadius(10)
-                    .setPierce(super.getPierce())
-                    .setDamageType(DamageType.FREEZE)
-                    .setEffectDuration(120)
-                    .setColor(Color.cyan)
-                    .build();
+        return new Projectile.Builder()
+                .buildFrom(super.shootProjectile())
+                .setDamageType(DamageType.FREEZE)
+                .setEffectDuration(120)
+                .setColor(Color.cyan)
+                .build();
     }
 
     @Override

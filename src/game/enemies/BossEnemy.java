@@ -8,9 +8,14 @@ import java.util.List;
 
 public class BossEnemy extends Enemy{
     public BossEnemy(Vector location, List<PathSegment> segments) {
-        super(location,50, segments, 1);
-        super.setSize(40);
-        super.setMoneyToGive(46);
+        new Enemy.Builder()
+                .setLocation(location)
+                .setHealth(50)
+                .setSegments(segments)
+                .setSpeedValue(1.f)
+                .setSize(40)
+                .setMoneyToGive(46)
+                .finalizeBuild(this);
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.List;
 public class GamePath implements Drawable {
     private List<Vector> pathTiles = new ArrayList();
     private List<PathSegment> segments = new ArrayList();
+    public static int pathSize = 25;
 
 
     public GamePath() {

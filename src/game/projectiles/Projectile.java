@@ -251,5 +251,27 @@ public class Projectile implements Drawable {
 
             return p;
         }
+
+        public Projectile.Builder buildFrom(Projectile p){
+            if(p.getLocation() != null){
+                setLocation(p.getLocation());
+            }
+            if(p.getTargetLocation() != null){
+                setTargetLocation(p.getTargetLocation());
+            }
+            setDamage(p.getDamage());
+            setRadius(p.getRadius());
+            setSpeed(p.getSpeed());
+            setPierce(p.getPierce());
+            if(p.getDamageType() != null){
+                setDamageType(p.getDamageType());
+            }
+            setEffectDuration(p.getEffectDuration());
+            if(p.getColor() != null){
+                setColor(p.getColor());
+            }
+
+            return this;
+        }
     }
 }

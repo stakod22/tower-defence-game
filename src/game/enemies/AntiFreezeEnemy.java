@@ -10,10 +10,15 @@ import java.util.List;
 
 public class AntiFreezeEnemy extends Enemy{
     public AntiFreezeEnemy(Vector location, List<PathSegment> segments) {
-        super(location,4, segments, 2);
-        super.setSize(30);
-        super.setMoneyToGive(4);
-        super.setColor(Color.white);
+        new Enemy.Builder()
+                .setLocation(location)
+                .setHealth(4)
+                .setSegments(segments)
+                .setSpeedValue(2.f)
+                .setSize(30)
+                .setMoneyToGive(4)
+                .setColor(Color.white)
+                .finalizeBuild(this);
     }
 
     @Override

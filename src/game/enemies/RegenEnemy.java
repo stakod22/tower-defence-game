@@ -10,10 +10,15 @@ import java.util.List;
 
 public class RegenEnemy extends Enemy{
     public RegenEnemy(Vector location, List<PathSegment> segments) {
-        super(location,5, segments, 1);
-        super.setSize(30);
-        super.setMoneyToGive(6);
-        super.setColor(Color.red);
+        new Enemy.Builder()
+                .setLocation(location)
+                .setHealth(5)
+                .setSegments(segments)
+                .setSpeedValue(1.f)
+                .setSize(30)
+                .setMoneyToGive(6)
+                .setColor(Color.red)
+                .finalizeBuild(this);
         super.addStatusEffect(new StatusEffect(DamageType.REGEN,125));
     }
 }

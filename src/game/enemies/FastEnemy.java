@@ -9,10 +9,15 @@ import java.util.List;
 public class FastEnemy extends Enemy{
 
     public FastEnemy(Vector location, List<PathSegment> segments) {
-        super(location,3, segments, 5);
-        super.setSize(20);
-        super.setMoneyToGive(7);
-        super.setColor(Color.blue);
+        new Enemy.Builder()
+                .setLocation(location)
+                .setHealth(3)
+                .setSegments(segments)
+                .setSpeedValue(5.f)
+                .setSize(20)
+                .setMoneyToGive(7)
+                .setColor(Color.blue)
+                .finalizeBuild(this);
     }
 
     @Override

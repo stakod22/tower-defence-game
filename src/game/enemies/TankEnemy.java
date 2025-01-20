@@ -9,9 +9,14 @@ import java.util.List;
 public class TankEnemy extends Enemy{
 
     public TankEnemy(Vector location, List<PathSegment> segments) {
-        super(location,10, segments, 1);
-        super.setSize(40);
-        super.setMoneyToGive(11);
+        new Enemy.Builder()
+                .setLocation(location)
+                .setHealth(10)
+                .setSegments(segments)
+                .setSpeedValue(1.f)
+                .setSize(40)
+                .setMoneyToGive(11)
+                .finalizeBuild(this);
     }
 
     @Override

@@ -11,10 +11,15 @@ import java.util.List;
 public class DistractEnemy extends Enemy{
 
     public DistractEnemy(Vector location, List<PathSegment> segments) {
-        super(location,10, segments, 2);
-        super.setSize(30);
-        super.setMoneyToGive(6);
-        super.setColor(Color.black);
+        new Enemy.Builder()
+                .setLocation(location)
+                .setHealth(10)
+                .setSegments(segments)
+                .setSpeedValue(2.f)
+                .setSize(30)
+                .setMoneyToGive(6)
+                .setColor(Color.black)
+                .finalizeBuild(this);
         super.addStatusEffect(new StatusEffect(DamageType.DISTRACTION,99999));
     }
 

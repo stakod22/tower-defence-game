@@ -1,17 +1,17 @@
 package game.enemies;
 
 import game.framework.Drawable;
+import game.path.GamePath;
 import game.path.PathSegment;
 import game.framework.Vector;
-import game.projectiles.DamageType;
 import game.projectiles.StatusEffect;
+import game.towers.Tower;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public abstract class Enemy implements Drawable {
+public class Enemy implements Drawable {
     static int count = 1;
     private int id;
     private Vector location;
@@ -27,6 +27,10 @@ public abstract class Enemy implements Drawable {
     private float currentMoveWay = 0;
     private float speedValue;
     private float distanceTraveled;
+
+    public Enemy(){
+
+    }
 
     public Enemy(Vector location, int health, List<PathSegment> segments, int speedValue) {
         location.add(new Vector(25,25));
@@ -48,7 +52,7 @@ public abstract class Enemy implements Drawable {
         this.speedValue = speedValue;
 
     }
-    public void setRealSpeedValue(int speedValue) {
+    public void setRealSpeedValue(float speedValue) {
         this.speedValue = speedValue;
         speed = new Vector(0,speedValue);
     }
@@ -243,5 +247,94 @@ public abstract class Enemy implements Drawable {
         String stringer = "";
         stringer += "Enemy: "+ id + ", Health: "+ health + ", TraveledDistance:" + distanceTraveled;
         return stringer;
+    }
+
+    public static class Builder{
+        private int id;
+        private Vector location;
+        private float speedValue;
+        private int health;
+        private int size;
+        private int moneyToGive;
+        private Color color;
+        private List<PathSegment> segments;
+
+        public Builder(){
+            id = Enemy.count;
+            Enemy.count++;
+        }
+
+        public Enemy.Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Enemy.Builder setLocation(Vector location){
+            this.location = location;
+            this.location.add(new Vector(GamePath.pathSize, GamePath.pathSize));
+            return this;
+        }
+
+        public Enemy.Builder setSpeedValue(float speed){
+            this.speedValue = speed;
+            return this;
+        }
+
+        public Enemy.Builder setHealth(int health){
+            this.health = health;
+            return this;
+        }
+
+        public Enemy.Builder setSize(int size){
+            this.size = size;
+            return this;
+        }
+
+        public Enemy.Builder setMoneyToGive(int moneyToGive){
+            this.moneyToGive = moneyToGive;
+            return this;
+        }
+
+        public Enemy.Builder setColor(Color color){
+            this.color = color;
+            return this;
+        }
+
+        public Enemy.Builder setSegments(List<PathSegment> segments){
+            this.segments = segments;
+            return this;
+        }
+
+        public void finalizeBuild(Enemy e){
+            e.setId(id);
+            e.setLocation(location);
+            e.setRealSpeedValue(speedValue);
+            e.setHealth(health);
+            e.setSize(size);
+            e.setMoneyToGive(moneyToGive);
+            e.setColor(color);
+            e.setSegments(segments);
+        }
+
+        public Enemy.Builder buildFrom(Enemy e){
+            setId(e.getId());
+            if(e.getLocation()!=null){
+                setLocation(e.getLocation());
+            }
+
+            setSpeedValue(e.getSpeedValue());
+            setHealth(e.getHealth());
+            setSize(e.getSize());
+            setMoneyToGive(e.getMoneyToGive());
+            if(e.getColor() != null){
+                setColor(e.getColor());
+            }
+
+            if(e.getSegments() != null){
+                setSegments(e.getSegments());
+            }
+
+            return this;
+        }
     }
 }

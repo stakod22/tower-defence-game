@@ -9,10 +9,15 @@ import java.util.List;
 public class StandartEnemy extends Enemy{
 
     public StandartEnemy(Vector location, List<PathSegment> segments) {
-        super(location,5, segments, 1);
-        super.setSize(30);
-        super.setMoneyToGive(3);
-        super.setColor(Color.cyan);
+        new Enemy.Builder()
+                .setLocation(location)
+                .setHealth(5)
+                .setSegments(segments)
+                .setSpeedValue(1.f)
+                .setSize(30)
+                .setMoneyToGive(3)
+                .setColor(Color.cyan)
+                .finalizeBuild(this);
     }
 
     @Override

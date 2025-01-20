@@ -11,13 +11,16 @@ import java.util.List;
 public class ShotgunTower extends Tower{
 
     public ShotgunTower(Vector location) {
-        super(location,50);
-        setCost(35);
-        setFirerate(100);
-        setPierce(1);
-        setDamage(1);
-        setTowerColor(new Color(189,166,133));
-        setTowerType(TowerType.SHOTGUNTOWER);
+        new Tower.Builder()
+                .setLocation(location)
+                .setRange(50)
+                .setCost(35)
+                .setFirerate(100)
+                .setPierce(1)
+                .setDamage(1)
+                .setProjectileSize(10)
+                .setColor(new Color(189,166,133))
+                .finalizeBuild(this);
     }
 
     @Override
@@ -42,18 +45,6 @@ public class ShotgunTower extends Tower{
         }
         super.addShootableFrameCount();
         return projectiles;
-    }
-
-    public Projectile shootProjectile(){
-        Vector loc = new Vector(super.getLocation().x,super.getLocation().y);
-        Vector target = new Vector(super.getTarget().x,super.getTarget().y);
-        return new Projectile.Builder()
-                .setLocation(loc)
-                .setTargetLocation(target)
-                .setDamage(super.getDamage())
-                .setRadius(10)
-                .setPierce(super.getPierce())
-                .build();
     }
 
     public Vector targetOffset(float degree){

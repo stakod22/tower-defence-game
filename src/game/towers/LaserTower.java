@@ -8,31 +8,27 @@ import game.projectiles.RayProjectile;
 import java.awt.*;
 
 public class LaserTower extends Tower {
-    private int rayDuration;
+    private int rayDuration = 10;
     public LaserTower(Vector location) {
-        super(location,200);
-        setTowerColor(Color.CYAN);
-        setCost(20);
-        setFirerate(100);
-        setPierce(1);
-        rayDuration = 10;
-        setDamage(3);
-        setTowerColor(new Color(253, 149,  0));
+        new Tower.Builder()
+                .setLocation(location)
+                .setRange(200)
+                .setCost(20)
+                .setFirerate(100)
+                .setPierce(1)
+                .setDamage(3)
+                .setProjectileSize(5)
+                .setColor(new Color(253, 149,  0))
+                .finalizeBuild(this);
     }
 
     @Override
     public Projectile shootProjectile() {
-        Vector loc = new Vector(super.getLocation().x,super.getLocation().y);
-        Vector target = new Vector(super.getTarget().x,super.getTarget().y);
         return new RayProjectile.Builder()
-                .setLocation(loc)
-                .setTargetLocation(target)
-                .setDamage(super.getDamage())
-                .setRadius(5)
-                .setPierce(rayDuration + super.getPierce()*2)
+                .buildFrom(super.shootProjectile())
+                .setPierce(rayDuration+super.getPierce()*2)
                 .setDamageType(DamageType.RAY)
-                .setEffectDuration(rayDuration + super.getPierce()*2)
-                .setColor(new Color(253, 149,  0))
+                .setColor(new Color(253, 149, 0))
                 .buildRay();
     }
 }

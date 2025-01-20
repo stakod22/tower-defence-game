@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Tower implements Drawable {
+public class Tower implements Drawable {
     private int id;
     private Vector location;
     private Vector target = new Vector(0, 0);
@@ -21,6 +21,7 @@ public abstract class Tower implements Drawable {
     private int shootableFrameCount = 0;
     private int pierce;
     private int damage;
+    private int projectileSize;
     private Color towerColor;
     private int upgradePierceCost = 10;
     private int upgradePiercePurchased = 0;
@@ -39,13 +40,17 @@ public abstract class Tower implements Drawable {
 
     private TowerType towerType;
 
-
-    public Tower(Vector location,int range) {
-        this.location = location;
-        this.range = range;
+    public Projectile shootProjectile(){
+        Vector loc = new Vector(location.x,location.y);
+        Vector target = new Vector(this.target.x,this.target.y);
+        return new Projectile.Builder()
+                .setLocation(loc)
+                .setTargetLocation(target)
+                .setDamage(damage)
+                .setRadius(projectileSize)
+                .setPierce(pierce)
+                .build();
     }
-
-    abstract Projectile shootProjectile();
 
 
     public void seeEnemies(EnemyList enemies){
@@ -272,10 +277,10 @@ public abstract class Tower implements Drawable {
     public void setPierce(int pierce) {
         this.pierce = pierce;
     }
+
     public int getPierce() {
         return pierce;
     }
-
 
     public int getDamage() {
         return damage;
@@ -362,5 +367,101 @@ public abstract class Tower implements Drawable {
 
     public void setShoot(boolean shoot) {
         this.shoot = shoot;
+    }
+
+    public void setProjectileSize(int projectileSize) {
+        this.projectileSize = projectileSize;
+    }
+
+    public int getProjectileSize() {
+        return projectileSize;
+    }
+
+    public static class Builder{
+        private int id;
+        private Vector location;
+        private int range;
+        private int cost;
+        private int firerate;
+        private int pierce;
+        private int damage;
+        private int projectileSize;
+        private Color towerColor;
+
+        public Tower.Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Tower.Builder setLocation(Vector location){
+            this.location = location;
+            return this;
+        }
+
+        public Tower.Builder setRange(int range) {
+            this.range = range;
+            return this;
+        }
+
+        public Tower.Builder setCost(int cost) {
+            this.cost = cost;
+            return this;
+        }
+
+        public Tower.Builder setFirerate(int firerate) {
+            this.firerate = firerate;
+            return this;
+        }
+
+        public Tower.Builder setDamage(int damage){
+            this.damage = damage;
+            return this;
+        }
+
+        public Tower.Builder setPierce(int pierce) {
+            this.pierce = pierce;
+            return this;
+        }
+
+        public Tower.Builder setColor(Color color) {
+            this.towerColor = color;
+            return this;
+        }
+
+        public Tower.Builder setProjectileSize(int projectileSize) {
+            this.projectileSize = projectileSize;
+            return this;
+        }
+
+        public Tower build(){
+            Tower t = new Tower();
+            finalizeBuild(t);
+            return t;
+        }
+
+        public void finalizeBuild(Tower t){
+            t.setId(id);
+            t.setLocation(location);
+            t.setRange(range);
+            t.setCost(cost);
+            t.setFirerate(firerate);
+            t.setPierce(pierce);
+            t.setDamage(damage);
+            t.setTowerColor(towerColor);
+            t.setProjectileSize(projectileSize);
+        }
+
+        public Tower.Builder buildFrom(Tower t){
+            setId(t.getId());
+            setLocation(t.getLocation());
+            setRange(t.getRange());
+            setCost(t.getCost());
+            setFirerate(t.getFirerate());
+            setPierce(t.getPierce());
+            setDamage(t.getDamage());
+            setColor(t.getTowerColor());
+            setProjectileSize(t.getProjectileSize());
+            return this;
+        }
     }
 }
