@@ -359,4 +359,8 @@ public abstract class Tower implements Drawable {
     public void addShootableFrameCount(){
         shootableFrameCount++;
     }
+
+    public void setShoot(boolean shoot) {
+        this.shoot = shoot;
+    }
 }

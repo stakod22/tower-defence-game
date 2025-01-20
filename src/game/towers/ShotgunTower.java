@@ -37,6 +37,7 @@ public class ShotgunTower extends Tower{
                 projectiles.add(shootProjectile());
                 setTarget(targetOffset(30));
                 super.setShootableFrameCount(0);
+                setShoot(true);
             }
         }
         super.addShootableFrameCount();
