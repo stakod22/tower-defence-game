@@ -123,19 +123,6 @@ public class Enemy implements Drawable {
                         frozen=true;
                     }
                     break;
-                case REGEN:
-                    if (statusEffects.get(i).damageDuration == 25){
-                        health++;
-                        statusEffects.get(i).damageDuration = 125;
-                    }
-                    break;
-                case DISTRACTION:
-                    if (statusEffects.get(i).damageDuration == 25){
-                        statusEffects.get(i).damageDuration = 10000;
-                    }
-                    distanceTraveled *= (Math.abs(speed.x)*Math.abs(speed.x))+2;
-                    distanceTraveled *= (Math.abs(speed.y)*Math.abs(speed.y))+2;
-                    break;
             }
             statusEffects.get(i).damageDuration--;
             if(statusEffects.get(i).damageDuration <= 0){
@@ -170,7 +157,6 @@ public class Enemy implements Drawable {
     }
 
     public void setId(int id) {
-        System.out.println("enemy: "+ this.id + "was set to "+id);
         this.id = id;
     }
 

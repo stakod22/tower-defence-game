@@ -20,12 +20,12 @@ public class DistractEnemy extends Enemy{
                 .setMoneyToGive(6)
                 .setColor(Color.black)
                 .finalizeBuild(this);
-        super.addStatusEffect(new StatusEffect(DamageType.DISTRACTION,99999));
     }
 
     @Override
     public void update() {
         super.update();
+        setDistanceTraveled((int) (getDistanceTraveled()*200));
     }
 
     @Override

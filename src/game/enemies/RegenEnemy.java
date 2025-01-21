@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.List;
 
 public class RegenEnemy extends Enemy{
+    private int regenTimer = 100;
     public RegenEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
@@ -19,6 +20,16 @@ public class RegenEnemy extends Enemy{
                 .setMoneyToGive(6)
                 .setColor(Color.red)
                 .finalizeBuild(this);
-        super.addStatusEffect(new StatusEffect(DamageType.REGEN,125));
+
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if (regenTimer == 0){
+            regenTimer = 100;
+            setHealth(getHealth()+1);
+        }
+        regenTimer--;
     }
 }
