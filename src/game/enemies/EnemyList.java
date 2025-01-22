@@ -22,7 +22,7 @@ public class EnemyList{
         return enemyList;
     }
 
-    public List<Enemy> getSortedEnemyList(String param){
+    public List<Enemy> getSortedEnemyList(String param, boolean asTower){
         List<Enemy> newList = enemyList;
         switch (param){
             case "distance":
@@ -34,11 +34,24 @@ public class EnemyList{
             default:
                 return newList;
         }
+        if(asTower){
+            newList.sort((a, b) -> {
+                if (a.getEnemyType() == EnemyType.DISTRACTION) {
+                    if (b.getEnemyType() != EnemyType.DISTRACTION) {
+                        return -1;
+                    }else{
+                        return 0;
+                    }
+                }
+                return 1;
+            });
+
+        }
         return newList;
     }
 
     public List<Vector> getEnemyLocation(){
-        List<Enemy> sortedList = getSortedEnemyList("distance");
+        List<Enemy> sortedList = getSortedEnemyList("distance", false);
         List<Vector> locationList = new ArrayList<>();
 
         sortedList.forEach((Enemy enemy) -> {

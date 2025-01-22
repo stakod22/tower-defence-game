@@ -17,6 +17,7 @@ public class FastEnemy extends Enemy{
                 .setSize(20)
                 .setMoneyToGive(7)
                 .setColor(Color.blue)
+                .setEnemyType(EnemyType.FAST)
                 .finalizeBuild(this);
     }
 

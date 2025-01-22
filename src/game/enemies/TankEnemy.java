@@ -16,6 +16,7 @@ public class TankEnemy extends Enemy{
                 .setSpeedValue(1.f)
                 .setSize(40)
                 .setMoneyToGive(11)
+                .setEnemyType(EnemyType.TANK)
                 .finalizeBuild(this);
     }
 

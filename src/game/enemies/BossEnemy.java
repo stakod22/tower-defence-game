@@ -15,6 +15,7 @@ public class BossEnemy extends Enemy{
                 .setSpeedValue(1.f)
                 .setSize(40)
                 .setMoneyToGive(46)
+                .setEnemyType(EnemyType.BOSS)
                 .finalizeBuild(this);
     }
 

@@ -18,6 +18,7 @@ public class AntiFreezeEnemy extends Enemy{
                 .setSize(30)
                 .setMoneyToGive(4)
                 .setColor(Color.white)
+                .setEnemyType(EnemyType.ANTIFREEZE)
                 .finalizeBuild(this);
     }
 

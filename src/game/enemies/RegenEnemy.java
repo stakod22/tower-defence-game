@@ -2,8 +2,6 @@ package game.enemies;
 
 import game.framework.Vector;
 import game.path.PathSegment;
-import game.projectiles.DamageType;
-import game.projectiles.StatusEffect;
 
 import java.awt.*;
 import java.util.List;
@@ -19,6 +17,7 @@ public class RegenEnemy extends Enemy{
                 .setSize(30)
                 .setMoneyToGive(6)
                 .setColor(Color.red)
+                .setEnemyType(EnemyType.REGENERATION)
                 .finalizeBuild(this);
 
     }

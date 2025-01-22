@@ -17,6 +17,7 @@ public class StandartEnemy extends Enemy{
                 .setSize(30)
                 .setMoneyToGive(3)
                 .setColor(Color.cyan)
+                .setEnemyType(EnemyType.STANDARD)
                 .finalizeBuild(this);
     }
 

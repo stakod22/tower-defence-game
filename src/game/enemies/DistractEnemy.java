@@ -2,8 +2,6 @@ package game.enemies;
 
 import game.framework.Vector;
 import game.path.PathSegment;
-import game.projectiles.DamageType;
-import game.projectiles.StatusEffect;
 
 import java.awt.*;
 import java.util.List;
@@ -19,13 +17,13 @@ public class DistractEnemy extends Enemy{
                 .setSize(30)
                 .setMoneyToGive(6)
                 .setColor(Color.black)
+                .setEnemyType(EnemyType.DISTRACTION)
                 .finalizeBuild(this);
     }
 
     @Override
     public void update() {
         super.update();
-        setDistanceTraveled((int) (getDistanceTraveled()*200));
     }
 
     @Override

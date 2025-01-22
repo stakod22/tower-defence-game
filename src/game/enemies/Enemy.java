@@ -5,7 +5,6 @@ import game.path.GamePath;
 import game.path.PathSegment;
 import game.framework.Vector;
 import game.projectiles.StatusEffect;
-import game.towers.Tower;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,21 +26,10 @@ public class Enemy implements Drawable {
     private float currentMoveWay = 0;
     private float speedValue;
     private float distanceTraveled;
+    private EnemyType enemyType;
 
     public Enemy(){
 
-    }
-
-    public Enemy(Vector location, int health, List<PathSegment> segments, int speedValue) {
-        location.add(new Vector(25,25));
-        this.location = location;
-        this.distanceTraveled = 0;
-        this.health = health;
-        this.segments = segments;
-        this.speedValue = speedValue;
-        speed = new Vector(0,speedValue);
-        id = count;
-        count++;
     }
 
     public float getSpeedValue() {
@@ -228,10 +216,18 @@ public class Enemy implements Drawable {
         this.statusEffects.add(statusEffect);
     }
 
+    public EnemyType getEnemyType() {
+        return enemyType;
+    }
+
+    public void setEnemyType(EnemyType enemyType) {
+        this.enemyType = enemyType;
+    }
+
     @Override
     public String toString() {
         String stringer = "";
-        stringer += "Enemy: "+ id + ", Health: "+ health + ", TraveledDistance:" + distanceTraveled;
+        stringer += "Enemy: "+ id + ", Type: " + enemyType + ", Health: "+ health + ", TraveledDistance:" + distanceTraveled;
         return stringer;
     }
 
@@ -244,6 +240,7 @@ public class Enemy implements Drawable {
         private int moneyToGive;
         private Color color;
         private List<PathSegment> segments;
+        private EnemyType enemyType;
 
         public Builder(){
             id = Enemy.count;
@@ -291,6 +288,11 @@ public class Enemy implements Drawable {
             return this;
         }
 
+        public Enemy.Builder setEnemyType(EnemyType type){
+            this.enemyType = type;
+            return this;
+        }
+
         public void finalizeBuild(Enemy e){
             e.setId(id);
             e.setLocation(location);
@@ -300,6 +302,7 @@ public class Enemy implements Drawable {
             e.setMoneyToGive(moneyToGive);
             e.setColor(color);
             e.setSegments(segments);
+            e.setEnemyType(enemyType);
         }
 
         public Enemy.Builder buildFrom(Enemy e){
@@ -318,6 +321,10 @@ public class Enemy implements Drawable {
 
             if(e.getSegments() != null){
                 setSegments(e.getSegments());
+            }
+
+            if(e.getEnemyType() != null){
+                setEnemyType(e.getEnemyType());
             }
 
             return this;
