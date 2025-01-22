@@ -22,6 +22,10 @@ public class LaserTower extends Tower {
                 .finalizeBuild(this);
     }
 
+    public void setRayDuration(int rayDuration) {
+        this.rayDuration = rayDuration;
+    }
+
     @Override
     public Projectile shootProjectile() {
         return new RayProjectile.Builder()

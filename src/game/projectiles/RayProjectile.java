@@ -1,8 +1,6 @@
 package game.projectiles;
 
 import game.enemies.EnemyList;
-import game.framework.Frame;
-import game.framework.Vector;
 
 import java.awt.*;
 import java.awt.geom.Path2D;

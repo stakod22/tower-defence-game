@@ -2,8 +2,6 @@ package game.projectiles;
 
 import game.enemies.Enemy;
 import game.enemies.EnemyList;
-import game.framework.Frame;
-import game.framework.Vector;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -3,11 +3,8 @@ package game.gui;
 import game.framework.Drawable;
 import game.framework.Vector;
 import game.path.GamePath;
-import game.towers.Tower;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GUI implements Drawable {
     private boolean placingmode = false;
