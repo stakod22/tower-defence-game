@@ -26,12 +26,12 @@ public class TowerDefenceGame {
     private final GamePath gamePath = new GamePath();
     private final ProjectileList projectileList = new ProjectileList();
     private final List<game.gui.Button> buttons = new ArrayList<>();
-    private final WaveList waveList = new WaveList(100);
+    private final WaveList waveList = new WaveList(20);
     private BackgroundWater backgroundWater;
     private BackgroundGrass backgroundGrass;
-    private int level = 1;
-    private int health = 150;
-    private int money = 320*8+250;
+    public static int level = 1;
+    private int health = 100;
+    private int money = 20+(level-1)*10;
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
     private boolean placingMode = false;
@@ -41,15 +41,16 @@ public class TowerDefenceGame {
     private boolean paused = false;
     private int currentTowerId;
     private int maxId = 0;
+    private final Button nextLevelButton = new Button(new Vector(400,600),200,100,"Next Level",Color.red,"nextLevel");
 
     public TowerDefenceGame() {
 
 //        addEnemy(new StandartEnemy(new Vector(250, -50), gamePath.getSegments()));
 //        addTower(new FreezeTower(new Vector(CELL_WIDTH*6+25,CELL_HEIGHT*3+25)));
 //        addEnemy(new RegenEnemy(new Vector(250, -50), gamePath.getSegments()));
-        addEnemy(new DistractEnemy(new Vector(250, -50),gamePath.getSegments()));
-        addEnemy(new DistractEnemy(new Vector(250, -100),gamePath.getSegments()));
-        addEnemy(new FastEnemy(new Vector(250, -300),gamePath.getSegments()));
+        //addEnemy(new DistractEnemy(new Vector(250, -50),gamePath.getSegments()));
+        //addEnemy(new DistractEnemy(new Vector(250, -100),gamePath.getSegments()));
+        //addEnemy(new FastEnemy(new Vector(250, -300),gamePath.getSegments()));
         backgroundGrass = new BackgroundGrass(gamePath);
         backgroundWater =  new BackgroundWater(gamePath);
 
@@ -130,6 +131,7 @@ public class TowerDefenceGame {
             g.drawString("You Win!", 150, 400);
             g.setColor(Color.black);
             g.setFont(standardFont);
+            nextLevelButton.draw(g);
         } else {
             if (!lost) {
                 for (Drawable d : figures) {
@@ -241,6 +243,12 @@ public class TowerDefenceGame {
                     }
 
                     break;
+            }
+        }else if(win) {
+            if(buttonName.equals("nextLevel")){
+                level++;
+                win = false;
+                gamePath.updateLevel();
             }
         }else{
             switch (buttonName) {

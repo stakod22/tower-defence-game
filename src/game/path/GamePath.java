@@ -19,50 +19,94 @@ public class GamePath implements Drawable {
     }
 
     public void loadPath(){
-        pathTiles.add(new Vector(250,0));
-        pathTiles.add(new Vector(250,50));
-        pathTiles.add(new Vector(250,100));
-        pathTiles.add(new Vector(250,150));
-        pathTiles.add(new Vector(250,200));
-        segments.add(new PathSegment(225,3));
+        if(TowerDefenceGame.level==1){
+            pathTiles.add(new Vector(250,0));
+            pathTiles.add(new Vector(250,50));
+            pathTiles.add(new Vector(250,100));
+            pathTiles.add(new Vector(250,150));
+            pathTiles.add(new Vector(250,200));
+            segments.add(new PathSegment(225,3));
 
-        pathTiles.add(new Vector(300,200));
-        pathTiles.add(new Vector(350,200));
-        pathTiles.add(new Vector(400,200));
-        pathTiles.add(new Vector(450,200));
-        pathTiles.add(new Vector(500,200));
-        pathTiles.add(new Vector(550,200));
-        pathTiles.add(new Vector(600,200));
-        segments.add(new PathSegment(350,2));
+            pathTiles.add(new Vector(300,200));
+            pathTiles.add(new Vector(350,200));
+            pathTiles.add(new Vector(400,200));
+            pathTiles.add(new Vector(450,200));
+            pathTiles.add(new Vector(500,200));
+            pathTiles.add(new Vector(550,200));
+            pathTiles.add(new Vector(600,200));
+            segments.add(new PathSegment(350,2));
 
-        pathTiles.add(new Vector(600,250));
-        pathTiles.add(new Vector(600,300));
-        pathTiles.add(new Vector(600,350));
-        pathTiles.add(new Vector(600,400));
-        segments.add(new PathSegment(200,3));
+            pathTiles.add(new Vector(600,250));
+            pathTiles.add(new Vector(600,300));
+            pathTiles.add(new Vector(600,350));
+            pathTiles.add(new Vector(600,400));
+            segments.add(new PathSegment(200,3));
 
-        pathTiles.add(new Vector(550,400));
-        pathTiles.add(new Vector(500,400));
-        pathTiles.add(new Vector(450,400));
-        pathTiles.add(new Vector(400,400));
-        pathTiles.add(new Vector(350,400));
-        pathTiles.add(new Vector(300,400));
-        pathTiles.add(new Vector(250,400));
-        pathTiles.add(new Vector(200,400));
-        pathTiles.add(new Vector(150,400));
-        pathTiles.add(new Vector(100,400));
-        segments.add(new PathSegment(500,4));
+            pathTiles.add(new Vector(550,400));
+            pathTiles.add(new Vector(500,400));
+            pathTiles.add(new Vector(450,400));
+            pathTiles.add(new Vector(400,400));
+            pathTiles.add(new Vector(350,400));
+            pathTiles.add(new Vector(300,400));
+            pathTiles.add(new Vector(250,400));
+            pathTiles.add(new Vector(200,400));
+            pathTiles.add(new Vector(150,400));
+            pathTiles.add(new Vector(100,400));
+            segments.add(new PathSegment(500,4));
 
-        pathTiles.add(new Vector(100,450));
-        pathTiles.add(new Vector(100,500));
-        pathTiles.add(new Vector(100,550));
-        pathTiles.add(new Vector(100,600));
-        pathTiles.add(new Vector(100,650));
-        pathTiles.add(new Vector(100,700));
-        pathTiles.add(new Vector(100,750));
-        segments.add(new PathSegment(400,3));
+            pathTiles.add(new Vector(100,450));
+            pathTiles.add(new Vector(100,500));
+            pathTiles.add(new Vector(100,550));
+            pathTiles.add(new Vector(100,600));
+            pathTiles.add(new Vector(100,650));
+            pathTiles.add(new Vector(100,700));
+            pathTiles.add(new Vector(100,750));
+            segments.add(new PathSegment(400,3));
 
-        segments.add(new PathSegment(100,5));
+            segments.add(new PathSegment(100,5));
+        } else if(TowerDefenceGame.level==2){
+            pathTiles.add(new Vector(250,0));
+            pathTiles.add(new Vector(250,50));
+            pathTiles.add(new Vector(250,100));
+            pathTiles.add(new Vector(250,150));
+            pathTiles.add(new Vector(250,200));
+            pathTiles.add(new Vector(250,250));
+            pathTiles.add(new Vector(250,300));
+            pathTiles.add(new Vector(250,350));
+            segments.add(new PathSegment(375,3));
+
+            pathTiles.add(new Vector(300,350));
+            pathTiles.add(new Vector(350,350));
+            pathTiles.add(new Vector(400,350));
+            pathTiles.add(new Vector(450,350));
+            pathTiles.add(new Vector(500,350));
+            segments.add(new PathSegment(250,2));
+
+            pathTiles.add(new Vector(500,300));
+            pathTiles.add(new Vector(500,250));
+            segments.add(new PathSegment(100,1));
+
+            pathTiles.add(new Vector(550,250));
+            pathTiles.add(new Vector(600,250));
+            segments.add(new PathSegment(100,2));
+
+            pathTiles.add(new Vector(600,300));
+            pathTiles.add(new Vector(600,350));
+            pathTiles.add(new Vector(600, 400));
+            pathTiles.add(new Vector(600,450));
+            pathTiles.add(new Vector(600,500));
+            pathTiles.add(new Vector(600,550));
+            pathTiles.add(new Vector(600,600));
+            pathTiles.add(new Vector(600,650));
+            pathTiles.add(new Vector(600,700));
+            pathTiles.add(new Vector(600,750));
+            segments.add(new PathSegment(500,3));
+
+            segments.add(new PathSegment(100,5));
+
+
+        }
+
     }
 
 
@@ -92,6 +136,11 @@ public class GamePath implements Drawable {
         return false;
     }
 
+    public void updateLevel(){
+        segments = new ArrayList<>();
+        pathTiles = new ArrayList<>();
+        loadPath();
+    }
 
     public List<PathSegment> getSegments() {
         return segments;

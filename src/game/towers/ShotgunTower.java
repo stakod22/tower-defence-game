@@ -13,7 +13,7 @@ public class ShotgunTower extends Tower{
     public ShotgunTower(Vector location) {
         new Tower.Builder()
                 .setLocation(location)
-                .setRange(50)
+                .setRange(75)
                 .setCost(35)
                 .setFirerate(100)
                 .setPierce(1)
