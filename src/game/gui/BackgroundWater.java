@@ -15,6 +15,7 @@ public class BackgroundWater implements Drawable {
     private List<Vector> seagrass = new ArrayList<>();
     private List<Vector> fish = new ArrayList<>();
     private List<Vector> bubbles = new ArrayList<>();
+    private List<Vector> variations = new ArrayList<>();
     private Random rand = new Random();
     private GamePath path;
 
@@ -27,6 +28,10 @@ public class BackgroundWater implements Drawable {
         generateClusteredElements(seagrass, 50, 10, 10, 6); // Seagrass in 6x6 clusters
         generateRandomElements(fish, 20, 800, 800); // Fish scattered randomly
         generateRandomElements(bubbles, 40, 800, 800); // Bubbles scattered randomly
+
+        for (int i = 0; i < 100; i++) {
+            variations.add(new Vector(rand.nextFloat(800), rand.nextFloat(800))); // Slight darker patches for texture
+        }
     }
 
     @Override
@@ -85,9 +90,10 @@ public class BackgroundWater implements Drawable {
         g.fillRect(0, 0, 800, 800);
 
         g.setColor(new Color(0, 75, 128));
-        for (int i = 0; i < 100; i++) {
-            g.fillOval(rand.nextInt(800), rand.nextInt(800), 5, 5); // Slight darker patches for texture
+        for(Vector v: variations){
+            g.fillOval((int)v.x,(int)v.y, 5, 5); // Slight darker patches for texture
         }
+
     }
 
     private void drawCoral(Graphics2D g, int x, int y) {

@@ -43,4 +43,7 @@ public class TowerList {
         }
         return null;
     }
+    public void clear(){
+        towerList.clear();
+    }
 }

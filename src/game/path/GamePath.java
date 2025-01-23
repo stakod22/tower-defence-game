@@ -137,8 +137,8 @@ public class GamePath implements Drawable {
     }
 
     public void updateLevel(){
-        segments = new ArrayList<>();
-        pathTiles = new ArrayList<>();
+        segments.clear();
+        pathTiles.clear();
         loadPath();
     }
 

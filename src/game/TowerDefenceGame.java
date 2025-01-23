@@ -21,14 +21,15 @@ public class TowerDefenceGame {
     private final Font bigFont = new Font("Arial", Font.PLAIN, 50);
     private final Font standardFont = new Font("Arial", Font.PLAIN, 12);
     private final List<Drawable> figures = new ArrayList<>();
-    private final EnemyList enemyList = new EnemyList();
-    private final TowerList towerList = new TowerList();
+    private EnemyList enemyList = new EnemyList();
+    private TowerList towerList = new TowerList();
     private final GamePath gamePath = new GamePath();
     private final ProjectileList projectileList = new ProjectileList();
     private final List<game.gui.Button> buttons = new ArrayList<>();
     private final WaveList waveList = new WaveList(20);
     private BackgroundWater backgroundWater;
     private BackgroundGrass backgroundGrass;
+    private BackgroundVolcano backgroundVolcanic;
     public static int level = 1;
     private int health = 100;
     private int money = 20+(level-1)*10;
@@ -53,11 +54,21 @@ public class TowerDefenceGame {
         //addEnemy(new FastEnemy(new Vector(250, -300),gamePath.getSegments()));
         backgroundGrass = new BackgroundGrass(gamePath);
         backgroundWater =  new BackgroundWater(gamePath);
+        backgroundVolcanic = new BackgroundVolcano(gamePath);
 
 
         //INIT
         initButtons();
         initWaves(gamePath);
+
+
+        String filePath = "src\\res\\level"+level+".wav";
+        String finalFilePath = filePath;
+        new Thread(() -> {
+            MusicPlayer m = new MusicPlayer();
+            m.playWav(finalFilePath, 0.5f); // Start the music
+        }).start();
+
     }
 
     public void addEnemy(Drawable enemy) {
@@ -79,6 +90,8 @@ public class TowerDefenceGame {
                 figures.add(backgroundGrass);
             }else if(level==2){
                 figures.add(backgroundWater);
+            }else if(level==3){
+                figures.add(backgroundVolcanic);
             }
             figures.add(gui);
             figures.add(gamePath);
@@ -121,6 +134,20 @@ public class TowerDefenceGame {
                     }
                 }
             }
+        }else{
+            if(menuGUI.isMenuOpen()){
+                menuGUI.closeUpgradeMenu();
+            }
+            towerList.clear();
+            enemyList.clearButNotNew();
+            new Thread(() -> {
+                try {
+                    Thread.sleep(1);  // Wait for 10 seconds
+                    MusicPlayer.stopMusic();  // Stop the music
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
         }
     }
 
@@ -200,6 +227,7 @@ public class TowerDefenceGame {
                 }
             }
         }
+        System.out.println(win+" / "+nextLevelButton.pressedButton(x,y));
         if(menuGUI.isMenuOpen()){
             TowerButton tb = null;
             Tower upgradeTower = null;
@@ -245,10 +273,17 @@ public class TowerDefenceGame {
                     break;
             }
         }else if(win) {
-            if(buttonName.equals("nextLevel")){
+            if(nextLevelButton.pressedButton(x, y)){
                 level++;
                 win = false;
                 gamePath.updateLevel();
+                waveList.init(gamePath);
+                String filePath = "src\\res\\level"+level+".wav";
+                String finalFilePath = filePath;
+                new Thread(() -> {
+                    MusicPlayer m = new MusicPlayer();
+                    m.playWav(finalFilePath, 0.5f); // Start the music
+                }).start();
             }
         }else{
             switch (buttonName) {
@@ -367,11 +402,11 @@ public class TowerDefenceGame {
     }
 
     private void placeTower(int gridX, int gridY) {
-        Vector loc = new Vector(50*gridX+25,50*gridY+25);
-        switch(currentTowerType){
+        Vector loc = new Vector(50 * gridX + 25, 50 * gridY + 25);
+        switch (currentTowerType) {
             case "StandardTower":
                 StandardTower newTower = new StandardTower(loc);
-                if(money>= newTower.getCost()){
+                if (money >= newTower.getCost()) {
                     money -= newTower.getCost();
                     addTower(newTower);
                     maxId++;
@@ -382,7 +417,7 @@ public class TowerDefenceGame {
                 break;
             case "FastTower":
                 RapidFireTower newFastTower = new RapidFireTower(loc);
-                if(money>= newFastTower.getCost()){
+                if (money >= newFastTower.getCost()) {
                     money -= newFastTower.getCost();
                     addTower(newFastTower);
                     maxId++;
@@ -393,7 +428,7 @@ public class TowerDefenceGame {
                 break;
             case "SniperTower":
                 SniperTower newSniperTower = new SniperTower(loc);
-                if(money>= newSniperTower.getCost()){
+                if (money >= newSniperTower.getCost()) {
                     money -= newSniperTower.getCost();
                     addTower(newSniperTower);
                     maxId++;
@@ -404,7 +439,7 @@ public class TowerDefenceGame {
                 break;
             case "FreezeTower":
                 FreezeTower newFreezeTower = new FreezeTower(loc);
-                if(money>= newFreezeTower.getCost()){
+                if (money >= newFreezeTower.getCost()) {
                     money -= newFreezeTower.getCost();
                     addTower(newFreezeTower);
                     maxId++;
@@ -415,7 +450,7 @@ public class TowerDefenceGame {
                 break;
             case "ShotgunTower":
                 ShotgunTower newShotgunTower = new ShotgunTower(loc);
-                if(money>= newShotgunTower.getCost()){
+                if (money >= newShotgunTower.getCost()) {
                     money -= newShotgunTower.getCost();
                     addTower(newShotgunTower);
                     maxId++;
@@ -426,7 +461,7 @@ public class TowerDefenceGame {
                 break;
             case "LaserTower":
                 LaserTower newLaserTower = new LaserTower(loc);
-                if(money>= newLaserTower.getCost()){
+                if (money >= newLaserTower.getCost()) {
                     money -= newLaserTower.getCost();
                     addTower(newLaserTower);
                     maxId++;
@@ -436,8 +471,8 @@ public class TowerDefenceGame {
                 gui.setDeclinePlace(true);
                 break;
         }
-
     }
+
 
     private void updateGUI(){
         gui.setPlacingmode(placingMode);

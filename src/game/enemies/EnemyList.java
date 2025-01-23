@@ -117,4 +117,9 @@ public class EnemyList{
     public int getNumberOfEnemys(){
         return enemyList.size();
     }
+
+    public void clearButNotNew(){
+        enemyList.clear();
+    }
+
 }
