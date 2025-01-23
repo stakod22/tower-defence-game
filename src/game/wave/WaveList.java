@@ -89,7 +89,7 @@ public class WaveList {
 //Wave 1
         List<Enemy> waveContend1 = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            waveContend1.add(new StandartEnemy(new Vector(250, -50 - 75 * i), gamePath.getSegments()));
+            waveContend1.add(new StandartEnemy(new Vector(250, -550 - 75 * i), gamePath.getSegments()));
         }
         addWave(waveContend1);
 
@@ -463,7 +463,7 @@ public class WaveList {
 // Wave 1
         List<Enemy> waveContend1 = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            waveContend1.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
+            waveContend1.add(new StandartEnemy(new Vector(250, -550 - 50 * i), gamePath.getSegments()));
         }
         addWave(waveContend1);
 
@@ -802,7 +802,7 @@ public class WaveList {
 // Wave 1
         List<Enemy> waveContend1 = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            waveContend1.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
+            waveContend1.add(new StandartEnemy(new Vector(250, -550 - 50 * i), gamePath.getSegments()));
         }
         addWave(waveContend1);
 
