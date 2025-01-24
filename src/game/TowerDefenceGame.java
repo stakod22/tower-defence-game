@@ -66,7 +66,7 @@ public class TowerDefenceGame {
         String finalFilePath = filePath;
         new Thread(() -> {
             MusicPlayer m = new MusicPlayer();
-            m.playWav(finalFilePath, 0.5f); // Start the music
+            m.playWav(finalFilePath, 1f); // Start the music
         }).start();
 
     }
@@ -140,6 +140,7 @@ public class TowerDefenceGame {
             }
             towerList.clear();
             enemyList.clearButNotNew();
+            projectileList.clear();
             new Thread(() -> {
                 try {
                     Thread.sleep(1);  // Wait for 10 seconds
@@ -227,7 +228,6 @@ public class TowerDefenceGame {
                 }
             }
         }
-        System.out.println(win+" / "+nextLevelButton.pressedButton(x,y));
         if(menuGUI.isMenuOpen()){
             TowerButton tb = null;
             Tower upgradeTower = null;
@@ -278,11 +278,10 @@ public class TowerDefenceGame {
                 win = false;
                 gamePath.updateLevel();
                 waveList.init(gamePath);
-                String filePath = "src\\res\\level"+level+".wav";
-                String finalFilePath = filePath;
+                String filePath = "src\\res\\level"+2+".wav";
                 new Thread(() -> {
                     MusicPlayer m = new MusicPlayer();
-                    m.playWav(finalFilePath, 0.5f); // Start the music
+                    m.playWav(filePath, 1f); // Start the music
                 }).start();
             }
         }else{

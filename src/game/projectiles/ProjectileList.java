@@ -64,4 +64,8 @@ public class ProjectileList {
         }
         removeDoneProjectiles();
     }
+
+    public void clear(){
+        projectileList.clear();
+    }
 }
