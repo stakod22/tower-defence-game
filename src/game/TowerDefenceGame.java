@@ -275,6 +275,8 @@ public class TowerDefenceGame {
         }else if(win) {
             if(nextLevelButton.pressedButton(x, y)){
                 level++;
+                money = 20+(level-1)*10;
+                health = 100;
                 win = false;
                 gamePath.updateLevel();
                 waveList.init(gamePath);

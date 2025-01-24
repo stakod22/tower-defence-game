@@ -138,7 +138,6 @@ public class Enemy implements Drawable {
             }
         }
         g.setColor(Color.black);
-        g.drawString(""+getId(),location.x,location.y);
     }
     public int getId() {
         return id;
