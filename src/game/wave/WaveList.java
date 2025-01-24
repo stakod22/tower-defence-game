@@ -64,6 +64,7 @@ public class WaveList {
     }
 
     public void init(GamePath gamePath){
+        waveList.clear();
         currentWave = 0;
         if (TowerDefenceGame.level == 1) {
             initLevel1(gamePath);
