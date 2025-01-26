@@ -14,7 +14,7 @@ public class ShotgunTower extends Tower{
         new Tower.Builder()
                 .setLocation(location)
                 .setRange(75)
-                .setCost(35)
+                .setCost(30)
                 .setFirerate(100)
                 .setPierce(1)
                 .setDamage(1)

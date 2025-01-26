@@ -1,5 +1,6 @@
 package game.gui;
 
+import game.TowerDefenceGame;
 import game.framework.Drawable;
 import game.framework.Vector;
 import game.path.GamePath;
@@ -34,7 +35,18 @@ public class GUI implements Drawable {
         GamePath gamePath = new GamePath();
         if(placingmode&&cellEmpty&&mouseGrid.x<=15 && mouseGrid.y<=15&& !gamePath.isOnPath((int)mouseGrid.x, (int)mouseGrid.y)){
             g.fillRect((int) (5+mouseGrid.x*50),(int) (5+mouseGrid.y*50),40,40);
-            g.setColor(new Color(95, 202, 87));
+
+            switch (TowerDefenceGame.level){
+                case 1:
+                    g.setColor(new Color(95, 202, 87));
+                    break;
+                case 2:
+                    g.setColor(new Color(34, 129, 205));
+                    break;
+                case 3:
+                    g.setColor(new Color(204, 104, 22));
+                    break;
+            }
             for(int i = 0; i<=15;i++){
                 for(int j = 0; j<=15;j++){
                     g.drawRect(j*50,i*50,50,50);

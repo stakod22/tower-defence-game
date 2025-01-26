@@ -37,6 +37,7 @@ public class Tower implements Drawable {
     private float canonLength = 20;
     private float canonStroke = 1;
     private float fireRateStroke = 0;
+    private int value;
 
     private TowerType towerType;
 
@@ -82,6 +83,7 @@ public class Tower implements Drawable {
 
     public void upgradeFireRate() {
         if (upgradeFireRatePurchased < 5){
+            value+=upgradeFireRateCost;
             upgradeFireRateCost = upgradeFireRateCost * 2;
             firerate = firerate * 3 / 4;
             upgradeFireRatePurchased++;
@@ -90,6 +92,7 @@ public class Tower implements Drawable {
     }
     public void upgradeRange() {
         if (upgradeRangePurchased < 5){
+            value+=upgradeRangeCost;
             upgradeRangeCost = upgradeRangeCost * 2;
             range = range + 20;
             upgradeRangePurchased++;
@@ -98,6 +101,7 @@ public class Tower implements Drawable {
     }
     public void upgradeDamage() {
         if (upgradeDamagePurchased < 5){
+            value+=upgradeDamageCost;
             upgradeDamageCost = upgradeDamageCost * 2;
             damage = damage + 1;
             upgradeDamagePurchased++;
@@ -106,6 +110,7 @@ public class Tower implements Drawable {
     }
     public void upgradePierce(){
         if (upgradePiercePurchased < 5){
+            value+=upgradePierceCost;
             upgradePierceCost = upgradePierceCost * 2;
             pierce = pierce + 1;
             upgradePiercePurchased++;
@@ -163,13 +168,13 @@ public class Tower implements Drawable {
     public void drawUpgrades(Graphics2D g){
         g.setColor(new Color(0, 85, 0));
 
-        //Fire Rate
+
         fireRateStroke = ((float) upgradeFireRatePurchased);
 
-        //Damage
+
         canonStroke = ((float)upgradeDamagePurchased)+1.0f;
 
-        //Pierce
+
         g.setColor(Color.red);
         if(upgradePiercePurchased>=1){
             int[] xPoints = new int[]{(int)location.x-20,(int)location.x-20+10,(int)location.x-20};
@@ -377,6 +382,14 @@ public class Tower implements Drawable {
         return projectileSize;
     }
 
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public static class Builder{
         private int id;
         private Vector location;
@@ -449,6 +462,7 @@ public class Tower implements Drawable {
             t.setDamage(damage);
             t.setTowerColor(towerColor);
             t.setProjectileSize(projectileSize);
+            t.setValue(cost);
         }
 
         public Tower.Builder buildFrom(Tower t){

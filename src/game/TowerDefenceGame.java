@@ -26,11 +26,11 @@ public class TowerDefenceGame {
     private final GamePath gamePath = new GamePath();
     private final ProjectileList projectileList = new ProjectileList();
     private final List<game.gui.Button> buttons = new ArrayList<>();
-    private final WaveList waveList = new WaveList(20);
+    private final WaveList waveList = new WaveList(30);
     private BackgroundWater backgroundWater;
     private BackgroundGrass backgroundGrass;
     private BackgroundVolcano backgroundVolcanic;
-    public static int level = 1;
+    public static int level = 3;
     private int health = 100;
     private int money = 20+(level-1)*10;
     private final GUI gui = new GUI();
@@ -42,6 +42,7 @@ public class TowerDefenceGame {
     private boolean paused = false;
     private int currentTowerId;
     private int maxId = 0;
+    private int pressedKey;
     private final Button nextLevelButton = new Button(new Vector(400,600),200,100,"Next Level",Color.red,"nextLevel");
 
     public TowerDefenceGame() {
@@ -54,7 +55,7 @@ public class TowerDefenceGame {
         //addEnemy(new FastEnemy(new Vector(250, -300),gamePath.getSegments()));
         backgroundGrass = new BackgroundGrass(gamePath);
         backgroundWater =  new BackgroundWater(gamePath);
-        backgroundVolcanic = new BackgroundVolcano(gamePath);
+        backgroundVolcanic = new BackgroundVolcano();
 
 
         //INIT
@@ -93,8 +94,8 @@ public class TowerDefenceGame {
             }else if(level==3){
                 figures.add(backgroundVolcanic);
             }
-            figures.add(gui);
             figures.add(gamePath);
+            figures.add(gui);
             figures.addAll(projectileList.getProjectileList());
             figures.addAll(towerList.getTowerList());
             figures.addAll(enemyList.getEnemyList());
@@ -133,6 +134,10 @@ public class TowerDefenceGame {
                         }
                     }
                 }
+            }else{
+                new Thread(() -> {
+                    MusicPlayer.stopMusic();  // Stop the music
+                }).start();
             }
         }else{
             if(menuGUI.isMenuOpen()){
@@ -213,7 +218,7 @@ public class TowerDefenceGame {
         }
     }
 
-    public void handleMouseClick(int x, int y) {
+    public void handleMouseClickLeft(int x, int y) {
 
         int gridX = x / CELL_WIDTH;
         int gridY = y / CELL_HEIGHT;
@@ -244,6 +249,12 @@ public class TowerDefenceGame {
                 case "ExitUpgradeMenu":
                     menuGUI.closeUpgradeMenu();
                     break;
+                 case "Sell":
+                     menuGUI.closeUpgradeMenu();
+                     money += (int)((float)upgradeTower.getValue()*0.7f);
+                     towerList.remove(upgradeTower);
+                     buttons.remove(tb);
+                     break;
                 case "FireRateUpgrade":
                     if(upgradeTower.getUpgradeFireRateCost()<=money && upgradeTower.getUpgradeFireRatePurchased() < 5){
                         money -= upgradeTower.getUpgradeFireRateCost();
@@ -280,7 +291,7 @@ public class TowerDefenceGame {
                 win = false;
                 gamePath.updateLevel();
                 waveList.init(gamePath);
-                String filePath = "src\\res\\level"+2+".wav";
+                String filePath = "src\\res\\level"+level+".wav";
                 new Thread(() -> {
                     MusicPlayer m = new MusicPlayer();
                     m.playWav(filePath, 1f); // Start the music
@@ -381,6 +392,14 @@ public class TowerDefenceGame {
         }
     }
 
+    public void handleMouseClickRight(){
+        placingMode = false;
+        if(menuGUI.isMenuOpen()){
+            menuGUI.closeUpgradeMenu();
+
+        }
+    }
+
     public void handleMouseDragged(int x, int y) {
         int gridX = x / CELL_WIDTH;
         int gridY = y / CELL_HEIGHT;
@@ -471,6 +490,56 @@ public class TowerDefenceGame {
                 }
                 gui.setDeclinePlace(true);
                 break;
+        }
+    }
+
+    public void handleKeyPress(int keyCode) {
+        pressedKey = keyCode;
+    }
+
+    public void handleKeyRelease(int keyCode) {
+        if(pressedKey==keyCode){
+            TowerButton tb = null;
+            Tower upgradeTower = null;
+            for(Button b : buttons) {
+                if (b.getName().equals("TowerPlaced")) {
+                    tb = (TowerButton) b;
+                    if(currentTowerId == tb.getId()){
+                        upgradeTower = towerList.getTowerByCell((int) tb.getCorner().x / CELL_WIDTH, (int) tb.getCorner().y / CELL_HEIGHT);
+                        break;
+                    }
+                }
+            }
+            switch (keyCode){
+                case 49:
+                    if(upgradeTower.getUpgradeFireRateCost()<=money && upgradeTower.getUpgradeFireRatePurchased() < 5){
+                        money -= upgradeTower.getUpgradeFireRateCost();
+                        upgradeTower.upgradeFireRate();
+                    }
+
+                    break;
+                case 50:
+                    if(upgradeTower.getUpgradeRangeCost()<=money && upgradeTower.getUpgradeRangePurchased() < 5){
+                        money -= upgradeTower.getUpgradeRangeCost();
+                        upgradeTower.upgradeRange();
+                    }
+                    break;
+                case 51:
+                    if(upgradeTower.getUpgradeDamageCost()<=money && upgradeTower.getUpgradeDamagePurchased() < 5){
+                        money -= upgradeTower.getUpgradeDamageCost();
+                        upgradeTower.upgradeDamage();
+                    }
+                    break;
+                case 52:
+                    if (upgradeTower.getUpgradePierceCost() <= money && upgradeTower.getUpgradePiercePurchased() < 5){
+                        money -= upgradeTower.getUpgradePierceCost();
+                        upgradeTower.upgradePierce();
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid key"+keyCode);
+                    break;
+            }
         }
     }
 

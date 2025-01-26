@@ -21,7 +21,7 @@ public class MenuGUI implements Drawable {
 
     @Override
     public void draw(Graphics2D g) {
-        if(menuOpen){
+        if(menuOpen&&tower!=null) {
             drawRange(g);
             if(menuSide.equals("LEFT")) {
                 g.setColor(new Color(192, 192, 192));
@@ -48,7 +48,7 @@ public class MenuGUI implements Drawable {
     }
 
     public void drawPriceText(Graphics2D g){
-        if(menuOpen){
+        if(menuOpen&&tower!=null) {
             g.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
             if(menuSide.equals("LEFT")){
                 g.setColor(Color.black);
@@ -102,7 +102,7 @@ public class MenuGUI implements Drawable {
 
     public void closeUpgradeMenu(){
         menuOpen = false;
-        for(int i = 0; i < 5;i++){
+        for(int i = 0; i < 6;i++){
             buttons.remove(buttons.size()-1);
         }
         tb.changeShowRange();
@@ -124,6 +124,8 @@ public class MenuGUI implements Drawable {
             buttons.add(new Button(new Vector(25, 175),150,75,"Range", new Color(79, 181, 55, 255), "RangeUpgrade"));
             buttons.add(new Button(new Vector(25, 275),150,75,"Damage", Color.red, "DamageUpgrade"));
             buttons.add(new Button(new Vector(25, 375),150,75,"Pierce", new Color(70, 163, 230), "PierceUpgrade"));
+
+            buttons.add(new Button(new Vector(25, 650),150,75,"Sell", new Color(119, 0, 0), "Sell"));
         } else if (menuSide.equals("RIGHT")) {
             buttons.add(new Button(new Vector(760, 20), 20, 20, "X", Color.red, "ExitUpgradeMenu"));
 
@@ -131,6 +133,8 @@ public class MenuGUI implements Drawable {
             buttons.add(new Button(new Vector(625, 175),150,75,"Range", new Color(79, 181, 55, 255), "RangeUpgrade"));
             buttons.add(new Button(new Vector(625, 275),150,75,"Damage", Color.red, "DamageUpgrade"));
             buttons.add(new Button(new Vector(625, 375),150,75,"Pierce", new Color(70, 163, 230), "PierceUpgrade"));
+
+            buttons.add(new Button(new Vector(625, 650),150,75,"Sell", new Color(119, 0, 0), "Sell"));
         }
 
     }

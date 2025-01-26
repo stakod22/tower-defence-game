@@ -13,7 +13,7 @@ public class LaserTower extends Tower {
         new Tower.Builder()
                 .setLocation(location)
                 .setRange(200)
-                .setCost(20)
+                .setCost(30)
                 .setFirerate(100)
                 .setPierce(1)
                 .setDamage(3)

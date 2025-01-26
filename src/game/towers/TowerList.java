@@ -46,4 +46,7 @@ public class TowerList {
     public void clear(){
         towerList.clear();
     }
+    public void remove(Tower tower){
+        towerList.remove(tower);
+    }
 }
