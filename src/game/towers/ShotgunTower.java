@@ -15,7 +15,7 @@ public class ShotgunTower extends Tower{
                 .setLocation(location)
                 .setRange(75)
                 .setCost(30)
-                .setFirerate(100)
+                .setFirerate(80)
                 .setPierce(1)
                 .setDamage(1)
                 .setProjectileSize(10)

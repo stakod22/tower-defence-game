@@ -43,7 +43,6 @@ public class TankEnemy extends Enemy{
         g.fillPolygon(xPoints, yPoints, 8);
         g.setColor(Color.black);
 
-        g.drawString("" + getId(), centerX, centerY);
     }
 
 }

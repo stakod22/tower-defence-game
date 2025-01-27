@@ -16,7 +16,7 @@ public class LaserTower extends Tower {
                 .setCost(30)
                 .setFirerate(100)
                 .setPierce(1)
-                .setDamage(3)
+                .setDamage(2)
                 .setProjectileSize(5)
                 .setColor(new Color(253, 149,  0))
                 .finalizeBuild(this);

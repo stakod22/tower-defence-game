@@ -30,7 +30,7 @@ public class TowerDefenceGame {
     private BackgroundWater backgroundWater;
     private BackgroundGrass backgroundGrass;
     private BackgroundVolcano backgroundVolcanic;
-    public static int level = 3;
+    public static int level = 1;
     private int health = 100;
     private int money = 20+(level-1)*10;
     private final GUI gui = new GUI();
