@@ -72,18 +72,6 @@ public class Enemy implements Drawable {
     @Override
     public void update() {
         boolean frozen = false;
-        if(location.y>=0 && location.x >= 0){
-            currentMoveWay+=Math.abs(speed.x);
-            currentMoveWay+=Math.abs(speed.y);
-
-            distanceTraveled += Math.abs(speed.x);
-            distanceTraveled += Math.abs(speed.y);
-        }
-
-        if(segments.get(currentSegment).lenght<=currentMoveWay) {
-            currentSegment++;
-            currentMoveWay = 0.f;
-        }
 
         switch (segments.get(currentSegment).direction){
             case 1:
@@ -103,6 +91,7 @@ public class Enemy implements Drawable {
                 health = -9999999;
                 break;
         }
+
         for (int i = 0; i < statusEffects.size(); i++) {
             switch(statusEffects.get(i).damageType) {
                 case FREEZE:
@@ -118,6 +107,34 @@ public class Enemy implements Drawable {
             }
         }
         location.add(speed);
+
+        if(location.y>=0 && location.x >= 0){
+            currentMoveWay+=Math.abs(speed.x);
+            currentMoveWay+=Math.abs(speed.y);
+
+            distanceTraveled += Math.abs(speed.x);
+            distanceTraveled += Math.abs(speed.y);
+        }
+
+        if(segments.get(currentSegment).lenght<=currentMoveWay) {
+            switch (segments.get(currentSegment).direction){
+                case 1:
+                    location.y += currentMoveWay-segments.get(currentSegment).lenght;
+                    break;
+                case 2:
+                    location.x -= currentMoveWay-segments.get(currentSegment).lenght;
+                    break;
+                case 3:
+                    location.y -= currentMoveWay-segments.get(currentSegment).lenght;
+                    break;
+                case 4:
+                    location.x += currentMoveWay-segments.get(currentSegment).lenght;
+                    break;
+            }
+            currentMoveWay = 0.f;
+            currentSegment++;
+        }
+
     }
 
     @Override
