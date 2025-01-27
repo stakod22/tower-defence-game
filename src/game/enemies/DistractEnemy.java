@@ -56,21 +56,21 @@ public class DistractEnemy extends Enemy {
 
         // Draw a dark black core for the enemy (main body)
         g.setColor(coreColor);
-        g.fill(new Ellipse2D.Double(x - size / 2, y - size / 2, size, size));
+        g.fill(new Ellipse2D.Double(x - size / 2.f, y - size / 2.f, size, size));
 
         // Add the glowing effect (pulsing aura effect)
         g.setColor(glowColor);
         g.setStroke(new BasicStroke(5));
-        g.draw(new Ellipse2D.Double(x - size / 2 - 5, y - size / 2 - 5, size + 10, size + 10)); // Outer glow
+        g.draw(new Ellipse2D.Double(x - size / 2.f - 5, y - size / 2.f - 5, size + 10, size + 10)); // Outer glow
         g.setStroke(new BasicStroke());
 
         // Optionally, add shadowing or haziness behind the enemy to add a darker effect
         g.setColor(new Color(0, 0, 0, 80)); // Semi-transparent black shadow
-        g.fill(new Ellipse2D.Double(x - size / 2 - 8, y - size / 2 - 8, size + 16, size + 16));
+        g.fill(new Ellipse2D.Double(x - size / 2.f - 8, y - size / 2.f - 8, size + 16, size + 16));
 
         // Reset color to core color for the inner part
         g.setColor(coreColor);
-        g.fill(new Ellipse2D.Double(x - size / 2, y - size / 2, size, size));
+        g.fill(new Ellipse2D.Double(x - size / 2.f, y - size / 2.f, size, size));
     }
 
     // Optional: Override or add methods for handling target prioritization

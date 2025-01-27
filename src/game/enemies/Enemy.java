@@ -36,10 +36,6 @@ public class Enemy implements Drawable {
         return speedValue;
     }
 
-    public void setSpeedValue(int speedValue) {
-        this.speedValue = speedValue;
-
-    }
     public void setRealSpeedValue(float speedValue) {
         this.speedValue = speedValue;
         speed = new Vector(0,speedValue);
@@ -57,10 +53,6 @@ public class Enemy implements Drawable {
         return color;
     }
 
-    public void setCurrentSegment(int currentSegment) {
-        this.currentSegment = currentSegment;
-    }
-
     public List<PathSegment> getSegments() {
         return segments;
     }
@@ -72,32 +64,15 @@ public class Enemy implements Drawable {
     @Override
     public void update() {
         boolean frozen = false;
-
-        switch (segments.get(currentSegment).direction){
-            case 1:
-                speed = new Vector(0,-speedValue);
-                break;
-            case 2:
-                speed = new Vector(speedValue,0);
-                break;
-            case 3:
-                speed = new Vector(0,speedValue);
-                break;
-            case 4:
-                speed = new Vector(-speedValue,0);
-                break;
-            case 5:
-                damage = health;
-                health = -9999999;
-                break;
-        }
+        float remainingSpeed = speedValue;
+        float currentSpeed;
 
         for (int i = 0; i < statusEffects.size(); i++) {
             switch(statusEffects.get(i).damageType) {
                 case FREEZE:
                     if(!frozen){
                         speed.divide(2.f);
-                        frozen=true;
+                        frozen = true;
                     }
                     break;
             }
@@ -106,35 +81,50 @@ public class Enemy implements Drawable {
                 statusEffects.remove(i);
             }
         }
-        location.add(speed);
 
-        if(location.y>=0 && location.x >= 0){
-            currentMoveWay+=Math.abs(speed.x);
-            currentMoveWay+=Math.abs(speed.y);
+        do {
+            if(segments.get(currentSegment).lenght<=currentMoveWay+remainingSpeed){
+                currentSpeed = segments.get(currentSegment).lenght-currentMoveWay;
+                remainingSpeed -= currentSpeed;
+            }else{
+                currentSpeed = remainingSpeed;
+                remainingSpeed = 0;
+            }
 
-            distanceTraveled += Math.abs(speed.x);
-            distanceTraveled += Math.abs(speed.y);
-        }
-
-        if(segments.get(currentSegment).lenght<=currentMoveWay) {
             switch (segments.get(currentSegment).direction){
                 case 1:
-                    location.y += currentMoveWay-segments.get(currentSegment).lenght;
+                    speed = new Vector(0,-currentSpeed);
                     break;
                 case 2:
-                    location.x -= currentMoveWay-segments.get(currentSegment).lenght;
+                    speed = new Vector(currentSpeed,0);
                     break;
                 case 3:
-                    location.y -= currentMoveWay-segments.get(currentSegment).lenght;
+                    speed = new Vector(0,currentSpeed);
                     break;
                 case 4:
-                    location.x += currentMoveWay-segments.get(currentSegment).lenght;
+                    speed = new Vector(-currentSpeed,0);
+                    break;
+                case 5:
+                    damage = health;
+                    health = -9999999;
                     break;
             }
-            currentMoveWay = 0.f;
-            currentSegment++;
-        }
 
+            if(location.y>=0 && location.x >= 0){
+                currentMoveWay+=Math.abs(speed.x);
+                currentMoveWay+=Math.abs(speed.y);
+
+                distanceTraveled += Math.abs(speed.x);
+                distanceTraveled += Math.abs(speed.y);
+            }
+
+            if(segments.get(currentSegment).lenght<=currentMoveWay) {
+                currentMoveWay = 0.f;
+                currentSegment++;
+            }
+
+            location.add(speed);
+        }while(remainingSpeed > 0);
     }
 
     @Override
@@ -143,13 +133,13 @@ public class Enemy implements Drawable {
         g.setColor(getColor());
         g.fillRect((int) location.x-size/2,(int) location.y-size/2, size, size);
 
-        for (int i = 0; i < statusEffects.size(); i++) {
-            switch(statusEffects.get(i).damageType) {
+        for (StatusEffect statusEffect : statusEffects) {
+            switch (statusEffect.damageType) {
                 case FREEZE:
-                    if(!frozen){
+                    if (!frozen) {
                         frozen = true;
-                    g.setColor(new Color( 49, 199, 245, 64));
-                    g.fillRect((int) location.x-size/2,(int) location.y-size/2, size, size);
+                        g.setColor(new Color(49, 199, 245, 64));
+                        g.fillRect((int) location.x - size / 2, (int) location.y - size / 2, size, size);
                     }
                     break;
             }
@@ -172,21 +162,10 @@ public class Enemy implements Drawable {
         this.location = location;
     }
 
-    public Vector getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(Vector speed) {
-        this.speed = speed;
-    }
-
     public float getDistanceTraveled() {
         return distanceTraveled;
     }
 
-    public void setDistanceTraveled(int distanceTraveled) {
-        this.distanceTraveled = distanceTraveled;
-    }
 
     public int getHealth() {
         return health;
@@ -218,14 +197,6 @@ public class Enemy implements Drawable {
 
     public void setMoneyToGive(int moneyToGive) {
         this.moneyToGive = moneyToGive;
-    }
-
-    public List<StatusEffect> getStatusEffects() {
-        return statusEffects;
-    }
-
-    public void setStatusEffects(List<StatusEffect> statusEffects) {
-        this.statusEffects = statusEffects;
     }
 
     public void addStatusEffect(StatusEffect statusEffect) {
@@ -322,27 +293,24 @@ public class Enemy implements Drawable {
         }
 
         public Enemy.Builder buildFrom(Enemy e){
-            setId(e.getId());
+            this.id = e.getId();
             if(e.getLocation()!=null){
-                setLocation(e.getLocation());
+                this.location = e.getLocation();
             }
 
-            setSpeedValue(e.getSpeedValue());
-            setHealth(e.getHealth());
-            setSize(e.getSize());
-            setMoneyToGive(e.getMoneyToGive());
+            this.speedValue = e.getSpeedValue();
+            this.health = e.getHealth();
+            this.size = e.getSize();
+            this.moneyToGive = e.getMoneyToGive();
             if(e.getColor() != null){
-                setColor(e.getColor());
+                this.color = e.getColor();
             }
-
             if(e.getSegments() != null){
-                setSegments(e.getSegments());
+                this.segments = e.getSegments();
             }
-
             if(e.getEnemyType() != null){
-                setEnemyType(e.getEnemyType());
+                this.enemyType = e.getEnemyType();
             }
-
             return this;
         }
     }

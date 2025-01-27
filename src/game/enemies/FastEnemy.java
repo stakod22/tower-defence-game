@@ -73,9 +73,9 @@ public class FastEnemy extends Enemy {
 
         // Draw a triangle or custom shape to represent speed and agility
         Path2D.Double shape = new Path2D.Double();
-        shape.moveTo(x, y- size/2);  // Top of the triangle
-        shape.lineTo(x + size / 2, y + size / 2); // Bottom left
-        shape.lineTo(x - size / 2, y + size / 2); // Bottom right
+        shape.moveTo(x, y- size/2.f);  // Top of the triangle
+        shape.lineTo(x + size / 2.f, y + size / 2.f); // Bottom left
+        shape.lineTo(x - size / 2.f, y + size / 2.f); // Bottom right
         shape.closePath();
 
         g.fill(shape);

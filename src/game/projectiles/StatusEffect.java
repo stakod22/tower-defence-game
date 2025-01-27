@@ -1,5 +1,6 @@
 package game.projectiles;
 
+
 public class StatusEffect {
     public DamageType damageType;
     public int damageDuration;

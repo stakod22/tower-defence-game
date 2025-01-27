@@ -42,12 +42,12 @@ public class AntiFreezeEnemy extends Enemy {
 
         // Draw a square shape
         g.setColor(getColor());
-        g.fill(new Rectangle2D.Double(x - size / 2, y - size / 2, size, size));
+        g.fill(new Rectangle2D.Double(x - size / 2.f, y - size / 2.f, size, size));
 
         // Add a faint blue or icy glow around the square to visually represent its "anti-freeze" ability
         g.setStroke(new BasicStroke(4));
         g.setColor(new Color(0, 255, 255, 128));  // A light cyan glow indicating anti-freeze power
-        g.draw(new Rectangle2D.Double(x - size / 2 - 5, y - size / 2 - 5, size + 10, size + 10)); // Outer glow
+        g.draw(new Rectangle2D.Double(x - size / 2.f - 5, y - size / 2.f - 5, size + 10, size + 10)); // Outer glow
         g.setStroke(new BasicStroke());
         g.setColor(Color.black);
     }
