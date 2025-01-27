@@ -36,13 +36,12 @@ public class TowerDefenceGame {
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
     private boolean placingMode = false;
-    private boolean lost = false;
-    private boolean win = false;
     private String currentTowerType = "default!!!----||null";
     private boolean paused = false;
     private int currentTowerId;
     private int maxId = 0;
     private int pressedKey;
+    private Screen screen;
     private final Button nextLevelButton = new Button(new Vector(400,600),200,100,"Next Level",Color.red,"nextLevel");
 
     public TowerDefenceGame() {
@@ -64,12 +63,11 @@ public class TowerDefenceGame {
 
 
         String filePath = "src\\res\\level"+level+".wav";
-        String finalFilePath = filePath;
         new Thread(() -> {
             MusicPlayer m = new MusicPlayer();
-            m.playWav(finalFilePath, 1f); // Start the music
+            m.playWav(filePath, 1f); // Start the music
         }).start();
-
+        screen = Screen.GAME;
     }
 
     public void addEnemy(Drawable enemy) {
@@ -85,24 +83,28 @@ public class TowerDefenceGame {
     }
 
     public void update() {
-        if(!win){
-            figures.clear();
-            if(level==1){
-                figures.add(backgroundGrass);
-            }else if(level==2){
-                figures.add(backgroundWater);
-            }else if(level==3){
-                figures.add(backgroundVolcanic);
-            }
-            figures.add(gamePath);
-            figures.add(gui);
-            figures.addAll(projectileList.getProjectileList());
-            figures.addAll(towerList.getTowerList());
-            figures.addAll(enemyList.getEnemyList());
-            figures.add(menuGUI);
-            figures.addAll(buttons);
+        switch (screen){
+            case HOME:
+                break;
+            case SETTINGS:
+                break;
+            case GAME:
+                figures.clear();
+                if(level==1){
+                    figures.add(backgroundGrass);
+                }else if(level==2){
+                    figures.add(backgroundWater);
+                }else if(level==3){
+                    figures.add(backgroundVolcanic);
+                }
+                figures.add(gamePath);
+                figures.add(gui);
+                figures.addAll(projectileList.getProjectileList());
+                figures.addAll(towerList.getTowerList());
+                figures.addAll(enemyList.getEnemyList());
+                figures.add(menuGUI);
+                figures.addAll(buttons);
 
-            if (!lost){
                 updateGUI();
                 if(!paused){
                     projectileList.addAllProjectiles(towerList.update(enemyList));
@@ -119,7 +121,7 @@ public class TowerDefenceGame {
                     money += enemyList.giveMoney();
 
                     if(health <= 0) {
-                        lost = true;
+                        screen = Screen.LOSE;
                     }else{
                         if (enemyList.getNumberOfEnemys() == 0) {
 
@@ -129,44 +131,46 @@ public class TowerDefenceGame {
                                 waveList.currentWaveDone();
 
                             }else {
-                                win = true;
+                                screen = Screen.WIN;
                             }
                         }
                     }
                 }
-            }else{
+                break;
+            case WIN:
+                if(menuGUI.isMenuOpen()){
+                    menuGUI.closeUpgradeMenu();
+                }
+                towerList.clear();
+                enemyList.clearButNotNew();
+                projectileList.clear();
+                buttons.clear();
+                initButtons();
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1);  // Wait for 10 seconds
+                        MusicPlayer.stopMusic();  // Stop the music
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+                break;
+            case LOSE:
                 new Thread(() -> {
                     MusicPlayer.stopMusic();  // Stop the music
                 }).start();
-            }
-        }else{
-            if(menuGUI.isMenuOpen()){
-                menuGUI.closeUpgradeMenu();
-            }
-            towerList.clear();
-            enemyList.clearButNotNew();
-            projectileList.clear();
-            new Thread(() -> {
-                try {
-                    Thread.sleep(1);  // Wait for 10 seconds
-                    MusicPlayer.stopMusic();  // Stop the music
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }).start();
+                break;
         }
     }
 
     public void draw(Graphics2D g) {
-        if (win) {
-            g.setFont(veryBigFont);
-            g.setColor(Color.GREEN);
-            g.drawString("You Win!", 150, 400);
-            g.setColor(Color.black);
-            g.setFont(standardFont);
-            nextLevelButton.draw(g);
-        } else {
-            if (!lost) {
+        switch (screen){
+            case HOME:
+
+                break;
+            case SETTINGS:
+                break;
+            case GAME:
                 for (Drawable d : figures) {
                     if(d.getClass()!=MenuGUI.class&&d.getClass()!=Button.class){
                         d.draw(g);
@@ -192,8 +196,16 @@ public class TowerDefenceGame {
                 g.drawString("Wave: " + waveList.getCurrentWave() + " \uD83C\uDF0A", 825, 70);
 
                 drawTowerPrice(g);
-
-            } else {
+                break;
+            case WIN:
+                g.setFont(veryBigFont);
+                g.setColor(Color.GREEN);
+                g.drawString("You Win!", 150, 400);
+                g.setColor(Color.black);
+                g.setFont(standardFont);
+                nextLevelButton.draw(g);
+                break;
+            case LOSE:
                 g.setFont(veryBigFont);
                 g.setColor(Color.red);
                 g.drawString("You Lost!", 150, 400);
@@ -201,7 +213,7 @@ public class TowerDefenceGame {
                 g.setFont(bigFont);
                 g.drawString("Wave: " + waveList.getCurrentWave(), 400, 550);
                 g.setFont(standardFont);
-            }
+                break;
         }
     }
 
@@ -283,12 +295,12 @@ public class TowerDefenceGame {
 
                     break;
             }
-        }else if(win) {
+        }else if(screen == Screen.WIN) {
             if(nextLevelButton.pressedButton(x, y)){
                 level++;
                 money = 20+(level-1)*10;
                 health = 100;
-                win = false;
+                screen = Screen.GAME;
                 gamePath.updateLevel();
                 waveList.init(gamePath);
                 String filePath = "src\\res\\level"+level+".wav";
@@ -498,7 +510,7 @@ public class TowerDefenceGame {
     }
 
     public void handleKeyRelease(int keyCode) {
-        if(pressedKey==keyCode){
+        if(pressedKey==keyCode&& menuGUI.isMenuOpen()){
             TowerButton tb = null;
             Tower upgradeTower = null;
             for(Button b : buttons) {

@@ -46,11 +46,13 @@ public class WaveList {
             float moneydecrease = 0.99f;
 
             for (Enemy e : waveList.get(i).enemies){
-                e.setHealth((int) (e.getHealth()*(Math.pow(healthincrease,i))));
-                e.setRealSpeedValue((int) (e.getSpeedValue()*(Math.pow(speedincrease,i))));
-                e.setMoneyToGive((int) (e.getMoneyToGive()*(Math.pow(moneydecrease,i))));
-                if (e.getMoneyToGive() < 1){
-                    e.setMoneyToGive(1);
+                if(!(e instanceof SuperBoss100Enemy)){
+                    e.setHealth((int) (e.getHealth()*(Math.pow(healthincrease,i))));
+                    e.setRealSpeedValue((int) (e.getSpeedValue()*(Math.pow(speedincrease,i))));
+                    e.setMoneyToGive((int) (e.getMoneyToGive()*(Math.pow(moneydecrease,i))));
+                    if (e.getMoneyToGive() < 1){
+                        e.setMoneyToGive(1);
+                    }
                 }
             }
         }
@@ -92,6 +94,15 @@ public class WaveList {
         for (int i = 0; i < 4; i++) {
             waveContend1.add(new StandartEnemy(new Vector(250, -550 - 50 * i), gamePath.getSegments()));
         }
+//        waveContend1.add(new FastEnemy(new Vector(250, -200), gamePath.getSegments()));
+//        waveContend1.add(new FastEnemy(new Vector(250, -300), gamePath.getSegments()));
+//        waveContend1.add(new FastEnemy(new Vector(250, -400), gamePath.getSegments()));
+//        waveContend1.add(new FastEnemy(new Vector(250, -500), gamePath.getSegments()));
+//
+//        waveContend1.add(new DistractEnemy(new Vector(250, -300), gamePath.getSegments()));
+//        waveContend1.add(new AntiFreezeEnemy(new Vector(250, -400), gamePath.getSegments()));
+//        waveContend1.add(new SuperBoss100Enemy(new Vector(250, -500), gamePath.getSegments()));
+
         addWave(waveContend1);
 
 //Wave 2
@@ -997,7 +1008,7 @@ public class WaveList {
         for (int i = 0; i < 22; i++) {
             waveContend30.add(new AntiFreezeEnemy(new Vector(250, -700 - 120 * i), gamePath.getSegments()));
         }
-        waveContend30.add(new BossEnemy(new Vector(250, -50), gamePath.getSegments()));
+        waveContend30.add(new SuperBoss100Enemy(new Vector(250, -600), gamePath.getSegments()));
         addWave(waveContend30);
 
     }
