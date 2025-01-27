@@ -11,7 +11,7 @@ public class DistractEnemy extends Enemy{
     public DistractEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(10)
+                .setHealth(20)
                 .setSegments(segments)
                 .setSpeedValue(2.f)
                 .setSize(30)

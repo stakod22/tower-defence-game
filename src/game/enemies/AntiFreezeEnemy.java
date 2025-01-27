@@ -12,7 +12,7 @@ public class AntiFreezeEnemy extends Enemy{
     public AntiFreezeEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(4)
+                .setHealth(8)
                 .setSegments(segments)
                 .setSpeedValue(2.f)
                 .setSize(30)

@@ -15,7 +15,7 @@ public class FreezeTower extends Tower {
                 .setCost(20)
                 .setFirerate(25)
                 .setPierce(1)
-                .setDamage(1)
+                .setDamage(2)
                 .setProjectileSize(10)
                 .setColor(Color.CYAN)
                 .finalizeBuild(this);

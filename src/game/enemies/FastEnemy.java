@@ -11,7 +11,7 @@ public class FastEnemy extends Enemy{
     public FastEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(3)
+                .setHealth(6)
                 .setSegments(segments)
                 .setSpeedValue(5.f)
                 .setSize(20)

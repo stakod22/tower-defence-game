@@ -17,7 +17,7 @@ public class ShotgunTower extends Tower{
                 .setCost(30)
                 .setFirerate(80)
                 .setPierce(1)
-                .setDamage(1)
+                .setDamage(2)
                 .setProjectileSize(10)
                 .setColor(new Color(189,166,133))
                 .finalizeBuild(this);

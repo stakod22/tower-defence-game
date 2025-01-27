@@ -10,7 +10,7 @@ public class SuperBoss100Enemy extends Enemy{
     public SuperBoss100Enemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(1000)
+                .setHealth(2000)
                 .setSegments(segments)
                 .setSpeedValue(1.f)
                 .setSize(40)

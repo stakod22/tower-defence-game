@@ -14,7 +14,7 @@ public class SniperTower extends Tower {
                 .setCost(40)
                 .setFirerate(200)
                 .setPierce(2)
-                .setDamage(4)
+                .setDamage(8)
                 .setProjectileSize(10)
                 .setColor(new Color(64, 163, 79))
                 .finalizeBuild(this);

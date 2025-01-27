@@ -11,7 +11,7 @@ public class RegenEnemy extends Enemy{
     public RegenEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(5)
+                .setHealth(10)
                 .setSegments(segments)
                 .setSpeedValue(1.f)
                 .setSize(30)

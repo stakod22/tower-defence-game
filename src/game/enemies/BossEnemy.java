@@ -10,7 +10,7 @@ public class BossEnemy extends Enemy{
     public BossEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(50)
+                .setHealth(100)
                 .setSegments(segments)
                 .setSpeedValue(1.f)
                 .setSize(40)
