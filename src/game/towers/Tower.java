@@ -85,7 +85,7 @@ public class Tower implements Drawable {
         if (upgradeFireRatePurchased < 5){
             value+=upgradeFireRateCost;
             upgradeFireRateCost = upgradeFireRateCost * 2;
-            firerate = firerate * 3 / 4;
+            firerate = (firerate * 8) / 10;
             upgradeFireRatePurchased++;
         }
 
