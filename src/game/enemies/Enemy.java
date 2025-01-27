@@ -71,7 +71,7 @@ public class Enemy implements Drawable {
             switch(statusEffects.get(i).damageType) {
                 case FREEZE:
                     if(!frozen){
-                        speed.divide(2.f);
+                        remainingSpeed /= 2.f;
                         frozen = true;
                     }
                     break;
