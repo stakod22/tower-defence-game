@@ -35,7 +35,7 @@ public class MusicPlayer {
             clip.loop(Clip.LOOP_CONTINUOUSLY);  // This will loop the audio indefinitely
 
             // Optionally, you can sleep here if you want to keep the thread alive.
-            System.out.println("Playing audio in loop...");
+            //System.out.println("Playing audio in loop...");
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class MusicPlayer {
         if (clip != null && clip.isRunning()) {
             clip.stop();  // Stop the audio clip
             clip.close(); // Close the clip to release resources
-            System.out.println("Music stopped.");
+            //System.out.println("Music stopped.");
         }
     }
 }
