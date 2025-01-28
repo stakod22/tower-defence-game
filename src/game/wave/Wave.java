@@ -2,18 +2,13 @@ package game.wave;
 
 import game.enemies.Enemy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Wave {
-    List<Enemy> enemies = new ArrayList<>();
+    List<Enemy> enemies;
 
     public Wave(List<Enemy> e){
         enemies = e;
-    }
-
-    public void addEnemies(Enemy enemy){
-        enemies.add(enemy);
     }
 
     public List<Enemy> getEnemies() {
@@ -26,11 +21,11 @@ public class Wave {
 
     @Override
     public String toString() {
-        String stringer = "";
+        StringBuilder stringer = new StringBuilder();
         for (Enemy e : enemies) {
-            stringer += e.toString();
-            stringer += "\n";
+            stringer.append(e.toString());
+            stringer.append("\n");
         }
-        return stringer;
+        return stringer.toString();
     }
 }

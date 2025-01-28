@@ -17,7 +17,7 @@ public class FastEnemy extends Enemy {
                 .setLocation(location)
                 .setHealth(6)
                 .setSegments(segments)
-                .setSpeedValue(5.f)
+                .setSpeedValue(5.1f)
                 .setSize(25)
                 .setMoneyToGive(7)
                 .setColor(new Color(9, 129, 191))  // Changed color to make it look faster

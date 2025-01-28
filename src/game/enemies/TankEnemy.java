@@ -13,7 +13,7 @@ public class TankEnemy extends Enemy{
                 .setLocation(location)
                 .setHealth(20)
                 .setSegments(segments)
-                .setSpeedValue(1.f)
+                .setSpeedValue(0.9f)
                 .setSize(40)
                 .setMoneyToGive(11)
                 .setEnemyType(EnemyType.TANK)

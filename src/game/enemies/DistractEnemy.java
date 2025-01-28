@@ -19,7 +19,7 @@ public class DistractEnemy extends Enemy {
                 .setLocation(location)
                 .setHealth(20)
                 .setSegments(segments)
-                .setSpeedValue(2.f)
+                .setSpeedValue(1.3f)
                 .setSize(20)
                 .setMoneyToGive(6)
                 .setColor(coreColor)  // Black core color

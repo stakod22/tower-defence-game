@@ -31,7 +31,7 @@ public class TowerDefenceGame {
     private BackgroundGrass backgroundGrass;
     private BackgroundVolcano backgroundVolcanic;
     public static int level = 1;
-    private int health = 100;
+    private int health = 50;
     private int money = 20+(level-1)*10;
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
@@ -41,8 +41,10 @@ public class TowerDefenceGame {
     private int currentTowerId;
     private int maxId = 0;
     private int pressedKey;
-    private Screen screen;
+    public static Screen screen;
     private final Button nextLevelButton = new Button(new Vector(400,600),200,100,"Next Level",Color.red,"nextLevel");
+    private MainMenu mainMenu = new MainMenu();
+
 
     public TowerDefenceGame() {
 
@@ -67,7 +69,7 @@ public class TowerDefenceGame {
             MusicPlayer m = new MusicPlayer();
             m.playWav(filePath, 1f); // Start the music
         }).start();
-        screen = Screen.GAME;
+        screen = Screen.HOME;
     }
 
     public void addEnemy(Drawable enemy) {
@@ -166,7 +168,7 @@ public class TowerDefenceGame {
     public void draw(Graphics2D g) {
         switch (screen){
             case HOME:
-
+                mainMenu.draw(g);
                 break;
             case SETTINGS:
                 break;
@@ -231,177 +233,188 @@ public class TowerDefenceGame {
     }
 
     public void handleMouseClickLeft(int x, int y) {
+        switch (screen){
+            case GAME:
+                int gridX = x / CELL_WIDTH;
+                int gridY = y / CELL_HEIGHT;
 
-        int gridX = x / CELL_WIDTH;
-        int gridY = y / CELL_HEIGHT;
-
-        String buttonName = "";
-        for(Button b : buttons){
-            if(b.pressedButton(x,y)){
-                buttonName = b.getName();
-                if(buttonName.equals("TowerPlaced")&&!menuGUI.isMenuOpen()){
-                    TowerButton towerButton = (TowerButton) b;
-                    currentTowerId = towerButton.getId();
-                }
-            }
-        }
-        if(menuGUI.isMenuOpen()){
-            TowerButton tb = null;
-            Tower upgradeTower = null;
-            for(Button b : buttons) {
-                if (b.getName().equals("TowerPlaced")) {
-                    tb = (TowerButton) b;
-                    if(currentTowerId == tb.getId()){
-                        upgradeTower = towerList.getTowerByCell((int) tb.getCorner().x / CELL_WIDTH, (int) tb.getCorner().y / CELL_HEIGHT);
-                        break;
+                String buttonName = "";
+                for(Button b : buttons){
+                    if(b.pressedButton(x,y)){
+                        buttonName = b.getName();
+                        if(buttonName.equals("TowerPlaced")&&!menuGUI.isMenuOpen()){
+                            TowerButton towerButton = (TowerButton) b;
+                            currentTowerId = towerButton.getId();
+                        }
                     }
                 }
-            }
-             switch (buttonName){
-                case "ExitUpgradeMenu":
-                    menuGUI.closeUpgradeMenu();
-                    break;
-                 case "Sell":
-                     menuGUI.closeUpgradeMenu();
-                     money += (int)((float)upgradeTower.getValue()*0.7f);
-                     towerList.remove(upgradeTower);
-                     buttons.remove(tb);
-                     break;
-                case "FireRateUpgrade":
-                    if(upgradeTower.getUpgradeFireRateCost()<=money && upgradeTower.getUpgradeFireRatePurchased() < 5){
-                        money -= upgradeTower.getUpgradeFireRateCost();
-                        upgradeTower.upgradeFireRate();
-                    }
-
-                    break;
-                case "RangeUpgrade":
-                    if(upgradeTower.getUpgradeRangeCost()<=money && upgradeTower.getUpgradeRangePurchased() < 5){
-                        money -= upgradeTower.getUpgradeRangeCost();
-                        upgradeTower.upgradeRange();
-                    }
-                    break;
-                case "DamageUpgrade":
-                    if(upgradeTower.getUpgradeDamageCost()<=money && upgradeTower.getUpgradeDamagePurchased() < 5){
-                        money -= upgradeTower.getUpgradeDamageCost();
-                        upgradeTower.upgradeDamage();
-                    }
-
-                    break;
-                case "PierceUpgrade":
-                    if (upgradeTower.getUpgradePierceCost() <= money && upgradeTower.getUpgradePiercePurchased() < 5){
-                        money -= upgradeTower.getUpgradePierceCost();
-                        upgradeTower.upgradePierce();
-                    }
-
-                    break;
-            }
-        }else if(screen == Screen.WIN) {
-            if(nextLevelButton.pressedButton(x, y)){
-                level++;
-                money = 20+(level-1)*10;
-                health = 100;
-                screen = Screen.GAME;
-                gamePath.updateLevel();
-                waveList.init(gamePath);
-                String filePath = "src\\res\\level"+level+".wav";
-                new Thread(() -> {
-                    MusicPlayer m = new MusicPlayer();
-                    m.playWav(filePath, 1f); // Start the music
-                }).start();
-            }
-        }else{
-            switch (buttonName) {
-                case "BuyTower1":
-                    if(currentTowerType.equals("StandardTower")&&placingMode){
-                        placingMode = false;
-                    }else{
-                        placingMode = true;
-                    }
-                    currentTowerType = "StandardTower";
-                    StandardTower standardTowerTower = new StandardTower(new Vector(1,1));
-                    gui.setTowerRange(standardTowerTower.getRange());
-                    break;
-                case "BuyTower2":
-                    if(currentTowerType.equals("FastTower")&&placingMode){
-                        placingMode = false;
-                    }else{
-                        placingMode = true;
-                    }
-                    currentTowerType = "FastTower";
-                    RapidFireTower fastTower = new RapidFireTower(new Vector(1,1));
-                    gui.setTowerRange(fastTower.getRange());
-                    break;
-                case "BuyTower3":
-                    if(currentTowerType.equals("SniperTower")&&placingMode){
-                        placingMode = false;
-                    }else{
-                        placingMode = true;
-                    }
-                    currentTowerType = "SniperTower";
-                    SniperTower sniperTower = new SniperTower(new Vector(1,1));
-                    gui.setTowerRange(sniperTower.getRange());
-                    break;
-
-                case "BuyTower4":
-                    if(currentTowerType.equals("FreezeTower")&&placingMode){
-                        placingMode = false;
-                    }else{
-                        placingMode = true;
-                    }
-                    currentTowerType = "FreezeTower";
-                    FreezeTower freezeTower = new FreezeTower(new Vector(1,1));
-                    gui.setTowerRange(freezeTower.getRange());
-                    break;
-                case "BuyTower5":
-                    if(currentTowerType.equals("ShotgunTower")&&placingMode){
-                        placingMode = false;
-                    }else{
-                        placingMode = true;
-                    }
-                    currentTowerType = "ShotgunTower";
-                    ShotgunTower shotgunTower = new ShotgunTower(new Vector(1,1));
-                    gui.setTowerRange(shotgunTower.getRange());
-                    break;
-                case "BuyTower6":
-                    if(currentTowerType.equals("LaserTower")&&placingMode){
-                        placingMode = false;
-                    }else{
-                        placingMode = true;
-                    }
-                    currentTowerType = "LaserTower";
-                    LaserTower laserTower = new LaserTower(new Vector(1,1));
-                    gui.setTowerRange(laserTower.getRange());
-                    break;
-                case "Menu":
-                    placingMode = false;
-                    paused = !paused;
-                    break;
-                case "TowerPlaced":
-                    for(Button b : buttons){
-                        if(b.getName().equals("TowerPlaced")){
-                            TowerButton tb  = (TowerButton) b;
+                if(menuGUI.isMenuOpen()){
+                    TowerButton tb = null;
+                    Tower upgradeTower = null;
+                    for(Button b : buttons) {
+                        if (b.getName().equals("TowerPlaced")) {
+                            tb = (TowerButton) b;
                             if(currentTowerId == tb.getId()){
-                                placingMode = false;
-                                if(tb.getCorner().x>400){
-                                    menuGUI.openUpgradeMenu("LEFT",towerList.getTowerByCell((int)tb.getCorner().x/CELL_WIDTH,(int)tb.getCorner().y/CELL_HEIGHT),buttons,tb);
-                                }else{
-                                    menuGUI.openUpgradeMenu("RIGHT",towerList.getTowerByCell((int)tb.getCorner().x/CELL_WIDTH,(int)tb.getCorner().y/CELL_HEIGHT),buttons,tb);
-                                }
+                                upgradeTower = towerList.getTowerByCell((int) tb.getCorner().x / CELL_WIDTH, (int) tb.getCorner().y / CELL_HEIGHT);
                                 break;
                             }
                         }
                     }
-                    break;
+                    switch (buttonName){
+                        case "ExitUpgradeMenu":
+                            menuGUI.closeUpgradeMenu();
+                            break;
+                        case "Sell":
+                            menuGUI.closeUpgradeMenu();
+                            money += (int)((float)upgradeTower.getValue()*0.7f);
+                            towerList.remove(upgradeTower);
+                            buttons.remove(tb);
+                            break;
+                        case "FireRateUpgrade":
+                            if(upgradeTower.getUpgradeFireRateCost()<=money && upgradeTower.getUpgradeFireRatePurchased() < 5){
+                                money -= upgradeTower.getUpgradeFireRateCost();
+                                upgradeTower.upgradeFireRate();
+                            }
 
-                default:
-                    if(isCellEmpty(gridX, gridY)&&gridY<=15&&gridX<=15&& placingMode) {
-                        if(!gamePath.isOnPath(gridX, gridY)){
-                            placeTower(gridX, gridY);
-                        }
+                            break;
+                        case "RangeUpgrade":
+                            if(upgradeTower.getUpgradeRangeCost()<=money && upgradeTower.getUpgradeRangePurchased() < 5){
+                                money -= upgradeTower.getUpgradeRangeCost();
+                                upgradeTower.upgradeRange();
+                            }
+                            break;
+                        case "DamageUpgrade":
+                            if(upgradeTower.getUpgradeDamageCost()<=money && upgradeTower.getUpgradeDamagePurchased() < 5){
+                                money -= upgradeTower.getUpgradeDamageCost();
+                                upgradeTower.upgradeDamage();
+                            }
+
+                            break;
+                        case "PierceUpgrade":
+                            if (upgradeTower.getUpgradePierceCost() <= money && upgradeTower.getUpgradePiercePurchased() < 5){
+                                money -= upgradeTower.getUpgradePierceCost();
+                                upgradeTower.upgradePierce();
+                            }
+
+                            break;
                     }
-                    break;
-            }
+                }else{
+                    switch (buttonName) {
+                        case "BuyTower1":
+                            if(currentTowerType.equals("StandardTower")&&placingMode){
+                                placingMode = false;
+                            }else{
+                                placingMode = true;
+                            }
+                            currentTowerType = "StandardTower";
+                            StandardTower standardTowerTower = new StandardTower(new Vector(1,1));
+                            gui.setTowerRange(standardTowerTower.getRange());
+                            break;
+                        case "BuyTower2":
+                            if(currentTowerType.equals("FastTower")&&placingMode){
+                                placingMode = false;
+                            }else{
+                                placingMode = true;
+                            }
+                            currentTowerType = "FastTower";
+                            RapidFireTower fastTower = new RapidFireTower(new Vector(1,1));
+                            gui.setTowerRange(fastTower.getRange());
+                            break;
+                        case "BuyTower3":
+                            if(currentTowerType.equals("SniperTower")&&placingMode){
+                                placingMode = false;
+                            }else{
+                                placingMode = true;
+                            }
+                            currentTowerType = "SniperTower";
+                            SniperTower sniperTower = new SniperTower(new Vector(1,1));
+                            gui.setTowerRange(sniperTower.getRange());
+                            break;
+
+                        case "BuyTower4":
+                            if(currentTowerType.equals("FreezeTower")&&placingMode){
+                                placingMode = false;
+                            }else{
+                                placingMode = true;
+                            }
+                            currentTowerType = "FreezeTower";
+                            FreezeTower freezeTower = new FreezeTower(new Vector(1,1));
+                            gui.setTowerRange(freezeTower.getRange());
+                            break;
+                        case "BuyTower5":
+                            if(currentTowerType.equals("ShotgunTower")&&placingMode){
+                                placingMode = false;
+                            }else{
+                                placingMode = true;
+                            }
+                            currentTowerType = "ShotgunTower";
+                            ShotgunTower shotgunTower = new ShotgunTower(new Vector(1,1));
+                            gui.setTowerRange(shotgunTower.getRange());
+                            break;
+                        case "BuyTower6":
+                            if(currentTowerType.equals("LaserTower")&&placingMode){
+                                placingMode = false;
+                            }else{
+                                placingMode = true;
+                            }
+                            currentTowerType = "LaserTower";
+                            LaserTower laserTower = new LaserTower(new Vector(1,1));
+                            gui.setTowerRange(laserTower.getRange());
+                            break;
+                        case "Menu":
+                            placingMode = false;
+                            paused = !paused;
+                            break;
+                        case "TowerPlaced":
+                            for(Button b : buttons){
+                                if(b.getName().equals("TowerPlaced")){
+                                    TowerButton tb  = (TowerButton) b;
+                                    if(currentTowerId == tb.getId()){
+                                        placingMode = false;
+                                        if(tb.getCorner().x>400){
+                                            menuGUI.openUpgradeMenu("LEFT",towerList.getTowerByCell((int)tb.getCorner().x/CELL_WIDTH,(int)tb.getCorner().y/CELL_HEIGHT),buttons,tb);
+                                        }else{
+                                            menuGUI.openUpgradeMenu("RIGHT",towerList.getTowerByCell((int)tb.getCorner().x/CELL_WIDTH,(int)tb.getCorner().y/CELL_HEIGHT),buttons,tb);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            break;
+
+                        default:
+                            if(isCellEmpty(gridX, gridY)&&gridY<=15&&gridX<=15&& placingMode) {
+                                if(!gamePath.isOnPath(gridX, gridY)){
+                                    placeTower(gridX, gridY);
+                                }
+                            }
+                            break;
+                    }
+                }
+                break;
+
+            case WIN:
+                if(nextLevelButton.pressedButton(x, y)){
+                    level++;
+                    money = 20+(level-1)*10;
+                    health = 100;
+                    screen = Screen.GAME;
+                    gamePath.updateLevel();
+                    waveList.init(gamePath);
+                    String filePath = "src\\res\\level"+level+".wav";
+                    new Thread(() -> {
+                        MusicPlayer m = new MusicPlayer();
+                        m.playWav(filePath, 1f); // Start the music
+                    }).start();
+                }
+                break;
+            case HOME:
+                mainMenu.handleClick(x,y);
+                break;
         }
+
+
+
     }
 
     public void handleMouseClickRight(){

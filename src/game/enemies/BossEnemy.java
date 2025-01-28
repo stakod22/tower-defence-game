@@ -12,7 +12,7 @@ public class BossEnemy extends Enemy{
                 .setLocation(location)
                 .setHealth(100)
                 .setSegments(segments)
-                .setSpeedValue(1.f)
+                .setSpeedValue(0.7f)
                 .setSize(40)
                 .setMoneyToGive(46)
                 .setEnemyType(EnemyType.BOSS)
