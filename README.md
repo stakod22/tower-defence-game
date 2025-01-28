@@ -16,34 +16,62 @@ This repository contains the implementation of a Tower Defence game written in J
 TowerDefenceGame
 ├── src/game
    ├── enemies
+   │   ├── AntiFreezeEnemy.java
    │   ├── BossEnemy.java
+   │   ├── DistractEnemy.java
    │   ├── Enemy.java
    │   ├── EnemyList.java
+   │   ├── EnemyType.java
    │   ├── FastEnemy.java
+   │   ├── RegenEnemy.java
    │   ├── StandardEnemy.java
+   │   ├── SuperBoss100Enemy.java
    │   └── TankEnemy.java
    ├── framework
    │   ├── Drawable.java
    │   ├── Frame.java
+   │   ├── MusicPlayer.java
    │   ├── PaintArea2d.java
+   │   ├── Screen.java
    │   └── Vector.java
    ├── gui
+   │   ├── BackgroundGrass.java
+   │   ├── BackgroundVolcano.java
+   │   ├── BackgroundWater.java
    │   ├── Button.java
-   │   └── GUI.java
+   │   ├── GUI.java
+   │   ├── MainMenu.java
+   │   ├── MenuGUI.java
+   │   └── TowerButton.java
    ├── path
    │   ├── GamePath.java
    │   └── PathSegment.java
    ├── projectiles
+   │   ├── CollisionDetection.java
+   │   ├── DamageType.java
    │   ├── Projectile.java
-   │   └── ProjectileList.java
+   │   ├── ProjectileList.java
+   │   ├── RayProjectile.java
+   │   └── StatusEffect.java
    ├── towers
+   │   ├── FreezeTower.java
+   │   ├── LaserTower.java
    │   ├── RapidFireTower.java
+   │   ├── ShotgunTower.java
+   │   ├── SniperTower.java
    │   ├── StandardTower.java
-   │   └── Tower.java
+   │   ├── Tower.java
+   │   ├── TowerList.java
+   │   └── TowerType.java
    ├── wave
    │   ├── Wave.java
-   │   └── WaveList.java
-   └── TowerDefenceGame.java
+   │   └──WaveList.java
+   ├── TowerDefenceGame.java
+   ├── res
+   │   ├── level1.wav
+   │   ├── level2.wav
+   │   └── level3.wav
+
 .gitignore
 README.md
 ```
