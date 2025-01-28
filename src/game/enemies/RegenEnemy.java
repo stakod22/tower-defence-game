@@ -26,7 +26,7 @@ public class RegenEnemy extends Enemy{
     public void update() {
         super.update();
         if (regenTimer == 0){
-            regenTimer = 100;
+            regenTimer = 75;
             setHealth(getHealth()+1);
         }
         regenTimer--;

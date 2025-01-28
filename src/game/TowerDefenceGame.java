@@ -193,7 +193,7 @@ public class TowerDefenceGame {
                 // Draw money with a gold coin substitute (circle)
                 g.drawString("Money: " + money + " 🪙", 825, 45);
 
-                g.drawString("Wave: " + waveList.getCurrentWave() + " \uD83C\uDF0A", 825, 70);
+                g.drawString("Wave: " + waveList.getCurrentWave() + "/ "+waveList.getMaxWave()+" \uD83C\uDF0A", 825, 70);
 
                 drawTowerPrice(g);
                 break;
