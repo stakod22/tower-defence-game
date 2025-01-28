@@ -41,9 +41,9 @@ public class WaveList {
 
     public void strengthenEnemies(){
         for (int i = 0; i < waveList.size(); i++) {
-            float healthincrease = 1.1f;
+            float healthincrease = 1.05f;
             float speedincrease = 1.05f;
-            float moneydecrease = 0.98f;
+            float moneydecrease = 0.99f;
 
             for (Enemy e : waveList.get(i).enemies){
                 if(!(e instanceof SuperBoss100Enemy)){
