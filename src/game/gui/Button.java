@@ -57,4 +57,8 @@ public class Button implements Drawable {
     public Vector getCorner() {
         return corner;
     }
+
+    public void setText(String text){
+        this.text = text;
+    }
 }
