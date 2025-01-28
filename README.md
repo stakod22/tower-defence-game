@@ -64,8 +64,8 @@ TowerDefenceGame
    │   ├── TowerList.java
    │   └── TowerType.java
    ├── wave
-       ├── Wave.java
-       └──WaveList.java
+   │   ├── Wave.java
+   │   └──WaveList.java
    ├── TowerDefenceGame.java
    ├── res
    │   ├── level1.wav
