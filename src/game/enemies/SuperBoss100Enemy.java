@@ -17,7 +17,7 @@ public class SuperBoss100Enemy extends Enemy {
                 .setLocation(location)
                 .setHealth(2000)
                 .setSegments(segments)
-                .setSpeedValue(1f)
+                .setSpeedValue(0.7f)
                 .setSize(60) // Increased size for epic feel
                 .setMoneyToGive(1000) // Higher reward for defeating
                 .setEnemyType(EnemyType.BOSS)

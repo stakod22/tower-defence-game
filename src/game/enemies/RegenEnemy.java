@@ -13,7 +13,7 @@ public class RegenEnemy extends Enemy{
                 .setLocation(location)
                 .setHealth(10)
                 .setSegments(segments)
-                .setSpeedValue(2.f)
+                .setSpeedValue(2.4f)
                 .setSize(30)
                 .setMoneyToGive(6)
                 .setColor(Color.red)
