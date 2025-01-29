@@ -53,6 +53,12 @@ public class WaveList {
                     if (e.getMoneyToGive() < 1){
                         e.setMoneyToGive(1);
                     }
+                    if (e.getHealth() == 0){
+                        e.setHealth(1);
+                    }
+                    if (e.getRealSpeedValue() == 0){
+                        e.setRealSpeedValue(1f);
+                    }
                 }
             }
         }
