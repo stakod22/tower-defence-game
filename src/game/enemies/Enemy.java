@@ -166,6 +166,9 @@ public class Enemy implements Drawable {
         return distanceTraveled;
     }
 
+    public float getRealSpeedValue(){
+        return speedValue;
+    }
 
     public int getHealth() {
         return health;

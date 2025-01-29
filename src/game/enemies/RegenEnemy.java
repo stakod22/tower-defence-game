@@ -11,11 +11,11 @@ public class RegenEnemy extends Enemy{
     public RegenEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(10)
+                .setHealth(15)
                 .setSegments(segments)
-                .setSpeedValue(2.f)
+                .setSpeedValue(2.4f)
                 .setSize(30)
-                .setMoneyToGive(6)
+                .setMoneyToGive(15)
                 .setColor(Color.red)
                 .setEnemyType(EnemyType.REGENERATION)
                 .finalizeBuild(this);

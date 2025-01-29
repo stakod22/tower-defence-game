@@ -41,17 +41,23 @@ public class WaveList {
 
     public void strengthenEnemies(){
         for (int i = 0; i < waveList.size(); i++) {
-            float healthincrease = 1.05f;
-            float speedincrease = 1.05f;
+            float healthincrease = 1.04f;
+            float speedincrease = 1.06f;
             float moneydecrease = 0.99f;
 
             for (Enemy e : waveList.get(i).enemies){
                 if(!(e instanceof SuperBoss100Enemy)){
                     e.setHealth((int) (e.getHealth()*(Math.pow(healthincrease,i))));
-                    e.setRealSpeedValue((int) (e.getSpeedValue()*(Math.pow(speedincrease,i))));
+                    e.setRealSpeedValue((float) (e.getSpeedValue()*(Math.pow(speedincrease,i))));
                     e.setMoneyToGive((int) (e.getMoneyToGive()*(Math.pow(moneydecrease,i))));
                     if (e.getMoneyToGive() < 1){
                         e.setMoneyToGive(1);
+                    }
+                    if (e.getHealth() == 0){
+                        e.setHealth(1);
+                    }
+                    if (e.getRealSpeedValue() == 0){
+                        e.setRealSpeedValue(1f);
                     }
                 }
             }

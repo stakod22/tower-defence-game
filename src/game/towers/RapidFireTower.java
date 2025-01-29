@@ -9,7 +9,7 @@ public class RapidFireTower extends Tower {
         new Tower.Builder()
                 .setLocation(location)
                 .setRange(75)
-                .setCost(20)
+                .setCost(25)
                 .setFirerate(20)
                 .setPierce(1)
                 .setDamage(2)

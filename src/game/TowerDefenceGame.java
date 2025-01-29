@@ -32,7 +32,7 @@ public class TowerDefenceGame {
     private BackgroundVolcano backgroundVolcanic;
     public static int level = 0;
     private int health = 50;
-    private int money = 10000+20+(level-1)*10;
+    private int money = 20+(level-1)*10;
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
     private boolean placingMode = false;

@@ -24,11 +24,6 @@ public class Frame extends JFrame {
 
     public static void main(String[] args) {
         System.setProperty("sun.java2d.opengl", "true");
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Frame().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new Frame().setVisible(true));
     }
 }
