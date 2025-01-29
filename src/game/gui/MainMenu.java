@@ -23,6 +23,7 @@ public class MainMenu {
     private Image[] backgroundLayers;
     private int[] backgroundX;
     private int[] backgroundSpeeds;
+    private Image titleImage;
 
     public MainMenu() {
         startButton = new Button(new Vector(250, 300), 500, 80, "Start Game", new Color(70, 213, 16), "start");
@@ -39,7 +40,7 @@ public class MainMenu {
         buttons.add(lavaLevelButton);
         buttons.add(exitButton);
 
-        String[] layerPaths = {"src//res//1.png", "src//res//2.png", "src//res//3.png","src//res//4.png"};
+        String[] layerPaths = {"src//res//1.png", "src//res//2.png", "src//res//3.png", "src//res//4.png"};
         backgroundLayers = new Image[layerPaths.length];
         backgroundX = new int[layerPaths.length];
         backgroundSpeeds = new int[layerPaths.length];
@@ -49,6 +50,8 @@ public class MainMenu {
             backgroundX[i] = 0;
             backgroundSpeeds[i] = (i + 1) * 1; // Adjust speed for parallax effect
         }
+
+        titleImage = new ImageIcon("src//res//title.png").getImage();
     }
 
     public void draw(Graphics2D g) {
@@ -57,19 +60,17 @@ public class MainMenu {
             if (backgroundX[i] <= -1000) {
                 backgroundX[i] = 0;
             }
-            if(i==1||i==2){
+            if (i == 1 || i == 2) {
                 g.drawImage(backgroundLayers[i], backgroundX[i], 0, 1000, 900, null);
                 g.drawImage(backgroundLayers[i], backgroundX[i] + 1000, 0, 1000, 900, null);
-            }else{
+            } else {
                 g.drawImage(backgroundLayers[i], backgroundX[i], 0, 1000, 800, null);
                 g.drawImage(backgroundLayers[i], backgroundX[i] + 1000, 0, 1000, 800, null);
             }
         }
 
         if (!levelSelecting) {
-            g.setColor(new Color(255, 223, 0));
-            g.setFont(new Font("SansSerif", Font.BOLD, 60));
-            g.drawString("Tower Defence Game", 200, 100);
+            g.drawImage(titleImage, 50, 100, 900, 80, null);
             g.setFont(new Font("SansSerif", Font.BOLD, 40));
             startButton.draw(g);
             selectLevelButton.draw(g);

@@ -399,6 +399,7 @@ public class TowerDefenceGame {
                     if(level==3){
                         screen = Screen.HOME;
                     }else{
+                        level++;
                         initLevel();
                     }
                 }
