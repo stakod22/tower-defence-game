@@ -12,7 +12,7 @@ public class SniperTower extends Tower {
                 .setLocation(location)
                 .setRange(320)
                 .setCost(40)
-                .setFirerate(200)
+                .setFirerate(150)
                 .setPierce(2)
                 .setDamage(8)
                 .setProjectileSize(10)

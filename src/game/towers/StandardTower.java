@@ -13,7 +13,7 @@ public class StandardTower extends Tower {
                 .setCost(10)
                 .setFirerate(75)
                 .setPierce(2)
-                .setDamage(4)
+                .setDamage(5)
                 .setProjectileSize(10)
                 .setColor(Color.BLUE)
                 .finalizeBuild(this);

@@ -85,7 +85,7 @@ public class MainMenu {
                 if(!levelSelecting){
                     switch (button.getName()) {
                         case "start":
-                            TowerDefenceGame.screen = Screen.GAME;
+                            TowerDefenceGame.level = 1;
                             break;
                         case "exit":
                             System.exit(0);
@@ -98,15 +98,12 @@ public class MainMenu {
                     switch (button.getName()){
                         case "grass":
                             TowerDefenceGame.level = 1;
-                            TowerDefenceGame.screen = Screen.GAME;
                             break;
                         case "water":
                             TowerDefenceGame.level = 2;
-                            TowerDefenceGame.screen = Screen.GAME;
                             break;
                         case "lava":
                             TowerDefenceGame.level = 3;
-                            TowerDefenceGame.screen = Screen.GAME;
                             break;
                     }
                 }

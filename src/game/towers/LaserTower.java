@@ -14,7 +14,7 @@ public class LaserTower extends Tower {
                 .setLocation(location)
                 .setRange(200)
                 .setCost(30)
-                .setFirerate(100)
+                .setFirerate(80)
                 .setPierce(1)
                 .setDamage(4)
                 .setProjectileSize(5)

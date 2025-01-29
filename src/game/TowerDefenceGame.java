@@ -30,7 +30,7 @@ public class TowerDefenceGame {
     private BackgroundWater backgroundWater;
     private BackgroundGrass backgroundGrass;
     private BackgroundVolcano backgroundVolcanic;
-    public static int level = 3;
+    public static int level = 0;
     private int health = 50;
     private int money = 10000+20+(level-1)*10;
     private final GUI gui = new GUI();
@@ -44,6 +44,7 @@ public class TowerDefenceGame {
     public static Screen screen;
     private final Button nextLevelButton = new Button(new Vector(400,600),200,100,"Next Level",Color.red,"nextLevel");
     private MainMenu mainMenu = new MainMenu();
+    private int lastLevel;
 
 
     public TowerDefenceGame() {
@@ -57,16 +58,10 @@ public class TowerDefenceGame {
         backgroundGrass = new BackgroundGrass(gamePath);
         backgroundWater =  new BackgroundWater(gamePath);
         backgroundVolcanic = new BackgroundVolcano();
-
+        lastLevel = level;
 
         //INIT
         initButtons();
-        initWaves(gamePath);
-        String filePath = "src\\res\\level"+level+".wav";
-        new Thread(() -> {
-            MusicPlayer m = new MusicPlayer();
-            m.playWav(filePath, 1f); // Start the music
-        }).start();
         screen = Screen.HOME;
     }
 
@@ -85,6 +80,11 @@ public class TowerDefenceGame {
     public void update() {
         switch (screen){
             case HOME:
+                if(level!= lastLevel){
+                    lastLevel = level;
+                    initLevel();
+                    TowerDefenceGame.screen = Screen.GAME;
+                }
                 break;
             case SETTINGS:
                 break;
@@ -399,17 +399,7 @@ public class TowerDefenceGame {
                     if(level==3){
                         screen = Screen.HOME;
                     }else{
-                        level++;
-                        money = 20+(level-1)*10;
-                        health = 100;
-                        screen = Screen.GAME;
-                        gamePath.updateLevel();
-                        waveList.init(gamePath);
-                        String filePath = "src\\res\\level"+level+".wav";
-                        new Thread(() -> {
-                            MusicPlayer m = new MusicPlayer();
-                            m.playWav(filePath, 1f); // Start the music
-                        }).start();
+                        initLevel();
                     }
                 }
                 break;
@@ -571,6 +561,21 @@ public class TowerDefenceGame {
                     break;
             }
         }
+    }
+
+    public void initLevel(){
+        System.out.println("init level");
+        lastLevel = level;
+        money = 20+(level-1)*10;
+        health = 100;
+        screen = Screen.GAME;
+        gamePath.updateLevel();
+        waveList.init(gamePath);
+        String filePath = "src\\res\\level"+level+".wav";
+        new Thread(() -> {
+            MusicPlayer m = new MusicPlayer();
+            m.playWav(filePath, 1f); // Start the music
+        }).start();
     }
 
     private void updateGUI(){
