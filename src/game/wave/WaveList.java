@@ -683,16 +683,16 @@ public class WaveList {
 
         // Wave 2
         List<Enemy> waveContend2 = new ArrayList<>();
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend2.add(new StandartEnemy(new Vector(250, -50 - 55 * i), gamePath.getSegments()));
         }
         addWave(waveContend2);
 
         List<Enemy> waveContend3 = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend3.add(new StandartEnemy(new Vector(250, -50 - 75 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             waveContend3.add(new FastEnemy(new Vector(250, -1450 - 200 * i), gamePath.getSegments()));
         }
         waveContend3.add(new TankEnemy(new Vector(250, -150), gamePath.getSegments()));
@@ -703,7 +703,7 @@ public class WaveList {
 
 // Wave 4
         List<Enemy> waveContend4 = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 3; i++) {
             waveContend4.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 4; i++) {
@@ -719,7 +719,7 @@ public class WaveList {
         for (int i = 0; i < 5; i++) {
             waveContend5.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend5.add(new TankEnemy(new Vector(250, -200 - 100 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -754,7 +754,7 @@ public class WaveList {
 
 // Wave 7
         List<Enemy> waveContend7 = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 5; i++) {
             waveContend7.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 3; i++) {
@@ -793,7 +793,7 @@ public class WaveList {
         for (int i = 0; i < 9; i++) {
             waveContend9.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend9.add(new FastEnemy(new Vector(250, -300 - 200 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -806,10 +806,10 @@ public class WaveList {
 
 // Wave 10
         List<Enemy> waveContend10 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 6; i++) {
             waveContend10.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend10.add(new TankEnemy(new Vector(250, -18 - 100 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -823,10 +823,10 @@ public class WaveList {
 
 // Wave 11
         List<Enemy> waveContend11 = new ArrayList<>();
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 7; i++) {
             waveContend11.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 5; i++) {
             waveContend11.add(new AntiFreezeEnemy(new Vector(250, -700 - 120 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 4; i++) {
@@ -839,10 +839,10 @@ public class WaveList {
 
 // Wave 12
         List<Enemy> waveContend12 = new ArrayList<>();
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 8; i++) {
             waveContend12.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 22; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend12.add(new FastEnemy(new Vector(250, -300 - 200 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 4; i++) {
@@ -855,10 +855,10 @@ public class WaveList {
 
 // Wave 13
         List<Enemy> waveContend13 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             waveContend13.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 19; i++) {
+        for (int i = 0; i < 3; i++) {
             waveContend13.add(new AntiFreezeEnemy(new Vector(250, -700 - 120 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 8; i++) {
@@ -871,13 +871,13 @@ public class WaveList {
 
 // Wave 14
         List<Enemy> waveContend14 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend14.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 3; i++) {
             waveContend14.add(new DistractEnemy(new Vector(250, -300 - 100), gamePath.getSegments()));
         }
-        for (int i = 0; i < 42; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend14.add(new TankEnemy(new Vector(250, -50 - 100 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -887,13 +887,13 @@ public class WaveList {
 
 // Wave 15
         List<Enemy> waveContend15 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             waveContend15.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 15; i++) {
             waveContend15.add(new TankEnemy(new Vector(250, -12 - 100 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             waveContend15.add(new FastEnemy(new Vector(250, -1450 - 200 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -903,10 +903,10 @@ public class WaveList {
 
 // Wave 16
         List<Enemy> waveContend16 = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 7; i++) {
             waveContend16.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 22; i++) {
+        for (int i = 0; i < 15; i++) {
             waveContend16.add(new FastEnemy(new Vector(250, -300 - 200 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -919,10 +919,10 @@ public class WaveList {
         for (int i = 0; i < 10; i++) {
             waveContend17.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             waveContend17.add(new AntiFreezeEnemy(new Vector(250, -400 - 120 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 14; i++) {
             waveContend17.add(new TankEnemy(new Vector(250, -2 - 100 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -938,17 +938,17 @@ public class WaveList {
         for (int i = 0; i < 5; i++) {
             waveContend18.add(new DistractEnemy(new Vector(250, -300 - 100 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 9; i++) {
             waveContend18.add(new TankEnemy(new Vector(250, -7 - 100 * i), gamePath.getSegments()));
         }
         addWave(waveContend18);
 
 // Wave 19
         List<Enemy> waveContend19 = new ArrayList<>();
-        for (int i = 0; i < 19; i++) {
+        for (int i = 0; i < 12; i++) {
             waveContend19.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 22; i++) {
+        for (int i = 0; i < 8; i++) {
             waveContend19.add(new FastEnemy(new Vector(250, -300 - 200 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -958,10 +958,10 @@ public class WaveList {
 
 // Wave 20
         List<Enemy> waveContend20 = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 12; i++) {
             waveContend20.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 7; i++) {
             waveContend20.add(new TankEnemy(new Vector(250, -100 - 100 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -972,10 +972,10 @@ public class WaveList {
 
 // Wave 21
         List<Enemy> waveContend21 = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 9; i++) {
             waveContend21.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 8; i++) {
             waveContend21.add(new FastEnemy(new Vector(250, -300 - 200 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -985,16 +985,16 @@ public class WaveList {
 
 // Wave 22
         List<Enemy> waveContend22 = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 14; i++) {
             waveContend22.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             waveContend22.add(new AntiFreezeEnemy(new Vector(250, -200 - 120 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 6; i++) {
             waveContend22.add(new TankEnemy(new Vector(250, -100 - 100 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             waveContend22.add(new FastEnemy(new Vector(250, -1450 - 200 * i), gamePath.getSegments()));
         }
         addWave(waveContend22);
@@ -1004,10 +1004,10 @@ public class WaveList {
         for (int i = 0; i < 10; i++) {
             waveContend23.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 14; i++) {
             waveContend23.add(new FastEnemy(new Vector(250, -300 - 100 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             waveContend23.add(new RegenEnemy(new Vector(250, -150 - 80 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -1020,16 +1020,16 @@ public class WaveList {
 
 // Wave 24
         List<Enemy> waveContend24 = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 4; i++) {
             waveContend24.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 20; i++) {
-            waveContend24.add(new TankEnemy(new Vector(250, -27 - 100 * i), gamePath.getSegments()));
+        for (int i = 0; i < 25; i++) {
+            waveContend24.add(new TankEnemy(new Vector(250, -27 - 59 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 3; i++) {
             waveContend24.add(new RegenEnemy(new Vector(250, -150 - 50 * i), gamePath.getSegments()));
         }
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 2; i++) {
             waveContend24.add(new FastEnemy(new Vector(250, -150 - 70 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 5; i++) {
@@ -1039,7 +1039,7 @@ public class WaveList {
 
 // Wave 25
         List<Enemy> waveContend25 = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 12; i++) {
             waveContend25.add(new StandartEnemy(new Vector(250, -50 - 50 * i), gamePath.getSegments()));
         }
         for (int i = 0; i < 13; i++) {

@@ -32,7 +32,7 @@ public class TowerDefenceGame {
     private BackgroundVolcano backgroundVolcanic;
     public static int level = 0;
     private int health = 50;
-    private int money = 20+(level-1)*10;
+    private int money = 20+(level-1)*5;
     private final GUI gui = new GUI();
     private final MenuGUI menuGUI = new MenuGUI();
     private boolean placingMode = false;
@@ -567,7 +567,7 @@ public class TowerDefenceGame {
     public void initLevel(){
         System.out.println("init level");
         lastLevel = level;
-        money = 20+(level-1)*10;
+        money = 20+(level-1)*5;
         health = 100;
         screen = Screen.GAME;
         gamePath.updateLevel();

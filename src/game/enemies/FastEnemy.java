@@ -19,7 +19,7 @@ public class FastEnemy extends Enemy {
                 .setSegments(segments)
                 .setSpeedValue(4.5f)
                 .setSize(25)
-                .setMoneyToGive(7)
+                .setMoneyToGive(4)
                 .setColor(new Color(9, 129, 191))  // Changed color to make it look faster
                 .setEnemyType(EnemyType.FAST)
                 .finalizeBuild(this);

@@ -15,7 +15,7 @@ public class RegenEnemy extends Enemy{
                 .setSegments(segments)
                 .setSpeedValue(2.4f)
                 .setSize(30)
-                .setMoneyToGive(15)
+                .setMoneyToGive(7)
                 .setColor(Color.red)
                 .setEnemyType(EnemyType.REGENERATION)
                 .finalizeBuild(this);

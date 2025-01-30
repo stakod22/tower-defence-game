@@ -21,7 +21,7 @@ public class DistractEnemy extends Enemy {
                 .setSegments(segments)
                 .setSpeedValue(1.1f)
                 .setSize(20)
-                .setMoneyToGive(6)
+                .setMoneyToGive(4)
                 .setColor(coreColor)  // Black core color
                 .setEnemyType(EnemyType.DISTRACTION)
                 .finalizeBuild(this);

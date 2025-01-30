@@ -18,7 +18,7 @@ public class AntiFreezeEnemy extends Enemy {
                 .setSegments(segments)
                 .setSpeedValue(2.2f)
                 .setSize(20)  // This will be the size of the square
-                .setMoneyToGive(4)
+                .setMoneyToGive(3)
                 .setColor(Color.WHITE)  // White to blend in with the "anti" aspect
                 .setEnemyType(EnemyType.ANTIFREEZE)
                 .finalizeBuild(this);
