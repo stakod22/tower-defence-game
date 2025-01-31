@@ -11,7 +11,7 @@ public class TankEnemy extends Enemy{
     public TankEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(20)
+                .setHealth(17)
                 .setSegments(segments)
                 .setSpeedValue(0.9f)
                 .setSize(40)

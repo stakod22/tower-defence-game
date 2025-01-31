@@ -11,7 +11,7 @@ public class StandartEnemy extends Enemy{
     public StandartEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(10)
+                .setHealth(7)
                 .setSegments(segments)
                 .setSpeedValue(1.f)
                 .setSize(30)

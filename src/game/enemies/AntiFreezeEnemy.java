@@ -14,7 +14,7 @@ public class AntiFreezeEnemy extends Enemy {
     public AntiFreezeEnemy(Vector location, List<PathSegment> segments) {
         new Enemy.Builder()
                 .setLocation(location)
-                .setHealth(8)
+                .setHealth(6)
                 .setSegments(segments)
                 .setSpeedValue(2.2f)
                 .setSize(20)  // This will be the size of the square
